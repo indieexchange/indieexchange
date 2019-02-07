@@ -139,3 +139,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# notes about the project
+notes/
