@@ -1,0 +1,7 @@
+.row.justify-content-center.no-gutters
+  .col-4.text-center
+    .error-headline ERROR 404
+    .error-image = image_tag("indie_exchange.png")
+    .text-left
+      .error-apology We're sorry, but the page that you requested could not be found.  We will try to fix this error as soon as we can.
+      .error-remedy You can click the back button in your browser, or you can click here to #{link_to "go to your home page", "/", class: "error-link"}.

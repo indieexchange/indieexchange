@@ -1,0 +1,34 @@
+// Place all the styles related to the Errors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+.error-headline{
+  padding-top: 80px;
+  font-family: $roboto-condensed;
+  font-size: 80px;
+  font-weight: 100;
+  color: $brand-light-purple;
+}
+
+.error-image{
+  padding-top: 10px;
+}
+
+.error-apology{
+  padding-top: 40px;
+}
+
+.error-remedy{
+  padding-top: 20px;
+}
+
+.error-link{
+  font-weight: bold;
+  color: $brand-dark-purple;
+
+  &:hover{
+    color: $brand-dark-purple;
+  }
+}

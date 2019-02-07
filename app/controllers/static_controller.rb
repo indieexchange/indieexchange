@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-  def index
-
+  def home
+    aldkfjal;kf;
   end
 end

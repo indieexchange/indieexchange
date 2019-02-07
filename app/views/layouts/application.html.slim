@@ -20,7 +20,9 @@ html
                   = icon('fas', 'envelope', class: 'contact-envelope')
                   span.sitewide-contact-us
                     = link_to "CONTACT US", "mailto:#{CONTACT_EMAIL}", class: "sitewide-contact-us-link"
-      - if true # if signed-out
+      - if @serious_error_occurred
+
+      - elsif true # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
             = image_tag("indie_exchange.png")
