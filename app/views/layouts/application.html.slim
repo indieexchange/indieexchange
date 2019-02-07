@@ -8,6 +8,7 @@ html
     = stylesheet_link_tag    'application', media: 'all'
     = stylesheet_link_tag    "#{params[:controller]}"    if params[:controller]
     = javascript_include_tag 'application'
+    = favicon_link_tag asset_path("indie_exchange_favicon.png")
   body
     .container-fluid.no-horizontal-padding
       .row.no-gutters
