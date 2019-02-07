@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title Indieexchange
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+  body
+    .container-fluid.no-horizontal-padding
+      .row.no-gutters
+        .col-12
+          .header-top-bar
+            .row.with-sitewide-padding.align-items-center.top-bar-line-height
+              .col-12.text-right
+                .sitewide-contact-area
+                  = icon('fas', 'envelope', class: 'contact-envelope')
+                  span.sitewide-contact-us
+                    = link_to "CONTACT US", "mailto:#{CONTACT_EMAIL}", class: "sitewide-contact-us-link"
+      - if true # if signed-out
+        .row.with-sitewide-padding.main-navigation-row
+          .col-3
+            = image_tag("indie_exchange.png")
+          .col-6.main-navigation-links.text-center
+            span
+              = link_to "HOME", "/new-page", class: "main-navigation-link"
+            span
+              = link_to "ANNOUNCEMENTS", "/new-page", class: "main-navigation-link"
+            span
+              = link_to "RULES", "/new-page", class: "main-navigation-link"
+            span
+              = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
+          .col-3.main-navigation-buttons
+            span
+              = link_to "SIGN IN", "/new-page", class: "main-navigation-sign-in main-navigation-button"
+            span
+              = link_to "SIGN UP", "/new-page", class: "main-navigation-sign-up main-navigation-button"
+      = yield

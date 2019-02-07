@@ -1,0 +1,139 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+@import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700');
+
+$brand-dark-purple: #8072ef;
+$brand-light-purple: #b797f8;
+
+$nav-link-font-color: #868aa7;
+$nav-link-font-size: 14px;
+$nav-link-padding: 10px;
+$nav-button-padding: 20px;
+$nav-button-interior-padding: 10px 25px;
+
+$indie-exchange-image-height: 98px;
+
+$top-bar-height: 40px;
+$default-sitewide-horizontal-padding: 15px;
+
+$top-bar-font-color: white;
+$roboto-condensed: 'Roboto Condensed', sans-serif;
+
+$purple-gradient-lightening-rightward: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
+
+@mixin border-gradient($leftColor,$rightColor,$borderWidth)
+{
+   -webkit-appearance:none;
+  border:none;
+  background-image:linear-gradient(to right,$leftColor,$rightColor),linear-gradient(to right,$leftColor,$rightColor);
+  outline:none;
+  border-left:$borderWidth solid $leftColor;
+  border-right:$borderWidth solid $rightColor;
+  background-repeat:no-repeat;
+  background-size:100% $borderWidth;
+  background-color:transparent;
+  background-position: 0 0, 0 100%;
+}
+
+.with-sitewide-padding{
+  padding-left: $default-sitewide-horizontal-padding;
+  padding-right: $default-sitewide-horizontal-padding;
+}
+
+body{
+  background-color: #f7fbfe;
+}
+
+.main-navigation-row{
+  margin-top: 20px;
+
+  .main-navigation-buttons{
+    span{
+      padding-left: $nav-button-padding;
+      padding-right: $nav-button-padding;
+    }
+
+    .main-navigation-button{
+      padding: $nav-button-interior-padding;
+    }
+
+    .main-navigation-sign-in{
+      color: $brand-dark-purple;
+      border: 2px solid $brand-dark-purple;
+      border-radius: 100px; // just make it high
+    }
+
+    .main-navigation-sign-up{
+      background: $purple-gradient-lightening-rightward;
+      color: white;
+      border-radius: 100px; // just make it high
+    }
+
+    line-height: $indie-exchange-image-height;
+    font-family: $roboto-condensed;
+    font-size: $nav-link-font-size;
+  }
+
+  .main-navigation-links{
+    span{
+      padding-left: $nav-link-padding;
+      padding-right: $nav-link-padding;
+    }
+
+    line-height: $indie-exchange-image-height;
+    font-family: $roboto-condensed;
+    color: $nav-link-font-color;
+    font-weight: 700;
+    font-size: $nav-link-font-size;
+
+    a{
+      color: $nav-link-font-color;
+    }
+  }
+}
+
+.header-top-bar{
+  height: $top-bar-height;
+  background: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
+
+  .top-bar-line-height{
+    line-height: $top-bar-height;
+  }
+
+
+  .sitewide-contact-area{
+    .contact-envelope{
+      color: $top-bar-font-color;
+    }
+    .sitewide-contact-us{
+      color: $top-bar-font-color;
+      margin-left: 10px;
+    }
+
+    .sitewide-contact-us-link{
+      color: $top-bar-font-color;
+      font-family: $roboto-condensed;
+    }
+  }
+}
+
+.no-horizontal-padding{
+  padding-left: 0px;
+  padding-right: 0px;
+}
