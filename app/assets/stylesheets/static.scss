@@ -1,3 +1,106 @@
 // Place all the styles related to the Static controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+.homepage-top-row{
+  padding-top: $homepage-top-padding;
+
+  .banner-x{
+    color: $brand-dark-purple;
+  }
+
+  .homepage-welcome{
+    font-size: $banner-font-size;
+    color: $banner-color;
+    font-family: $roboto-condensed;
+    font-weight: bold;
+  }
+
+  .homepage-subtext{
+    font-family: $roboto-condensed;
+    color: $subtext-color;
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+
+  .homepage-button{
+    padding-top: 45px;
+    padding-bottom: 30px;
+
+    .homepage-create-account-button{
+      color: $light-font-color;
+      background: $purple-gradient-lightening-rightward;
+      padding: $account-button-internal-padding;
+      border-radius: $account-button-border-radius;
+      box-shadow: 0px 8px 30px -5px $brand-light-purple;
+
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+
+}
+.hero-image-row{
+  .homepage-hero-image{
+    padding-top: 80px;
+    padding-bottom: 100px;
+
+    .homepage-hero-image-internal{
+      width: 75%;
+      height: auto;
+    }
+  }
+}
+
+.homepage-how-it-works{
+  background-color: $dark-background-color;
+  padding-top: 80px;
+  padding-bottom: 80px;
+
+  .how-it-works-title{
+    font-family: $roboto-condensed;
+    font-size: $banner-font-size;
+    color: $banner-color;
+    font-weight: bold;
+  }
+
+  .how-it-works-subtext{
+    color: $subtext-color;
+  }
+}
+
+.homepage-steps{
+  background-color: $dark-background-color;
+  padding-bottom: 120px;
+
+  .step-image{
+    height: 275px;
+  }
+
+  .step-description{
+    width: 75%;
+    margin: auto;
+    margin-top: 40px;
+    font-family: $roboto-condensed;
+
+    .step-number{
+      color: $low-contrast-grey;
+    }
+
+    .step-title{
+      color: $banner-color;
+      font-size: $mid-banner-font-size;
+      font-weight: bold;
+      padding: 7px 0px;
+    }
+
+    .step-details{
+      color: $mid-contrast-grey;
+      font-size: $small-font-size;
+      line-height: 1.8;
+    }
+  }
+}

@@ -18,24 +18,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700');
 
-$brand-dark-purple: #8072ef;
-$brand-light-purple: #b797f8;
-
-$nav-link-font-color: #868aa7;
-$nav-link-font-size: 14px;
-$nav-link-padding: 10px;
-$nav-button-padding: 20px;
-$nav-button-interior-padding: 10px 25px;
-
-$indie-exchange-image-height: 98px;
-
-$top-bar-height: 40px;
-$default-sitewide-horizontal-padding: 15px;
-
-$top-bar-font-color: white;
-$roboto-condensed: 'Roboto Condensed', sans-serif;
-
-$purple-gradient-lightening-rightward: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
+@import "variables";
 
 @mixin border-gradient($leftColor,$rightColor,$borderWidth)
 {
@@ -57,7 +40,7 @@ $purple-gradient-lightening-rightward: linear-gradient(0.25turn, $brand-dark-pur
 }
 
 body{
-  background-color: #f7fbfe;
+  background-color: $light-background-color;
 }
 
 .main-navigation-row{
