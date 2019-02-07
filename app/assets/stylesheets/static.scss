@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "variables";
+@import "transitions";
 
 .homepage-top-row{
   padding-top: $homepage-top-padding;
@@ -24,24 +25,6 @@
     padding-top: 20px;
     padding-bottom: 30px;
   }
-
-  .homepage-button{
-    padding-top: 45px;
-    padding-bottom: 30px;
-
-    .homepage-create-account-button{
-      color: $light-font-color;
-      background: $purple-gradient-lightening-rightward;
-      padding: $account-button-internal-padding;
-      border-radius: $account-button-border-radius;
-      box-shadow: 0px 8px 30px -5px $brand-light-purple;
-
-      &:hover{
-        text-decoration: none;
-      }
-    }
-  }
-
 }
 .hero-image-row{
   .homepage-hero-image{
@@ -101,6 +84,27 @@
       color: $mid-contrast-grey;
       font-size: $small-font-size;
       line-height: 1.8;
+    }
+  }
+}
+
+.homepage-button{
+  padding-top: 45px;
+  padding-bottom: 30px;
+
+  .homepage-create-account-button{
+    color: $light-font-color;
+    background: $purple-gradient-lightening-rightward;
+    padding: $account-button-internal-padding;
+    border-radius: $account-button-border-radius;
+    box-shadow: 0px 8px 30px -5px $brand-light-purple;
+    @include transition(all, 0.15s, ease-in-out);
+
+    &:hover{
+      text-decoration: none;
+      box-shadow: 0px 8px 30px -5px $brand-dark-purple;
+      padding: $account-button-internal-padding-hover;
+      @include transition(all, 0.15s, ease-in-out);
     }
   }
 }

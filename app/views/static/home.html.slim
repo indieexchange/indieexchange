@@ -22,7 +22,7 @@
     .step-description
       .step-number STEP #1:
       .step-title SIGN UP FOR MEMBERSHIP
-      .step-details Simply click the button above to create your Indie Exchange account.  It's as simple as entering your email and choosing a password!
+      .step-details Simply click the button below to create your Indie Exchange account.  It's as simple as entering your email and choosing a password!
   .col-5
     .text-center
       .step-image-container
@@ -50,11 +50,8 @@
       .step-title WORK TOGETHER
       .step-details Once you've found someone to work with, you can use our secure platform to communicate and specify anything you need about terms, pricing, timing, and more.
 
-br
-br
-br
-br
-br
-br
-br
-br
+.row.justify-content-center.homepage-steps.no-gutters
+  .col-6
+    .text-center
+      .homepage-button
+        = link_to "CREATE YOUR ACCOUNT", "/some-page", class: "homepage-create-account-button"

@@ -20,27 +20,80 @@
 
 @import "variables";
 
-@mixin border-gradient($leftColor,$rightColor,$borderWidth)
-{
-   -webkit-appearance:none;
-  border:none;
-  background-image:linear-gradient(to right,$leftColor,$rightColor),linear-gradient(to right,$leftColor,$rightColor);
-  outline:none;
-  border-left:$borderWidth solid $leftColor;
-  border-right:$borderWidth solid $rightColor;
-  background-repeat:no-repeat;
-  background-size:100% $borderWidth;
-  background-color:transparent;
-  background-position: 0 0, 0 100%;
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body{
+  background-color: $light-background-color;
+  position: relative;
+  margin: 0;
+  min-height: 100%;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+  background: $purple-gradient-lightening-rightward;
+
+  .resources-and-list{
+    color: $light-font-color;
+    font-family: $roboto-condensed;
+
+    .resources{
+      font-weight: bold;
+      // margin-top: -4px;
+    }
+
+    .resource{
+      font-size: $small-font-size;
+      margin-top: 10px;
+
+      .resource-link{
+        color: $light-font-color;
+      }
+    }
+  }
+
+  .indie-exchange-footer-image{
+    display: inline-block;
+  }
+
+  .footer-image-caption{
+    margin-left: 30px;
+    display: inline-block;
+    color: $light-font-color;
+    font-family: $roboto-condensed;
+    font-size: $small-font-size;
+  }
+
+  .footer-bottom-row{
+    padding-top: 30px;
+
+    .copyright-line{
+      color: $light-font-color;
+      font-family: $roboto-condensed;
+      font-size: $small-font-size;
+      font-weight: bold;
+    }
+  }
 }
 
 .with-sitewide-padding{
   padding-left: $default-sitewide-horizontal-padding;
   padding-right: $default-sitewide-horizontal-padding;
-}
-
-body{
-  background-color: $light-background-color;
 }
 
 .main-navigation-row{

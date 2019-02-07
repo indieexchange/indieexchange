@@ -38,3 +38,23 @@ html
             span
               = link_to "SIGN UP", "/new-page", class: "main-navigation-sign-up main-navigation-button"
       = yield
+      <br><br><br><br><br><br><br><br>
+      footer.footer
+        .row.footer-main-row.justify-content-center.no-gutters
+          .col-1
+          .col-7.text-left
+            .indie-exchange-footer-image
+              = image_tag("indie_exchange_white.png")
+            .footer-image-caption The marketplace designed with publishers in mind
+          .col-3.resources-and-list.text-left
+            .resources RESOURCES:
+            .resource
+              = link_to "Contact Us", "/some-new-page", class: "resource-link"
+            .resource
+              = link_to "Privacy Policy", "/some-new-page", class: "resource-link"
+            .resource
+              = link_to "Terms and Conditions", "/some-new-page", class: "resource-link"
+          .col-1
+        .row.footer-bottom-row.justify-content-center.no-gutters
+          .col-6.text-center
+            .copyright-line Portions of this site ©#{Time.now.year} by Indie Exchange, Inc.

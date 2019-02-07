@@ -26,12 +26,13 @@ $roboto-condensed: 'Roboto Condensed', sans-serif;
 $purple-gradient-lightening-rightward: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
 
 // VARIABLES FOR: homepage & static
-$homepage-top-padding:            80px;
-$banner-font-size:                35px;
-$banner-color:                    black;
-$mid-banner-font-size:            20px;
-$small-font-size:                 14px;
+$homepage-top-padding:                  80px;
+$banner-font-size:                      35px;
+$banner-color:                          black;
+$mid-banner-font-size:                  20px;
+$small-font-size:                       14px;
 
-$subtext-color:                   #6e7386;
-$account-button-internal-padding: 20px 30px;
-$account-button-border-radius:    100px;
+$subtext-color:                         #6e7386;
+$account-button-internal-padding:       20px 30px;
+$account-button-internal-padding-hover: 23px 33px;
+$account-button-border-radius:          100px;
