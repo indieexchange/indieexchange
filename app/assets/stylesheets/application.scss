@@ -173,3 +173,90 @@ body{
   padding-left: 0px;
   padding-right: 0px;
 }
+
+.form-error-container{
+  background-color: $brand-warning-color;
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+
+  .error-explanation-header{
+    font-family: $roboto-condensed;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .error-detail{
+    font-family: $roboto-condensed;
+  }
+
+}
+
+.bootstrap-field-with-errors{
+  border: $brand-warning-border;
+}
+
+.bootstrap-field-with-errors + .errorable-text{
+  border: $brand-warning-border;
+  margin: 0px;
+  padding: 2px 20px;
+  border-radius: 15px;
+}
+
+.alert-row{
+  background-color: lighten($brand-warning-color, 10%);
+}
+
+.notice-row{
+  background-color: lighten($brand-green, 10%);
+}
+
+.flash-text{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-family: $roboto-condensed;
+  font-weight: bold;
+  letter-spacing: 0.5px
+}
+
+.main-user-controls{
+  line-height: $indie-exchange-image-height;
+  .profile-information{
+    display: inline-block;
+
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
+  }
+  .user-control-profile-picture{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: 2px solid $brand-dark-purple;
+  }
+
+  .user-display-name{
+    color: $brand-dark-blue;
+    font-family: $roboto-condensed;
+    font-size: $small-font-size;
+    font-weight: bold;
+    margin-left: 20px;
+  }
+
+  .message-information{
+    display: inline-block;
+    margin-left: 40px;
+
+    .user-messages-link{
+      line-height: $indie-exchange-image-height;
+      .messages-envelope{
+        color: $icon-medium-gray;
+        font-size: $icon-medium-small-font-size;
+        height: $icon-medium-small-font-size;
+        vertical-align: middle;
+      }
+    }
+  }
+}

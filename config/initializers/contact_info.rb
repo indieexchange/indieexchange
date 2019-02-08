@@ -1,1 +1,1 @@
-CONTACT_EMAIL = 'hello@indiepubexchange.com'
+CONTACT_EMAIL = 'support@indiepubexchange.com'

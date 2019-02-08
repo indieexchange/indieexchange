@@ -1,0 +1,36 @@
+.row.new-registration-row.no-gutters
+  .col-sm-9.col-md-7.col-lg-4.mx-auto
+    .card.card-signin.my-5
+      .card-body
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = render "devise/shared/error_messages", resource: resource
+          h5.card-title.text-center
+            | NEW ACCOUNT
+            .devise-subtext All fields are required
+          form.form-signin
+            .form-label-group
+              = f.email_field :email, autofocus: true, placeholder: "Email Address", required: true, type: "email", class: "form-control", id: "inputEmail"
+              label for="inputEmail"  Email address
+            .form-label-group
+              = f.password_field :password, placeholder: "Password", required: true, type: "password", class: "form-control", id: "inputPassword"
+              label for="inputPassword"  Password (minimum #{@minimum_password_length} characters)
+            .form-label-group
+              = f.password_field :password_confirmation, placeholder: "Confirm Password", required: true, type: "password", class: "form-control", id: "inputPasswordConfirmation"
+              label for="inputPasswordConfirmation"  Confirm Password (type it again)
+            hr.partial-white-hr
+            .form-label-group
+              = f.text_field :first_name, placeholder: "First name", required: true, type: "text", class: "form-control", id: "inputFirstName"
+              label for="inputFirstName"  First name
+            .form-label-group
+              = f.text_field :last_name, placeholder: "Last name", required: true, type: "text", class: "form-control", id: "inputLastName"
+              label for="inputLastName"  Last name
+            .custom-control.custom-checkbox.mb-3
+              = f.check_box :terms_of_service, class: "custom-control-input", id: "termsOfServiceCheckBox"
+              label.custom-control-label.remember-me.errorable-text for="termsOfServiceCheckBox" I agree to the terms and conditions
+            .custom-control.custom-checkbox.mb-3
+              = f.check_box :age, class: "custom-control-input", id: "ageCheckBox"
+              label.custom-control-label.remember-me.errorable-text for="ageCheckBox" I am at least 18 years old
+            = f.submit "Register", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
+
+
+/ = render "devise/shared/links"

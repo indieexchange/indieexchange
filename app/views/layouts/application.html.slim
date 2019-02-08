@@ -6,7 +6,7 @@ html
     = csp_meta_tag
 
     = stylesheet_link_tag    'application', media: 'all'
-    = stylesheet_link_tag    "#{params[:controller]}"    if params[:controller]
+    = stylesheet_link_tag    "#{stylesheet_for(params[:controller])}"    if params[:controller]
     = javascript_include_tag 'application'
     = favicon_link_tag asset_path("indie_exchange_favicon.png")
   body
@@ -20,9 +20,46 @@ html
                   = icon('fas', 'envelope', class: 'contact-envelope')
                   span.sitewide-contact-us
                     = link_to "CONTACT US", "mailto:#{CONTACT_EMAIL}", class: "sitewide-contact-us-link"
+      - if notice
+        .row.with-sitewide-padding.notice-row.no-gutters
+          .col-12.text-center
+            .flash-text = notice
+      - if alert
+        .row.with-sitewide-padding.alert-row.no-gutters
+          .col-12.text-center
+            .flash-text = alert
       - if @serious_error_occurred
 
-      - elsif true # for signed out users
+      - elsif signed_in?
+        .row.with-sitewide-padding.main-navigation-row.no-gutters
+          .col-3
+            = image_tag("indie_exchange.png")
+          .col-6.main-navigation-links.text-center
+            span
+              = link_to "HOME", "/new-page", class: "main-navigation-link"
+            span
+              = link_to "ANNOUNCEMENTS", "/new-page", class: "main-navigation-link"
+            span
+              = link_to "RULES", "/new-page", class: "main-navigation-link"
+            span
+              = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
+          .col-3.main-user-controls.text-right
+            .profile-information
+              a.user-profile-link href="#{user_path(current_user)}"
+                - if false # if current_user has a profile picture
+
+                - else
+                  span.user-profile-picture
+                    = image_tag("anonymous_user.png", class: "user-control-profile-picture")
+                  span.user-display-name
+                    = current_user.display_name
+            .message-information
+              a.user-messages-link href="/to-some-messages"
+                - if false # if user has no messages
+                  = icon('fas', 'envelope', class: 'messages-envelope')
+                - else
+                  = icon('fas', 'envelope-open-text', class: 'messages-envelope')
+      - else # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
             = image_tag("indie_exchange.png")
@@ -37,9 +74,9 @@ html
               = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
           .col-3.main-navigation-buttons.text-right
             span
-              = link_to "SIGN IN", "/new-page", class: "main-navigation-sign-in main-navigation-button"
+              = link_to "SIGN IN", new_user_session_path, class: "main-navigation-sign-in main-navigation-button"
             span
-              = link_to "SIGN UP", "/new-page", class: "main-navigation-sign-up main-navigation-button"
+              = link_to "SIGN UP", new_user_registration_path, class: "main-navigation-sign-up main-navigation-button"
       = yield
       <br><br><br><br><br><br><br><br>
       footer.footer

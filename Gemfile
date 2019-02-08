@@ -24,7 +24,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'slim-rails'
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'font-awesome-sass'
+gem 'font-awesome-sass', '~> 5.3'
+gem 'devise'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -56,6 +57,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'rack-livereload'
   gem 'rb-fsevent', require: false
+  gem 'letter_opener'
 end
 
 group :test do

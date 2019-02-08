@@ -1,0 +1,9 @@
+<p>Thank you for creating your account at Indie Exchange!</p>
+
+<p>Please click the link below to confirm your account:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>If your email program does not allow you to click on that link, you can copy and paste the following into your browser's address bar:</p>
+
+<p><%= confirmation_url(@resource, confirmation_token: @token) %></p>
