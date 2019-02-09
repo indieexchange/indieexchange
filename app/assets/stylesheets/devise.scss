@@ -33,6 +33,15 @@
   padding: 2rem;
 }
 
+.shared-link{
+  font-family: $roboto-condensed;
+  font-size: $mid-banner-font-size;
+  a{
+    color: $light-font-color;
+  }
+  margin-bottom: 8px;
+}
+
 .form-signin {
   width: 100%;
 }

@@ -26,6 +26,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'font-awesome-sass', '~> 5.3'
 gem 'devise'
+gem 'sendgrid-ruby'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

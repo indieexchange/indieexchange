@@ -1,0 +1,14 @@
+.row.new-registration-row.no-gutters
+  .col-sm-9.col-md-7.col-lg-4.mx-auto
+    .card.card-signin.my-5
+      .card-body
+        = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+          = render "devise/shared/error_messages", resource: resource
+          h5.card-title.text-center
+            | ACCOUNT CONFIRMATION
+          form.form-signin
+            .form-label-group
+              = f.email_field :email, autofocus: true, placeholder: "Email Address", required: true, type: "email", class: "form-control", id: "inputEmail"
+              label for="inputEmail"  Email address
+            = f.submit "RESEND EMAIL", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
+    = render "devise/shared/links"

@@ -38,6 +38,10 @@ body{
   min-height: 100%;
 }
 
+.force-brand-light-purple{
+  color: $brand-light-purple !important;
+}
+
 .footer {
   position: absolute;
   right: 0;
@@ -153,16 +157,17 @@ body{
   }
 
 
-  .sitewide-contact-area{
-    .contact-envelope{
+  .sitewide-actions-area{
+    .sitewide-navbar-icon{
       color: $top-bar-font-color;
-    }
-    .sitewide-contact-us{
-      color: $top-bar-font-color;
-      margin-left: 10px;
     }
 
-    .sitewide-contact-us-link{
+    .sitewide-contact-us, .sitewide-sign-out{
+      color: $top-bar-font-color;
+      margin-left: 8px;
+    }
+
+    .sitewide-navbar-link{
       color: $top-bar-font-color;
       font-family: $roboto-condensed;
     }
@@ -190,6 +195,10 @@ body{
     font-family: $roboto-condensed;
   }
 
+}
+
+.pl30{
+  padding-left: 30px;
 }
 
 .bootstrap-field-with-errors{
@@ -255,6 +264,22 @@ body{
         color: $icon-medium-gray;
         font-size: $icon-medium-small-font-size;
         height: $icon-medium-small-font-size;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .search-information{
+    display: inline-block;
+    margin-left: 40px;
+
+    .user-search-link{
+      line-height: $indie-exchange-image-height;
+
+      .search-magnifying-glass{
+        color: $icon-medium-gray;
+        font-size: calc(#{$icon-medium-small-font-size} - 7px);
+        height: calc(#{$icon-medium-small-font-size} - 7px);
         vertical-align: middle;
       }
     }

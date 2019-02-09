@@ -10,4 +10,8 @@ class ApplicationController < ActionController::Base
       u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :terms_of_service, :age)
     end
   end
+
+  def after_sign_in_path_for(user)
+    user_path(user)
+  end
 end

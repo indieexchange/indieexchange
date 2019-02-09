@@ -16,10 +16,14 @@ html
           .header-top-bar
             .row.with-sitewide-padding.align-items-center.top-bar-line-height.no-gutters
               .col-12.text-right
-                .sitewide-contact-area
-                  = icon('fas', 'envelope', class: 'contact-envelope')
+                .sitewide-actions-area
+                  = icon('fas', 'envelope', class: 'sitewide-navbar-icon', title: "Envelope")
                   span.sitewide-contact-us
-                    = link_to "CONTACT US", "mailto:#{CONTACT_EMAIL}", class: "sitewide-contact-us-link"
+                    = link_to "CONTACT US", "mailto:#{CONTACT_EMAIL}", class: "sitewide-navbar-link"
+                  - if signed_in?
+                    = icon('fas', 'sign-out-alt', title: "An arrow pointing right", class: "sitewide-navbar-icon pl30")
+                    span.sitewide-sign-out
+                      = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: "sitewide-navbar-link"
       - if notice
         .row.with-sitewide-padding.notice-row.no-gutters
           .col-12.text-center
@@ -29,14 +33,15 @@ html
           .col-12.text-center
             .flash-text = alert
       - if @serious_error_occurred
-
+        / do nothing -- don't check for user or anything in case that has to do with the error.
+        / just let the error pages render without the header
       - elsif signed_in?
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
-            = image_tag("indie_exchange.png")
+            = image_tag("indie_exchange.png", title: "Indie Exchange logo")
           .col-6.main-navigation-links.text-center
             span
-              = link_to "HOME", "/new-page", class: "main-navigation-link"
+              = link_to "HOME", "/", class: "main-navigation-link"
             span
               = link_to "ANNOUNCEMENTS", "/new-page", class: "main-navigation-link"
             span
@@ -50,19 +55,22 @@ html
 
                 - else
                   span.user-profile-picture
-                    = image_tag("anonymous_user.png", class: "user-control-profile-picture")
-                  span.user-display-name
-                    = current_user.display_name
+                    = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "Profile picture")
+                span.user-display-name
+                  = current_user.display_name
             .message-information
               a.user-messages-link href="/to-some-messages"
-                - if false # if user has no messages
-                  = icon('fas', 'envelope', class: 'messages-envelope')
+                - if true # if user has no messages
+                  = icon('fas', 'envelope', class: 'messages-envelope', title: "Check your messages (no new messages)")
                 - else
-                  = icon('fas', 'envelope-open-text', class: 'messages-envelope')
+                  = icon('fas', 'envelope-open-text', class: 'messages-envelope force-brand-light-purple', title: "Check your messages (new messages available)")
+            .search-information
+              a.user-search-link href="/to-some-search-path"
+                = icon('fas', 'search', class: 'search-magnifying-glass', title: "Start a new search")
       - else # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
-            = image_tag("indie_exchange.png")
+            = image_tag("indie_exchange.png", title: "Indie Exchange logo")
           .col-6.main-navigation-links.text-center
             span
               = link_to "HOME", "/new-page", class: "main-navigation-link"
@@ -84,7 +92,7 @@ html
           .col-1
           .col-7.text-left
             .indie-exchange-footer-image
-              = image_tag("indie_exchange_white.png")
+              = image_tag("indie_exchange_white.png", title: "Indie Exchange logo in white")
             .footer-image-caption The marketplace designed with publishers in mind
           .col-3.resources-and-list.text-left
             .resources RESOURCES:
