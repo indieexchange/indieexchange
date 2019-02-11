@@ -36,6 +36,10 @@ html
         / do nothing -- don't check for user or anything in case that has to do with the error.
         / just let the error pages render without the header
       - elsif signed_in?
+        - if current_user.profile_incomplete?
+          .row.with-sitewide-padding.request-row.no-gutters
+            .col-12.text-center
+              .flash-text Your profile is incomplete. Please #{link_to "click here to update it", edit_user_path(current_user)}. Complete profiles get better results!
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
             = image_tag("indie_exchange.png", title: "Indie Exchange logo")
@@ -50,7 +54,7 @@ html
               = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
           .col-3.main-user-controls.text-right
             .profile-information
-              a.user-profile-link href="#{user_path(current_user)}"
+              a.user-profile-link href="#{edit_user_path(current_user)}"
                 - if false # if current_user has a profile picture
 
                 - else

@@ -1,8 +1,17 @@
-h1 Editing user
+.row.with-sitewide-padding.no-gutters.justify-content-center
+  .col-2
+    .profile-options
+      a.profile-option-link href="#{edit_user_path(current_user)}"
+        .profile-option.basic-information.active-page Basic Information
+      a.profile-option-link href="/somewhere"
+        .profile-option.profile-picture Profile Picture
+  .col-1
+  .col-5
+    == render 'form'
 
-== render 'form'
-
-=> link_to 'Show', @user
-'|
-=< link_to 'Back', users_path
+br
+br
+br
+br
+br
 

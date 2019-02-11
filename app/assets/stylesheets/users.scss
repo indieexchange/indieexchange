@@ -1,3 +1,32 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+.profile-options{
+
+  .profile-option-link{
+    &:hover{
+      text-decoration: none;
+    }
+
+    .profile-option{
+      padding: 8px 0px 8px 31px;
+      background-color: white;
+      color: $brand-dark-purple;
+      font-weight: bold;
+      margin-bottom: 15px;
+      border: 2px solid $brand-light-purple;
+      border-radius: 25px;
+    }
+
+    .profile-option.active-page{
+      border-left: 22px solid $brand-light-purple;
+      padding: 8px 0px 8px 10px;
+      background-color: lighten($brand-light-purple, 20%);
+    }
+  }
+
+}
+

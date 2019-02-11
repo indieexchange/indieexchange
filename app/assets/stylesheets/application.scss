@@ -36,6 +36,7 @@ body{
   position: relative;
   margin: 0;
   min-height: 100%;
+  font-family: $roboto-condensed;
 }
 
 .force-brand-light-purple{
@@ -220,6 +221,13 @@ body{
   background-color: lighten($brand-green, 10%);
 }
 
+.request-row{
+  background-color: $possible-brand-yellow;
+  a{
+    color: darken($brand-dark-purple, 10%);
+  }
+}
+
 .flash-text{
   padding-top: 15px;
   padding-bottom: 15px;
@@ -284,4 +292,74 @@ body{
       }
     }
   }
+}
+
+.brand-banner{
+  font-size: $banner-font-size;
+  color: $banner-color;
+  font-family: $roboto-condensed;
+  font-weight: bold;
+}
+
+.brand-banner-padded{
+  padding-top: 40px;
+}
+
+.brand-sub-banner{
+  font-family: $roboto-condensed;
+  color: $subtext-color;
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.form-control{
+  margin-bottom: 20px;
+}
+
+.form-control:focus{
+  border-color: $brand-light-purple;
+  box-shadow: 0 0 0 0.2rem rgba(183, 151, 248, 0.25);
+}
+
+.form-label{
+  display: block;
+  font-weight: bold;
+  color: $brand-dark-purple;
+}
+
+.form-label.less-margin{
+  margin-bottom: 0px;
+}
+
+.form-helper{
+  font-size: $small-font-size;
+}
+
+.form-helper.with-margin{
+  margin-bottom: 5px;
+}
+
+// button stuff!
+.btn-primary{
+  background-color: darken($brand-dark-purple, 15%);
+  border-color: darken($brand-dark-purple, 30%);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 10px 20px;
+
+  &:hover{
+    background-color: darken($brand-dark-purple, 25%);
+  }
+
+  &:active{
+    background-color: darken($brand-dark-purple, 20%);
+  }
+
+  &:focus{
+    box-shadow: 0 0 0 0.2rem rgba(183, 151, 248, 0.5);
+  }
+}
+
+.btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
+  background-color: darken($brand-dark-purple, 20%);
 }

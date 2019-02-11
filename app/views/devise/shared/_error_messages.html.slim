@@ -1,6 +1,6 @@
 - if resource.errors.any?
   .error-explanation.form-error-container
-    h2.error-explanation-header class="some-other-class"
+    h2.error-explanation-header
       = I18n.t("errors.messages.not_saved",
                count: resource.errors.count,
                resource: resource.class.model_name.human.downcase)
