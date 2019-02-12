@@ -4,6 +4,10 @@
 
 @import "variables";
 
+.edit-user-row{
+  padding-top: 60px;
+}
+
 .profile-options{
 
   .profile-option-link{
@@ -24,7 +28,7 @@
     .profile-option.active-page{
       border-left: 22px solid $brand-light-purple;
       padding: 8px 0px 8px 10px;
-      background-color: lighten($brand-light-purple, 20%);
+      background-color: lighten($brand-light-purple, 21%);
     }
   }
 
