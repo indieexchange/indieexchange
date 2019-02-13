@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy,
+                                  :edit_profile_picture, :update_profile_picture, :delete_profile_picture]
+  before_action :self_only, only: [:show, :edit, :update, :destroy,
+                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture]
 
   # GET /users
   # GET /users.json
@@ -51,6 +54,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_profile_picture
+  end
+
+  def update_profile_picture
+    if @user.update(user_params)
+      render :crop
+    else
+      render :edit_profile_picture
+    end
+  end
+
+  def delete_profile_picture
+    @user.profile_picture.purge
+    @user.update!(profile_picture_x: nil, profile_picture_y: nil, profile_picture_d: nil)
+    redirect_to edit_profile_picture_user_path(@user), notice: "Your profile picture has been removed"
+  end
+
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -69,6 +89,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:about_me, :first_name, :last_name, :username)
+      params.require(:user).permit(:about_me, :first_name, :last_name, :username,
+        :profile_picture, :crop_x, :crop_y, :crop_w, :crop_h)
     end
 end

@@ -36,7 +36,7 @@ html
         / do nothing -- don't check for user or anything in case that has to do with the error.
         / just let the error pages render without the header
       - elsif signed_in?
-        - if current_user.profile_incomplete?
+        - if current_user.profile_incomplete? and !on_profile_page(request.path, current_user.id)
           .row.with-sitewide-padding.request-row.no-gutters
             .col-12.text-center
               .flash-text Your profile is incomplete. Please #{link_to "click here to update it", edit_user_path(current_user)}. Complete profiles get better results!
@@ -55,8 +55,9 @@ html
           .col-3.main-user-controls.text-right
             .profile-information
               a.user-profile-link href="#{edit_user_path(current_user)}"
-                - if false # if current_user has a profile picture
-
+                - if current_user.has_cropped_profile_picture?
+                  span.user-profile-picture
+                    = image_tag(rails_representation_url(current_user.pp_thumb), class: "user-control-profile-picture", title: "Profile picture")
                 - else
                   span.user-profile-picture
                     = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "Profile picture")

@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(user)
     user_path(user)
   end
+
+  private
+
+  def self_only
+    if current_user != @user
+      redirect_to root_path, alert: "You don't have permission to take that action" and return
+    end
+  end
 end

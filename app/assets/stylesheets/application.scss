@@ -181,9 +181,9 @@ body{
 }
 
 .form-error-container{
-  background-color: $brand-warning-color;
+  background-color: lighten($brand-warning-color, 2.5%);
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 3px;
   margin-bottom: 20px;
 
   .error-explanation-header{
@@ -193,7 +193,9 @@ body{
   }
 
   .error-detail{
-    font-family: $roboto-condensed;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: 700;
   }
 
 }
@@ -312,6 +314,16 @@ body{
   padding-bottom: 30px;
 }
 
+.brand-sub-banner.less-padding{
+  padding-top: 0px;
+}
+
+.midsize-banner{
+  font-size: $mid-banner-font-size;
+  color: $banner-color;
+  font-weight: bold;
+}
+
 .form-control{
   margin-bottom: 20px;
 }
@@ -362,4 +374,28 @@ body{
 
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
   background-color: darken($brand-dark-purple, 20%);
+}
+
+.btn-success{
+  background-color: darken($brand-green, 15%);
+  border-color: darken($brand-green, 20%);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 10px 20px;
+
+  &:hover{
+    background-color: darken($brand-green, 25%);
+  }
+
+  &:active{
+    background-color: darken($brand-green, 20%);
+  }
+
+  &:focus{
+    box-shadow: 0 0 0 0.2rem rgba(183, 151, 248, 0.5);
+  }
+}
+
+.btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active, .show > .btn-success.dropdown-toggle{
+  background-color: darken($brand-green, 20%);
 }

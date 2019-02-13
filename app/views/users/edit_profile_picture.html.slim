@@ -1,0 +1,53 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.edit-user-row
+  .col-2
+    .profile-options
+      a.profile-option-link href="#{edit_user_path(current_user)}"
+        .profile-option.basic-information Basic Information
+      a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
+        .profile-option.profile-picture.active-page Profile Picture
+  .col-1
+  .col-5
+    - if current_user.profile_picture.attached?
+      .profile-picture-fullsize-review
+        = image_tag(rails_representation_url(current_user.pp_full))
+
+      = form_for @user, url: delete_profile_picture_user_path(@user) do |f|
+        = f.submit "DELETE PHOTO", class: "btn btn-primary"
+    - else
+      - if @user.errors.any?
+        .error-explanation.form-error-container
+          - @user.errors.full_messages.each do |message|
+            .error-detail = message
+      .brand-banner CHOOSE YOUR PHOTO
+      .brand-sub-banner
+        | Upload an image file from your computer under 4MB.
+        br Once uploaded, you will be able to set the thumbnail area of the photo.
+      = form_for @user, url: update_profile_picture_user_path(@user) do |f|
+        label.btn.btn-success
+          span#instruction Choose Photo
+          = f.file_field :profile_picture, style: "display: none", accept: "image/x-png,image/png,image/jpeg,image/bmp"
+
+        .current-photo-selection
+          | Current selection:
+          span.selected-file-name Meow
+
+        .actions
+          = f.submit "Upload Selected Photo", class: "btn btn-primary", id: "submit-photo-button"
+
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+    $(".selected-file-name").text(label);
+    $(".current-photo-selection").show();
+    $("#submit-photo-button").show();
+    $("#instruction").text("Choose a Different Photo");
+  });

@@ -12,10 +12,41 @@ class User < ApplicationRecord
                                  allow_nil: true }
 
   validate :username_not_unset
+  validate :profile_picture_file_size_acceptable
+  validate :profile_picture_file_type_acceptable
+
+  has_one_attached :profile_picture
+
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  before_save :crop_profile_picture
+
+  def self.profile_picture_maximum_size
+    "720x720" # useful because 720 is divisible by 1, 2, 3, 4, 5, 6, 8, 9, 10, and 12 for thumbnailing and such
+  end
+
+  def self.profile_picture_thumbnail_size
+    "90x90" # divided by 8
+  end
 
   def username_not_unset
-    if username.present? and will_save_change_to_username?
+    if username_was.present? and will_save_change_to_username?
       errors.add(:username, "can't be changed or deleted after being set")
+    end
+  end
+
+  def profile_picture_file_size_acceptable
+    if profile_picture.attached?
+      if profile_picture.blob.byte_size > 4 * 1000 * 1000 # 4 megabytes (BYTE, not BIT)
+        profile_picture.purge
+        errors.add(:profile_picture, "is over the maximum allowed size of 4MB. Please choose a smaller file.")
+      end
+    end
+  end
+
+  def profile_picture_file_type_acceptable
+    if profile_picture.attached? and !profile_picture.content_type.in?(["image/x-png", "image/png", "image/jpeg", "image/bmp"])
+      profile_picture.purge
+      errors.add(:profile_picture, "must be a PNG, JPG, or BMP file")
     end
   end
 
@@ -25,6 +56,43 @@ class User < ApplicationRecord
   end
 
   def profile_incomplete?
-    about_me.blank? # or profile_picture.blank?
+    about_me.blank? or !profile_picture.attached?
+  end
+
+  def has_cropped_profile_picture?
+    profile_picture.attached? and profile_picture_d.present?
+  end
+
+  def crop_profile_picture
+    if crop_x.present?
+      self.profile_picture_x = crop_x
+      self.profile_picture_y = crop_y
+      self.profile_picture_d = crop_h # since it's always square, the [d]imensions have height == width
+    end
+  end
+
+  def pp_full
+    profile_picture.variant(
+      resize: User.profile_picture_maximum_size,
+      crop: "#{profile_picture_d}x#{profile_picture_d}+#{profile_picture_x}+#{profile_picture_y}"
+    ).processed
+  end
+
+  def pp_mid
+    divisor = 1.0 * profile_picture_d / 240
+    profile_picture.variant(
+      resize: "#{(720/divisor).to_i}x#{(720/divisor).to_i}",
+      crop: "#{(profile_picture_d/divisor).to_i}x#{(profile_picture_d/divisor).to_i}+" +
+            "#{(profile_picture_x/divisor).to_i}+#{(profile_picture_y/divisor).to_i}"
+    ).processed
+  end
+
+  def pp_thumb
+    divisor = 1.0 * profile_picture_d / 60
+    profile_picture.variant(
+      resize: "#{(720/divisor).to_i}x#{(720/divisor).to_i}",
+      crop: "#{(profile_picture_d/divisor).to_i}x#{(profile_picture_d/divisor).to_i}+" +
+            "#{(profile_picture_x/divisor).to_i}+#{(profile_picture_y/divisor).to_i}"
+    ).processed
   end
 end

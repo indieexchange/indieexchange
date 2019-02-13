@@ -1,10 +1,8 @@
 = form_for @user do |f|
   - if @user.errors.any?
     .error-explanation.form-error-container
-      h2.error-explanation-header = "Please correct the following errors:"
-      ul
-        - @user.errors.full_messages.each do |message|
-          li.error-detail = message
+      - @user.errors.full_messages.each do |message|
+        .error-detail = message
 
   .form-group
     = f.label :about_me, class: "form-label less-margin"
@@ -18,7 +16,11 @@
     = f.text_field :last_name, class: "form-control"
   .form-group
     = f.label :username, class: "form-label less-margin"
-    .form-helper.with-margin If you provide a username, other users will see this instead of your first and last name.  If you leave this field blank, other users will see your first and last name. <b>Once set, a username can not be changed or removed.</b>
-    = f.text_field :username, class: "form-control"
+    - if @user.username.present?
+      .form-helper.with-margin Others will see the username you've chosen below instead of your first and last name.</b>
+      = f.text_field :username, class: "form-control", disabled: true
+    - else
+      .form-helper.with-margin If you provide a username, other users will see this instead of your first and last name.  If you leave this field blank, other users will see your first and last name. <b>Once set, a username can not be changed or removed.</b>
+      = f.text_field :username, class: "form-control"
 
   = f.submit "UPDATE PROFILE", class: "btn btn-primary"

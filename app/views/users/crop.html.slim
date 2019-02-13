@@ -1,0 +1,42 @@
+link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" rel="stylesheet"
+script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"
+= form_for(@user) do |f|
+  .row.justify-content-center.with-sitewide-padding.no-gutters
+    .col-2
+    .col-6
+      .panel.panel-primary
+        .panel-heading
+          .brand-banner Crop Your Profile Picture
+          .brand-sub-banner.less-padding Drag the highlighted area to move the square.  Drag the corners or edges to resize it.
+        .panel-body style="display: none;"
+          = image_tag @user.profile_picture.variant(resize: User.profile_picture_maximum_size), id: "cropbox"
+          br/
+          - %w[x y w h].each do |attribute|
+            = f.hidden_field "crop_#{attribute}", as: :hidden
+    .col-1
+    .col-3
+      .panel.panel-primary
+        .panel-heading
+          .brand-banner Preview
+          .brand-sub-banner.less-padding Other users see this:
+        .panel-body style="display: none;"
+          div style=("width:100px; height:100px; overflow:hidden")
+            = image_tag @user.profile_picture, id: "preview"
+        br
+        = f.submit "Crop Photo", class: "btn btn-primary"
+
+javascript:
+  $(document).ready(function(){
+    setTimeout(function(){
+      $(".panel-body").show()
+      width = parseInt($('#cropbox').width());
+      height = parseInt($('#cropbox').height());
+      d = Math.min(width,height) * 0.75;
+      $('#cropbox').Jcrop({
+        aspectRatio: 1,
+        setSelect: [0, 0, d, d],
+        onSelect: this.update,
+        onChange: this.update
+      });
+    }, 1000);
+  });

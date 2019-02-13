@@ -34,3 +34,22 @@
 
 }
 
+.profile-picture-fullsize-review{
+  margin-bottom: 30px;
+}
+
+.current-photo-selection{
+  display: none;
+  font-weight: bold;
+  .selected-file-name{
+    margin-left: 10px;
+    font-weight: 300;
+    font-size: $small-font-size;
+    font-style: italic;
+  }
+}
+
+#submit-photo-button{
+  display: none;
+  margin-top: 50px;
+}
