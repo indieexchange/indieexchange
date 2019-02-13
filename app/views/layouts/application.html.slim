@@ -39,7 +39,8 @@ html
         - if current_user.profile_incomplete? and !on_profile_page(request.path, current_user.id)
           .row.with-sitewide-padding.request-row.no-gutters
             .col-12.text-center
-              .flash-text Your profile is incomplete. Please #{link_to "click here to update it", edit_user_path(current_user)}. Complete profiles get better results!
+              .flash-text = current_user.complete_profile_call_to_action
+              / .flash-text Your profile is incomplete. Please #{link_to "click here to update it", edit_user_path(current_user)}. Complete profiles get better results!
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
             = image_tag("indie_exchange.png", title: "Indie Exchange logo")

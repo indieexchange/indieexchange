@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::UrlHelper
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :trackable, :lockable,
@@ -57,6 +60,21 @@ class User < ApplicationRecord
 
   def profile_incomplete?
     about_me.blank? or !profile_picture.attached?
+  end
+
+  def complete_profile_call_to_action
+    if about_me.blank? and !profile_picture.attached?
+      cta = "Your profile is incomplete. For best results on Indie Exchange, please" +
+      " #{link_to 'update your bio', edit_user_path(self)} and" +
+      " add a #{link_to 'profile picture', edit_profile_picture_user_path(self)}"
+    elsif about_me.blank?
+      cta = "Your profile is incomplete. For best results on Indie Exchange, please" +
+      " #{link_to 'update your bio', edit_user_path(self)}"
+    elsif !profile_picture.attached?
+      cta = "Your profile is incomplete. For best results on Indie Exchange, please" +
+      " add a #{link_to 'profile picture', edit_profile_picture_user_path(self)}"
+    end
+    cta.html_safe
   end
 
   def has_cropped_profile_picture?
