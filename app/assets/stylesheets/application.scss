@@ -43,6 +43,10 @@ body{
   color: $brand-light-purple !important;
 }
 
+.force-brand-dark-purple{
+  color: $brand-dark-purple !important;
+}
+
 .footer {
   position: absolute;
   right: 0;
@@ -296,6 +300,14 @@ body{
   }
 }
 
+.brand-link{
+  color: $brand-dark-purple;
+  font-weight: bold;
+  &:hover{
+    color: $brand-dark-purple;
+  }
+}
+
 .brand-banner{
   font-size: $banner-font-size;
   color: $banner-color;
@@ -353,7 +365,7 @@ body{
 
 // button stuff!
 .btn-primary{
-  background-color: darken($brand-dark-purple, 15%);
+  background-color: darken($brand-dark-purple, 22%);
   border-color: darken($brand-dark-purple, 30%);
   font-weight: bold;
   letter-spacing: 0.5px;
@@ -364,7 +376,7 @@ body{
   }
 
   &:active{
-    background-color: darken($brand-dark-purple, 20%);
+    background-color: darken($brand-dark-purple, 22%);
   }
 
   &:focus{

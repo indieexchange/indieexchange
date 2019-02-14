@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get "/users/:id/profile_picture", to: "users#edit_profile_picture", as: "edit_profile_picture_user"
   patch "/users/:id/profile_picture", to: "users#update_profile_picture", as: "update_profile_picture_user"
   patch "/users/:id/delete_profile_picture", to: "users#delete_profile_picture", as: "delete_profile_picture_user"
+  get "/users/:id/crop_profile_picture", to: "users#crop_profile_picture", as: "crop_profile_picture_user"
 end

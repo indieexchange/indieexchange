@@ -1,8 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy,
-                                  :edit_profile_picture, :update_profile_picture, :delete_profile_picture]
+                                  :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
+                                  :crop_profile_picture]
   before_action :self_only, only: [:show, :edit, :update, :destroy,
-                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture]
+                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
+                                  :crop_profile_picture]
 
   # GET /users
   # GET /users.json
@@ -55,6 +57,10 @@ class UsersController < ApplicationController
   end
 
   def edit_profile_picture
+  end
+
+  def crop_profile_picture
+    render :crop
   end
 
   def update_profile_picture

@@ -24,7 +24,7 @@ class User < ApplicationRecord
   before_save :crop_profile_picture
 
   def self.profile_picture_maximum_size
-    "720x720" # useful because 720 is divisible by 1, 2, 3, 4, 5, 6, 8, 9, 10, and 12 for thumbnailing and such
+    "450x450" # best to pick a highly divisible number
   end
 
   def self.profile_picture_thumbnail_size
@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def profile_incomplete?
-    about_me.blank? or !profile_picture.attached?
+    about_me.blank? or !profile_picture.attached? or profile_picture_d.nil?
   end
 
   def complete_profile_call_to_action
@@ -73,6 +73,10 @@ class User < ApplicationRecord
     elsif !profile_picture.attached?
       cta = "Your profile is incomplete. For best results on Indie Exchange, please" +
       " add a #{link_to 'profile picture', edit_profile_picture_user_path(self)}"
+    elsif profile_picture_d.nil?
+      cta = "Your profile is incomplete. For best results on Indie Exchange, please" +
+      " #{link_to "crop your profile picture", crop_profile_picture_user_path(self)}"
+      cta.html_safe
     end
     cta.html_safe
   end
@@ -99,7 +103,7 @@ class User < ApplicationRecord
   def pp_mid
     divisor = 1.0 * profile_picture_d / 240
     profile_picture.variant(
-      resize: "#{(720/divisor).to_i}x#{(720/divisor).to_i}",
+      resize: "#{(450/divisor).to_i}x#{(450/divisor).to_i}",
       crop: "#{(profile_picture_d/divisor).to_i}x#{(profile_picture_d/divisor).to_i}+" +
             "#{(profile_picture_x/divisor).to_i}+#{(profile_picture_y/divisor).to_i}"
     ).processed
@@ -108,7 +112,7 @@ class User < ApplicationRecord
   def pp_thumb
     divisor = 1.0 * profile_picture_d / 60
     profile_picture.variant(
-      resize: "#{(720/divisor).to_i}x#{(720/divisor).to_i}",
+      resize: "#{(450/divisor).to_i}x#{(450/divisor).to_i}",
       crop: "#{(profile_picture_d/divisor).to_i}x#{(profile_picture_d/divisor).to_i}+" +
             "#{(profile_picture_x/divisor).to_i}+#{(profile_picture_y/divisor).to_i}"
     ).processed
