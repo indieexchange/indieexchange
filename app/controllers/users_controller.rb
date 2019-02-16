@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to @user, notice: 'Your changes have been saved' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -64,6 +64,7 @@ class UsersController < ApplicationController
   end
 
   def update_profile_picture
+    @user.validate_profile_picture_change = true
     if @user.update(user_params)
       render :crop
     else

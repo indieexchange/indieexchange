@@ -15,12 +15,13 @@ class User < ApplicationRecord
                                  allow_nil: true }
 
   validate :username_not_unset
-  validate :profile_picture_file_size_acceptable
-  validate :profile_picture_file_type_acceptable
+  validate :profile_picture_file_size_acceptable, if: :validate_profile_picture_change
+  validate :profile_picture_file_type_acceptable, if: :validate_profile_picture_change
+  validate :username_unique, if: :will_save_change_to_username?
 
   has_one_attached :profile_picture
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
   before_save :crop_profile_picture
 
   def self.profile_picture_maximum_size
@@ -29,6 +30,12 @@ class User < ApplicationRecord
 
   def self.profile_picture_thumbnail_size
     "90x90" # divided by 8
+  end
+
+  def username_unique
+    if username.present? and User.where(username: username).any?
+      errors.add(:username, "is already taken")
+    end
   end
 
   def username_not_unset
@@ -56,6 +63,10 @@ class User < ApplicationRecord
   def display_name
     value = username.present? ? username : [first_name, last_name].join(" ")
     value.truncate(24)
+  end
+
+  def display_name_untruncated
+    value = username.present? ? username : [first_name, last_name].join(" ")
   end
 
   def profile_incomplete?

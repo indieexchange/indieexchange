@@ -8,6 +8,288 @@
   padding-top: 60px;
 }
 
+.edit-your-profile-row{
+  padding-top: 20px;
+}
+
+.user-profile-reviews-row{
+  margin-top: 60px;
+
+  .review-cols{
+    .carded-content{
+      .review-info-holder{
+        display: inline-block;
+        margin-left: 40px;
+        vertical-align: top;
+        width: calc(100% - 175px);
+        .full-review{
+          font-family: $roboto;
+          font-weight: 300;
+          margin-top: 30px;
+          width: 65%;
+        }
+        .report-dropdown{
+          float: right;
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+          .dropdown-menu{
+            .dropdown-item{
+              color: red;
+              font-family: $roboto;
+              font-size: 14px;
+              font-weight: 500;
+            }
+          }
+          .report-dropdown-icon{
+            color: #b3b3b3;
+          }
+        }
+        .reviewer-name{
+          display: inline-block;
+          font-size: 20px;
+          font-weight: 500;
+          font-family: $roboto;
+          .review-date{
+            color: #bbb;
+            font-size: 12px;
+            font-weight: 400;
+            border-left: 1px solid #aaa;
+            margin-left: 10px;
+            padding-top: 2px;
+            padding-left: 10px;
+          }
+        }
+      }
+      .review-profile-picture-holder{
+        display: inline-block;
+        .review-profile-picture{
+          .review-full-profile-picture-image{
+            height: 110px;
+            width: 110px;
+            border-radius: 50%;
+            border: 3px solid $brand-dark-purple;
+          }
+        }
+      }
+    }
+  }
+  .talk-bubble-with-circle{
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px 0px rgba(128, 128, 128, 0.5);
+    display: inline-block;
+
+    .user-reviews-icon{
+      font-size: 35px;
+      color: $brand-dark-purple;
+      margin-left: 9px;
+      margin-top: 12px;
+    }
+  }
+  .reviews-banner{
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 30px;
+    font-weight: 500;
+    font-family: $roboto;
+    color: $brand-gray-text;
+  }
+}
+
+.user-profile-top-row{
+  padding-top: 30px;
+
+  .carded-content.profile-summary-card{
+    margin-left: 0px;
+  }
+
+  .carded-content.recent-review-card{
+    margin-right: 0px;
+  }
+
+  .recent-reviews-col{
+    .review-hr{
+      border-color: #eee;
+    }
+
+    .stars-for-review{
+      display: inline-block;
+    }
+
+    .review-timing{
+      font: $roboto;
+      font-size: 13px;
+      display: inline-block;
+      float: right;
+      margin-top: 3px;
+    }
+
+    .review-text-holder{
+      display: inline-block;
+      height: 50%;
+
+      .review-text-snippet{
+        font-family: $roboto;
+        font-size: 16px;
+        font-style: italic;
+      }
+    }
+
+    .review-profile-picture-and-name-holder{
+      width: 150px;
+      display: inline-block;
+
+      .reviewer-name{
+        font-family: $roboto;
+        font-weight: 500;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      display: inline-block;
+      .review-profile-picture{
+        .review-profile-picture-image{
+          height: 100px;
+          width: 100px;
+          border-radius: 50%;
+          border: 3px solid $brand-dark-purple;
+        }
+      }
+    }
+
+    .recent-reviews{
+      font-family: $roboto;
+      font-size: 20px;
+      display: inline-block;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+    .icon-holder-outer{
+      display: inline-block;
+      .icon-holder-inner{
+        padding: 7px;
+        background-color: lighten($brand-light-purple, 17.5%);
+        border-radius: 50%;
+
+        .icon-holder{
+          background: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
+          padding: 13px 15px;
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          .recent-reviews-icon{
+            font-size: 24px;
+            height: 24px;
+            width: 24px;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .message-me-button{
+    font-size: 18px;
+    font-family: $roboto;
+    margin-top: 30px;
+    padding: 20px 40px;
+  }
+
+  .pre-bio-hr{
+    border-color: #eee;
+    margin-top: 50px;
+  }
+  .user-summary{
+
+    .user-profile-profile-picure{
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      border: 3px solid $brand-dark-purple;
+    }
+  }
+
+  .top-info-row{
+    .name-and-reg-date{
+      display: inline-block;
+
+      .name{
+        font-family: $roboto;
+        font-weight: 500;
+        color: $brand-near-black-text;
+        font-size: 20px;
+      }
+
+      .reg-date{
+        color: $brand-mid-grey-text;
+        font-family: $roboto;
+        font-size: 14px;
+        margin-top: 8px;
+        margin-bottom: 5px;
+      }
+
+    }
+
+    .last-active{
+      display: inline-block;
+      float: right;
+
+      .last-active-text{
+        color: $brand-solid-grey-text;
+        font-size: 13px;
+        font-family: $roboto
+      }
+    }
+  }
+
+  .bottom-info-row{
+    .ratings-container{
+      margin-top: -8px;
+
+      .review-counter{
+        display: flex;
+        font-size: 12px;
+      }
+    }
+
+    .active-ads{
+      margin-top: -8px;
+      .active-ads-link{
+        font-family: $roboto;
+        font-weight: 500;
+        font-size: 12px;
+      }
+    }
+
+    .follow-me-text{
+      font-weight: 500;
+      font-family: $roboto;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .follow-me-heart-container{
+      display: inline-block;
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+      box-shadow: 0px 4px 10px 0px rgba(128, 128, 128, 0.5);
+
+      .follow-me-heart{
+        margin-right: 7px;
+        margin-top: 8px;
+        color: #95959a;
+      }
+    }
+  }
+}
+
+.full-equal-height{
+  height: 100%;
+}
+
 .profile-options{
 
   .profile-option-link{

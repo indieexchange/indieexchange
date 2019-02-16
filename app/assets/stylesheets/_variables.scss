@@ -10,7 +10,12 @@ $brand-dark-purple: #8072ef;
 $brand-light-purple: #b797f8;
 $brand-green: #9ccc64;
 $brand-dark-blue: #505266;
+$brand-near-black-text: #383a46;
+$brand-mid-grey-text: #a7a8b1;
+$brand-solid-grey-text: #808289;
 $brand-off-black: #1a1a1a;
+$brand-callout-yellow: #ecb329;
+$brand-gray-text: #3c3d44;
 
 $possible-brand-blue: #51a3a3;
 $possible-brand-lighter-blue: #bbbdf6;
@@ -37,8 +42,10 @@ $default-sitewide-horizontal-padding: 15px;
 
 $top-bar-font-color: white;
 $roboto-condensed: 'Roboto Condensed', sans-serif;
+$roboto:           'Roboto',           sans-serif;
 
 $purple-gradient-lightening-rightward: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
+$darker-purple-gradient-lightening-rightward: linear-gradient(0.25turn, darken($brand-dark-purple, 4%), darken($brand-light-purple, 4%));
 
 // VARIABLES FOR: homepage & static
 $homepage-top-padding:                  80px;

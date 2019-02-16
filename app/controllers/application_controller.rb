@@ -5,6 +5,14 @@ class ApplicationController < ActionController::Base
 
   before_action :update_params, if: :devise_controller?
 
+  after_action :update_last_active
+
+  def update_last_active
+    if signed_in?
+      current_user.update_columns(last_active: Time.now)
+    end
+  end
+
   def update_params
     devise_parameter_sanitizer.permit(:sign_up) do |u|
       u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :terms_of_service, :age)

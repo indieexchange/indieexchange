@@ -16,7 +16,7 @@
     = f.text_field :last_name, class: "form-control"
   .form-group
     = f.label :username, class: "form-label less-margin"
-    - if @user.username.present?
+    - if @user.username.present? and @user.username == User.find(@user.id).username
       .form-helper.with-margin Others will see the username you've chosen below instead of your first and last name.</b>
       = f.text_field :username, class: "form-control", disabled: true
     - else

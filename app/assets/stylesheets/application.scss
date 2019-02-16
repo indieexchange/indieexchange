@@ -17,6 +17,7 @@
 @import "font-awesome";
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300;400,400i,500,700');
 
 @import "variables";
 
@@ -45,6 +46,16 @@ body{
 
 .force-brand-dark-purple{
   color: $brand-dark-purple !important;
+}
+
+.more-margin{
+  margin-left: 45px;
+  margin-right: 45px;
+}
+
+.with-light-bottom-border-padded{
+  border-bottom: 1px solid #eee;
+  padding-bottom: 30px;
 }
 
 .footer {
@@ -410,4 +421,52 @@ body{
 
 .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active, .show > .btn-success.dropdown-toggle{
   background-color: darken($brand-green, 20%);
+}
+
+.branded-pill-button{
+  color: $light-font-color;
+  background: $purple-gradient-lightening-rightward;
+  padding: $account-button-internal-padding;
+  border-radius: $account-button-border-radius;
+  box-shadow: 0px 8px 30px -5px $brand-light-purple;
+  @include transition(all, 0.15s, ease-in-out);
+
+  &:hover{
+    text-decoration: none;
+    box-shadow: 0px 8px 30px -5px $brand-dark-purple;
+    padding: $account-button-internal-padding-hover;
+    @include transition(all, 0.15s, ease-in-out);
+    color: white;
+    background: $darker-purple-gradient-lightening-rightward;
+  }
+
+  &:focus{
+    box-shadow: 0px 8px 30px -5px $brand-light-purple;
+  }
+}
+
+.branded-pill-button.thin{
+  font-size: 14px;
+  padding: 10px 20px;
+}
+
+// stars
+.filled-star{
+  color: $brand-callout-yellow;
+}
+
+.unfilled-star{
+  color: #ebebeb;
+}
+
+.unfilled-star.half{
+  margin-left: -18px;
+}
+
+.carded-content{
+  background-color: white;
+  box-shadow: 0px 4px 10px 0px rgba(128, 128, 128, 0.3);
+  padding: 50px 40px;
+  margin-right: 8px;
+  margin-left: 8px;
 }

@@ -1,4 +1,120 @@
-.row.with-sitewide-padding.no-gutters.justify-content-center
-  .col-8.text-center
-    .brand-banner.brand-banner-padded WHAT WOULD YOU LIKE TO <span class="force-brand-light-purple">FIND</span>?
-    p A search bar will go here
+- if current_user == @user
+  .row.with-sitewide-padding.no-gutters.justify-content-right.edit-your-profile-row.more-margin
+    .col-12.text-right
+      = link_to "Edit Your Profile", edit_user_path(@user), class: "btn btn-primary"
+
+.row.with-sitewide-padding.no-gutters.justify-content-center.user-profile-top-row.more-margin
+  .col-7.user-summary
+    .carded-content.full-equal-height.profile-summary-card
+      .row
+        .col-md-3
+          - if current_user.has_cropped_profile_picture?
+            = image_tag(rails_representation_url(@user.pp_mid), class: "user-profile-profile-picure", title: "Profile picture")
+          - else
+            = image_tag("anonymous_user.png", class: "user-profile-profile-picure", title: "Profile picture")
+        .col-md-9
+          .top-info-row
+            span.name-and-reg-date
+              .name = @user.display_name_untruncated
+              .reg-date Member since #{@user.created_at.strftime("%b %-d, %Y")}
+            span.last-active
+              .last-active-text
+                i Last online: #{time_ago_in_words(@user.last_active)} ago
+          br
+          .row.bottom-info-row
+            .col-4
+              / .rating-text Rating: <i>No ratings yet</i>
+              .ratings-container
+                = render partial: "shared/stars", locals: {score: 3.5, average: true}
+                span.review-counter 142 reviews
+            .col-4.text-center
+              .active-ads = link_to "SEE ACTIVE ADS", "/", class: "btn branded-pill-button thin active-ads-link"
+            .col-4.text-right
+              .follow-me
+                .follow-me-text Follow Me:
+                .follow-me-heart-container = icon('fas', 'heart', class: "follow-me-heart")
+      hr.pre-bio-hr
+        .row
+          .col-12
+            .about-me-headline
+              b About Me
+            .about-me-text
+              = h(@user.about_me).gsub(/\n/, '<br/>').html_safe
+            hr.pre-bio-hr
+            .text-center
+              = link_to "Send Me a Message!", "/some-path", class: "btn branded-pill-button message-me-button"
+  .col-5.recent-reviews-col
+    .carded-content.full-equal-height.recent-review-card
+      .icon-holder-outer
+        .icon-holder-inner
+          .icon-holder = icon('fas', 'bell', class: "recent-reviews-icon")
+      .recent-reviews Recent Reviews
+      hr.pre-bio-hr
+      / there should be a loop here...
+      .row.review-preview
+        .col-4
+          .review-profile-picture-and-name-holder
+            .review-profile-picture.text-center = image_tag("https://si.wsj.net/public/resources/images/BN-JX741_wolfe_8S_20150819160732.jpg", class: "review-profile-picture-image")
+            .reviewer-name.text-center Oven Vilson
+        .col-8
+          .review-text-holder
+            .review-text-snippet "#{"[Owen Wilson voice] Wao".truncate(75)}"
+          hr.review-hr
+          .stars-and-timing
+            .stars-for-review = render partial: "shared/stars", locals: {score: 5, average: false}
+            .review-timing Reviewed #{time_ago_in_words(Time.now - 2.days)} ago
+      hr.pre-bio-hr
+      .row.review-preview
+        .col-4
+          .review-profile-picture-and-name-holder
+            .review-profile-picture.text-center = image_tag("https://scontent-ams3-1.cdninstagram.com/vp/a8591bf40e8e17d20326d8e1b62bd8ec/5CAEB9EE/t51.2885-19/s320x320/26263797_182962365626123_5372818046492606464_n.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com", class: "review-profile-picture-image")
+            .reviewer-name.text-center Gnaxkcles Prower
+        .col-8
+          .review-text-holder
+            .review-text-snippet "#{"Bernie's work was amazing in every way.  I really like what autotune has done with his voice.".truncate(75)}"
+          hr.review-hr
+          .stars-and-timing
+            .stars-for-review = render partial: "shared/stars", locals: {score: 4, average: false}
+            .review-timing Reviewed #{time_ago_in_words(Time.now - 2.days)} ago
+      hr.pre-bio-hr
+      .row.review-preview
+        .col-4
+          .review-profile-picture-and-name-holder
+            .review-profile-picture.text-center = image_tag("https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQwMjY3NjU5MTk4NDczNDQ5/gettyimages-168582304_croppedjpg.jpg", class: "review-profile-picture-image")
+            .reviewer-name.text-center Bitney Steer
+        .col-8
+          .review-text-holder
+            .review-text-snippet "#{"thank u".truncate(75)}"
+          hr.review-hr
+          .stars-and-timing
+            .stars-for-review = render partial: "shared/stars", locals: {score: 2, average: false}
+            .review-timing Reviewed #{time_ago_in_words(Time.now - 2.days)} ago
+      hr.pre-bio-hr
+.row.with-sitewide-padding.no-gutters.justify-content-center.user-profile-reviews-row.more-margin
+  .col-12.with-light-bottom-border-padded
+    .talk-bubble-with-circle
+      = icon('fas', 'comments', class: "user-reviews-icon")
+    .reviews-banner Reviews for #{@user.display_name_untruncated}:
+  .col-12.review-cols
+    .carded-content
+      .review-profile-picture-holder
+        .review-profile-picture = image_tag("https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQwMjY3NjU5MTk4NDczNDQ5/gettyimages-168582304_croppedjpg.jpg", class: "review-full-profile-picture-image")
+      .review-info-holder
+        .reviewer-name
+          | Bitney Sparrow
+          span.review-date Posted on #{(Time.now - 5.days).strftime("%b %-d, %Y")}
+        .report-dropdown.dropleft
+          / todo: the IDs here need to take a number to make them unique! such as ID of the review.  same with labelled by.
+          / todo: make them reportable
+          a id="reportMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            = icon('fas', 'ellipsis-h', class: "report-dropdown-icon")
+          .dropdown-menu aria-labelledby="reportMenuButton"
+            a.dropdown-item href="meow" Report
+        .full-review = BetterLorem.p(4, false, true).gsub('</p><p>', '<br><br>').html_safe
+
+br
+br
+br
+br
+br
+br
