@@ -20,9 +20,27 @@ class User < ApplicationRecord
   validate :username_unique, if: :will_save_change_to_username?
 
   has_one_attached :profile_picture
+  has_many :posts, dependent: :destroy
+  has_many :post_attachments # *DON'T* use d:d because posts will destroy them anyway
+  has_many :private_messages_a, class_name: "PrivateMessage", foreign_key: "user_a_id", dependent: :destroy
+  has_many :private_messages_b, class_name: "PrivateMessage", foreign_key: "user_b_id", dependent: :destroy
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
   before_save :crop_profile_picture
+
+  before_save :check_has_unread_messages, if: :will_save_change_to_unread_message_count?
+
+  def private_messages
+    private_messages_a.or(private_messages_b)
+  end
+
+  def check_has_unread_messages
+    self.has_unread_messages = unread_message_count > 0
+  end
+
+  def unread_message_count_display
+    [unread_message_count, 99].min
+  end
 
   def self.profile_picture_maximum_size
     "450x450" # best to pick a highly divisible number

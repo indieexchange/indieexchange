@@ -1,0 +1,17 @@
+
+
+.row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-top-row
+  .col-6
+    .carded-content.less-padding-v
+      .card-title-medium YOUR POSTS
+      .card-option
+        = link_to "View and manage your posts", user_posts_path(@user.id), class: "brand-link"
+      .card-option
+        = link_to "Create a new post", new_post_path, class: "brand-link"
+  .col-6
+    .carded-content.less-padding-v
+      .card-title-medium YOUR FOLLOWS
+      .card-option
+        = link_to "View your followers", "/some-path", class: "brand-link"
+      .card-option
+        = link_to "View those you follow", "/some-path", class: "brand-link"

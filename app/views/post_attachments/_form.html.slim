@@ -1,0 +1,69 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.attachment-form-headline-row
+  .col-4
+    .brand-banner.text-center POST ATTACHMENT
+
+    - if @post_attachment.document.attached?
+      .document-preview.text-center
+        - if @post_attachment.is_image_previewable?
+          a href="#{rails_blob_path(@post_attachment.document, disposition: 'attachment')}"
+            = image_tag(rails_representation_url(@post_attachment.document.variant(resize: "360x360").processed))
+          .document-file-name Click to download full image
+        - else
+          .document-preview-without-image
+            a href="#{rails_blob_path(@post_attachment.document, disposition: 'attachment')}"
+              .link-holder
+                .document-preview-icon-holder = icon('fas', 'file-download', class: 'document-preview-icon')
+                .document-click-to-download Click to download
+          .document-file-name = @post_attachment.short_filename
+
+      = form_for @user, url: purge_post_post_attachment_path(@post, @post_attachment) do |f|
+        .text-center = f.submit "DELETE DOCUMENT", class: "btn btn-primary", data: {confirm: "Really delete this document?"}
+
+      = form_for [@post, @post_attachment] do |f|
+        .form-group.description-form-group
+          = f.label :description, class: "form-label"
+          = f.text_field :description, class: "form-control"
+
+        .text-center
+          = f.submit "Save Attachment Details", class: "btn btn-primary", id: "submit-document-button"
+    - else
+      - if @post_attachment.errors.any?
+        .error-explanation.form-error-container
+          - @post_attachment.errors.full_messages.each do |message|
+            .error-detail = message
+      .post-attachment-instructions You can upload any file from your computer under 4MB. All files will display the optional file description you choose, but only PNG, JPG, and BMP files will show an image preview. Other file types will show a document icon.
+
+      = form_for [@post, @post_attachment] do |f|
+        label.btn.btn-success.choose-document
+          span#instructions.choose-document Choose Document
+          = f.file_field :document, style: "display: none"
+
+        .current-document-selection
+          | Current selection:
+          span.selected-file-name Nothing selected
+
+        .form-group.description-form-group
+          = f.label :description, class: "form-label"
+          .form-helper.with-margin Maximum 250 characters
+          = f.text_field :description, class: "form-control"
+
+        .actions
+          = f.submit "Create Attachment", class: "btn btn-primary", id: "submit-document-button"
+
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).on('change', ':file', function() {
+    var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+    input.trigger('fileselect', [numFiles, label]);
+    $(".selected-file-name").text(label);
+    $(".current-document-selection").show();
+    $("#submit-document-button").show();
+    $("#instructions").text("Choose a Different Document");
+  });

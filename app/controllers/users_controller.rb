@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy,
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard,
                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                   :crop_profile_picture]
-  before_action :self_only, only: [:show, :edit, :update, :destroy,
+  before_action :self_only, only: [:show, :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                   :crop_profile_picture]
 
@@ -91,7 +91,10 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(params[:id]) if params[:id]
+      if @user.nil? and params[:action] == "dashboard"
+        @user = current_user
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

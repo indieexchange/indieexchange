@@ -1,0 +1,76 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+.attachment-form-headline-row{
+  padding-top: 40px;
+
+  .document-preview{
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .document-file-name{
+      margin-top: 5px;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .document-preview-without-image{
+      height: 150px;
+      width: 150px;
+      background-color: rgba($brand-light-purple, 0.1);
+      margin: 0 auto;
+      border: 2px solid $brand-light-purple;
+      border-radius: 5px;
+      .link-holder{
+        padding-bottom: 35px;
+        .document-preview-icon{
+          color: $brand-dark-purple;
+          font-size: 40px;
+          margin-top: 45px;
+        }
+
+        .document-click-to-download{
+          font-family: $roboto;
+          font-weight: 300;
+          font-size: 13px;
+          margin-top: 5px;
+          font-weight: 400;
+          color: $brand-dark-purple;
+        }
+      }
+    }
+  }
+
+  .post-attachment-instructions{
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  .choose-document{
+    margin-top: 30px;
+  }
+
+  #submit-document-button{
+    margin-top: 30px;
+  }
+
+  .description-form-group{
+    margin-top: 30px;
+  }
+
+  .current-document-selection{
+    display: none;
+    font-weight: bold;
+    .selected-file-name{
+      margin-left: 10px;
+      font-weight: 300;
+      font-size: $small-font-size;
+      font-style: italic;
+    }
+  }
+}

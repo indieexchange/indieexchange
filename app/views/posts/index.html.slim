@@ -1,0 +1,123 @@
+- if params[:action] == "search"
+  .row.post-index-toggle-button.no-gutters.with-sitewide-padding
+    .col-12.mx-auto
+      .btn.branded-pill-button.thin#show-search-form Show Search Form
+
+.row.post-index-search-row.no-gutters#search-form class="#{params[:action] == 'search' ? 'less-margin-top hidden' : ''}"
+  .col-8.mx-auto
+    .card.card-brand-color.my-5
+      .card-body
+        = form_tag search_posts_path do
+          h5.card-title.text-center Search Active Posts
+          form.form-brand-color
+            .row.search-filters-row
+              .col-xl-6.col-lg-12
+                .form-label-group
+                  .radio-group-label = label :seeking, "I want to see:"
+                  .get-work
+                    .dib = radio_button_tag :seeking, false, !(ActiveModel::Type::Boolean.new.cast(params[:seeking]) or params[:seeking].blank?)
+                    .radio-button-label.dib = label :seeking, "Services offered by others", value: "true"
+                  .do-work
+                    .dib = radio_button_tag :seeking, true, (ActiveModel::Type::Boolean.new.cast(params[:seeking]) or params[:seeking].blank?)
+                    .radio-button-label.dib = label :seeking, "People who need my services", value: "false"
+              .col-xl-6.col-lg-12
+                .form-label-group
+                  .dropdown-label.category-label Category:
+                  .styled-select
+                    .select-hider
+                    = select_tag :subcategory_id, options_for_select(Subcategory.selection_options, params[:subcategory_id]), class: "subcategory-selector"
+              .col-xl-6.col-lg-12
+                .form-label-group
+                  = text_field_tag :maximum_price, params[:maximum_price], placeholder: "Max price", required: false, type: "text", class: "form-control", id: "input-maximum-price", title: "Maximum price: numbers only, such as 10, 2.50, 0.50, or .25", pattern: "^\.[0-9]+$|^[0-9]+\.[0-9]+$|^[0-9]+$"
+                  label for="input-maximum-price" Max price <span id="pricing-type">(per word)</span>
+              .col-xl-6.col-lg-12
+                .form-label-group
+                  = text_field_tag :keywords, params[:keywords], placeholder: "Keywords", required: false, type: "text", class: "form-control", id: "input-keywords", title: "Only posts matching all keywords will be shown", data: {toggle: "tooltip", placement: "left"}, oninvalid: "setCustomValidity('Enter words separated by a single space (no numbers, punctuation, or quotes)')", pattern: "^[[a-zA-Z]+\s]*[[a-zA-Z]]$"
+                  label for="input-keywords" Keywords
+              .col-xl-6
+              .col-xl-6.col-lg-12
+                = submit_tag "FIND POSTS", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
+
+br
+- if @posts&.any?
+  .row.with-sitewide-padding.no-gutters.justify-content-center.post-count-row
+    .col-12
+      .carded-content
+        .found-jobs-line <span class="number-found">#{@posts.count}</span> posts found in <span class="subcategory-searched">#{@subcategory.title}</span> matching your criteria
+  .row.with-sitewide-padding.no-gutters.justify-content-center.results-header-row
+    .col-12
+      .carded-content.less-padding-v
+        .row
+          .col-2.text-center
+            .header
+              b Posted by
+          .col-6
+            .header
+              b Title and description preview
+          .col-1
+            .header
+              b Price
+          .col-1
+            .header
+              b Created
+          .col-2
+            .header
+              b Rating
+  - @posts.each do |post|
+    a.full-post-link href="#{post_path(post)}"
+      .row.with-sitewide-padding.no-gutters.justify-content-center.result-row
+        .col-12
+          .carded-content.less-padding-v
+            .row
+              .col-2.text-center.center-v
+                - if post.user.has_cropped_profile_picture?
+                  .result-profile-picture-holder = image_tag(rails_representation_url(post.user.pp_mid), class: "result-profile-picture")
+                - else
+                  .result-profile-picture-holder = image_tag("anonymous_user.png", class: "result-profile-picture")
+                .result-user-name #{post.user.display_name}
+              .col-6.center-v
+                .post-title = post.title
+                .post-description = h(post.description.truncate(128)).gsub(/\n/, '<br/>').html_safe
+              .col-1.center-v
+                .price $#{"%.2f" % post.price}
+                .pricing-word per #{@subcategory.pricing_type}
+              .col-1.center-v
+                .time-ago #{time_ago_in_words(post.created_at)} ago
+              .col-2.center-v
+                .rating
+                  == render partial: "shared/stars", locals: {score: Random.rand * 4 + 1, average: false}
+                  .rating-count.dib #{Random.rand(100)}
+br
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).ready(function(){
+    var showing = false;
+    $("#show-search-form").click(function(){
+      if (showing == false) {
+        $("#search-form").slideDown();
+      } else {
+        $("#search-form").slideUp();
+      }
+      showing = !showing;
+    });
+
+    var pricing_types = #{ Subcategory.pricing_type_words }
+
+    function updateWording() {
+      word = pricing_types[parseInt($("#subcategory_id").val())]
+      $("#pricing-type").text("(per " + word + ")");
+    }
+
+    // do it whenever there is a change
+    $("#subcategory_id").on('change', function(){
+      updateWording();
+    })
+
+    // also do it on page load, in case it's edit and it's not the default wording
+    updateWording();
+  });

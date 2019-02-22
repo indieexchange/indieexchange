@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_a: one
+  user_b: one
+  post: one
+  last_message_time: 2019-02-20 15:51:35
+
+two:
+  user_a: two
+  user_b: two
+  post: two
+  last_message_time: 2019-02-20 15:51:35

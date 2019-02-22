@@ -1,0 +1,140 @@
+.row.with-sitewide-padding.no-gutters.post-display-row.post-show-page
+  .col-3
+    .carded-content.less-padding-v.full-equal-height
+      .post-profile-picture-holder.text-center
+        - if @user.has_cropped_profile_picture?
+          = image_tag(rails_representation_url(@user.pp_mid), class: "post-profile-picture", title: "Profile picture")
+        - else
+          = image_tag("anonymous_user.png", class: "post-profile-picture", title: "Profile picture")
+      .post-display-name.text-center #{@user.display_name_untruncated}
+      .post-time-ago.text-center Posted #{time_ago_in_words(@post.created_at)} ago
+      hr.mid-light-grey-hr
+      .ratings-headline.text-center Ratings
+      .user-rating
+        .user-rating-text User
+        .user-rating-stars.dib == render partial: 'shared/stars', locals: {score: 4.5, average: true}
+        .user-rating-count.dib &#40;999&#41;
+      .service-rating
+        .service-rating-text Service
+        .service-rating-stars.dib == render partial: 'shared/stars', locals: {score: 4.2, average: false}
+        .service-rating-count.dib &#40;999&#41;
+      - if @user != current_user
+        hr.mid-light-grey-hr
+        .interested.text-center Interested?
+        .send-a-message-button.text-center
+          = link_to "SEND A MESSAGE", start_private_message_path(@user, current_user.id), class: "btn branded-pill-button thin longer"
+  .col-5
+    .carded-content.less-padding-v.full-equal-height
+      .branded-callout Updated recently!
+      .title-and-price
+        .post-title.dib = @post.title
+        .post-price-info.dib.text-right
+          .post-price-header Price
+          .post-price-number <span class="dollar-sign">$</span>#{"%.2f" % @post.price}
+          .post-price-unit per #{@post.subcategory.pricing_type}
+      .job-information-row
+        .info-type.dib Type:
+        .info-data.dib #{@post.is_offering? ? "Offering" : "Seeking"}
+        .info-type.dib Posted:
+        .info-data.dib #{time_ago_in_words(@post.created_at)} ago
+        .info-type.dib Updated:
+        .info-data.dib #{time_ago_in_words(@post.updated_at)} ago
+      .update-area
+        .update-headline Latest Updates
+        .update-text-preview There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway x There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's xxx pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway 
+        / .update-text-full There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway x There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's xxx pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway There's some stuff here that you should see, and it's pretty long, but anyway 
+        .update-click-to-see-more Click to see more
+      .description-area
+        .description-headline Description
+        .description-text = h(@post.description).gsub(/\n/, '<br/>').html_safe
+  .col-4
+    .carded-content.less-padding-v.full-equal-height
+      .review-headline-and-icon
+        .review-icon-holder.dib = icon('fas', 'star', class: "review-icon")
+        .review-headline.dib User Reviews
+      hr.mid-light-grey-hr
+      .review-holding-area
+        .author-information-area.text-center.dib
+          .author-profile-picture-holder = image_tag("https://i.imgur.com/g02sMtm.png", class: "author-profile-picture")
+          .author-name = current_user.display_name
+          .reviewed-at #{time_ago_in_words(Time.now - 60.hours)} ago
+        .review-information-area.dib
+          .review-stars-and-count
+            .review-stars-holder.dib == render partial: "shared/stars", locals: {score: 4.25, average: false}
+            .review-count-holder.dib &#40;999&#41;
+          .review-title #{"Excellent sex scenes from a most excellent kitty".truncate(40)}
+          .review-text #{"Honestly, I'm surprised a cat can write so well, and I suspect this may be a hoax. Ut ac quam eu nulla volut pat tempor et sit amet nisi. Nunc tincidunt tempor ligula, a tempor nisi. Praesent consectetur felis metus, sit amet vehicula lorem fringilla sed. Integer convallis ligula quam, ac laoreet odio tincidunt eget.".truncate(80)}
+          .review-link
+            = link_to "FULL REVIEW", "/some-path#some-review-id", class: "btn branded-pill-button xs"
+      hr.mid-light-grey-hr
+      .review-holding-area
+        .author-information-area.text-center.dib
+          .author-profile-picture-holder = image_tag("https://i.imgur.com/5WrJS0c.png", class: "author-profile-picture")
+          .author-name = current_user.display_name
+          .reviewed-at #{time_ago_in_words(Time.now - 20.hours)} ago
+        .review-information-area.dib
+          .review-stars-and-count
+            .review-stars-holder.dib == render partial: "shared/stars", locals: {score: 4.25, average: false}
+            .review-count-holder.dib &#40;999&#41;
+          .review-title #{"Excellent sex scenes from a most excellent kitty".truncate(40)}
+          .review-text #{"Honestly, I'm surprised a cat can write so well, and I suspect this may be a hoax. Ut ac quam eu nulla volut pat tempor et sit amet nisi. Nunc tincidunt tempor ligula, a tempor nisi. Praesent consectetur felis metus, sit amet vehicula lorem fringilla sed. Integer convallis ligula quam, ac laoreet odio tincidunt eget.".truncate(80)}
+          .review-link
+            = link_to "FULL REVIEW", "/some-path#some-review-id", class: "btn branded-pill-button xs"
+      hr.mid-light-grey-hr
+        .see-all-reviews
+          .star-icon.dib = icon('fas', 'star', class: "more-reviews-star")
+          .dib = link_to "SEE ALL REVIEWS", "/some-path", class: "see-all-reviews-link"
+          a href="/some-path"
+            .right-arrow.dib = icon('fas', 'caret-right', class: "see-all-reviews-right")
+
+.row.no-gutters.with-sitewide-padding.justify-content-center.attachment-gallery-row.on-preview-page
+  .col-12
+    .carded-content.less-padding-v
+      .midsize-banner.dib SAMPLE GALLERY
+      - if @post.post_attachments.any?
+        span.gallery-instruction.dib Click any sample to download it
+        .row.justify-content-left.attachment-previews-row
+          - @post.post_attachments.each do |post_attachment|
+            .col-lg-3.col-md-4.col-sm-6.post-attachment-preview-row
+              .post-attachment-preview.text-center.mx-auto
+                - if post_attachment.is_image_previewable?
+                  - attachment_url = url_for(post_attachment.document.variant(resize: '1000x1000>', combine_options: { gravity: 'center', draw: 'image Over 0,0 0,0 "' + "public/indie_exchange.png" + '"' }))
+                  a href="#{attachment_url}" target="_blank"
+                    .document-preview.with-line-height.text-center
+                      = image_tag(rails_representation_url(post_attachment.document.variant(resize: "196x196").processed), class: "document-preview-image")
+                - else
+                  - attachment_url = url_for(post_attachment.document)
+                  a href="#{attachment_url}" target="_blank"
+                    .document-preview.text-center = icon('fas', 'file-download', class: "document-preview-icon")
+
+              .post-attachment-description.text-center = post_attachment.description
+      - else
+        .no-attachments This post does not have any attachments.
+
+
+br
+br
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).ready(function(){
+    var showing_all = false;
+    $(".update-click-to-see-more").click(function(){
+      if (showing_all == false){
+        $(".update-text-preview").animate({"max-height": 800}, 1000, function(){
+          $(".update-text-preview").css("max-height", $(".update-text-preview").height());
+          $(".update-text-preview").css("overflow-y", "auto");
+        });
+        $(this).text("Click to collapse");
+      } else {
+        $(".update-text-preview").animate({"max-height": 65}, 1000);
+        $(".update-text-preview").css("overflow-y", "hidden");
+        $(this).text("Click to see more");
+      }
+      showing_all = !showing_all;
+    })
+  })

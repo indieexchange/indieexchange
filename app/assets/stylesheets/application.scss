@@ -17,7 +17,7 @@
 @import "font-awesome";
 
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:300,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto:300;400,400i,500,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,300i;400,400i,500,700');
 
 @import "variables";
 
@@ -38,6 +38,22 @@ body{
   margin: 0;
   min-height: 100%;
   font-family: $roboto-condensed;
+}
+
+.full-equal-height{
+  height: 100%;
+}
+
+.dib{
+  display: inline-block;
+}
+
+.hw{
+  width: 50%;
+}
+
+.mid-light-grey-hr{
+  border-top-color: #e6e6e6;
 }
 
 .force-brand-light-purple{
@@ -196,7 +212,6 @@ body{
 }
 
 .form-error-container{
-  background-color: lighten($brand-warning-color, 2.5%);
   padding: 10px;
   border-radius: 3px;
   margin-bottom: 20px;
@@ -208,9 +223,11 @@ body{
   }
 
   .error-detail{
-    padding-left: 15px;
-    padding-right: 15px;
+    background-color: lighten($brand-warning-color, 2.5%);
+    padding: 10px 15px;
+    margin-bottom: 20px;
     font-weight: 700;
+    border-radius: 3px;
   }
 
 }
@@ -285,11 +302,40 @@ body{
 
     .user-messages-link{
       line-height: $indie-exchange-image-height;
+
+      .unread-message-counter{
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: white;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        font-size: 12px;
+        box-shadow: 0px 0px 10px 3px #ccccccba;
+        padding-top: 4px;
+        font-family: $roboto;
+        font-weight: 700;
+        text-align: center;
+
+      }
+
+      .messages-envelope.with-counter{
+        position: relative;
+      }
+
       .messages-envelope{
+        &:hover{
+          color: $brand-light-purple;
+          @include transition(all, 0.5s);
+        }
+
         color: $icon-medium-gray;
         font-size: $icon-medium-small-font-size;
         height: $icon-medium-small-font-size;
+        width: $icon-medium-small-font-size;
         vertical-align: middle;
+        @include transition(all, 0.5s);
       }
     }
   }
@@ -306,6 +352,11 @@ body{
         font-size: calc(#{$icon-medium-small-font-size} - 7px);
         height: calc(#{$icon-medium-small-font-size} - 7px);
         vertical-align: middle;
+
+        &:hover{
+          color: $brand-light-purple;
+          @include transition(all, 0.5s);
+        }
       }
     }
   }
@@ -331,10 +382,11 @@ body{
 }
 
 .brand-sub-banner{
-  font-family: $roboto-condensed;
+  font-family: $roboto;
   color: $subtext-color;
   padding-top: 20px;
   padding-bottom: 30px;
+  font-weight: 300;
 }
 
 .brand-sub-banner.less-padding{
@@ -423,6 +475,30 @@ body{
   background-color: darken($brand-green, 20%);
 }
 
+.btn-danger{
+  background-color: darken($brand-warning-color, 30%);
+  border-color: darken($brand-warning-color, 35%);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 10px 20px;
+
+  &:hover{
+    background-color: darken($brand-warning-color, 35%);
+  }
+
+  &:active{
+    background-color: darken($brand-warning-color, 40%);
+  }
+
+  &:focus{
+    box-shadow: 0 0 0 0.2rem rgba(183, 151, 248, 0.5);
+  }
+}
+
+.btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active, .show > .btn-danger.dropdown-toggle{
+  background-color: darken($brand-warning-color, 30%);
+}
+
 .branded-pill-button{
   color: $light-font-color;
   background: $purple-gradient-lightening-rightward;
@@ -445,9 +521,52 @@ body{
   }
 }
 
+.branded-pill-button.xs{
+  padding: 5px 15px;
+  font-size: 12px;
+  font-family: $roboto;
+  box-shadow: 2px 3px 7px 0px #8072ef69;
+}
+
+.branded-pill-button.xxs{
+  font-size: 10px;
+  font-family: $roboto;
+  box-shadow: 2px 3px 7px 0px #8072ef69;
+  padding: 3px 10px;
+}
+
 .branded-pill-button.thin{
   font-size: 14px;
   padding: 10px 20px;
+}
+
+.branded-pill-button.thin.longer{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.branded-callout{
+  color: $light-font-color;
+  font-family: $roboto;
+  font-size: 12px;
+  display: inline-block;
+  background: $purple-gradient-lightening-rightward;
+  padding: 5px 15px;
+  border-radius: $account-button-border-radius;
+  @include transition(all, 0.15s, ease-in-out);
+
+  &:hover{
+    text-decoration: none;
+    box-shadow: 0px 8px 30px -5px $brand-dark-purple;
+    padding: $account-button-internal-padding-hover;
+    @include transition(all, 0.15s, ease-in-out);
+    color: white;
+    background: $darker-purple-gradient-lightening-rightward;
+  }
+
+  &:focus{
+    box-shadow: 0px 8px 30px -5px $brand-light-purple;
+  }
 }
 
 // stars
@@ -465,8 +584,33 @@ body{
 
 .carded-content{
   background-color: white;
-  box-shadow: 0px 4px 10px 0px rgba(128, 128, 128, 0.3);
+  box-shadow: 0px 4px 10px 0px rgba($brand-box-shadow-purple, .3);
   padding: 50px 40px;
   margin-right: 8px;
   margin-left: 8px;
+  .card-title-medium{
+    font-size: 22px;
+    font-family: $roboto;
+    color: $brand-gray-text;
+  }
+
+  .card-option{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.carded-content.no-side-margin{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.carded-content.less-padding-h{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.carded-content.less-padding-v{
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

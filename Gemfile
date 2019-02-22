@@ -32,6 +32,7 @@ gem 'carrierwave'
 gem 'rails-assets-jcrop', source: 'https://rails-assets.org'
 gem 'simple_form'
 gem 'betterlorem'
+gem 'awesome_print'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

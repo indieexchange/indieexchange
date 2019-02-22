@@ -7,7 +7,7 @@ script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.m
       .brand-sub-banner.text-center
         | Drag the highlighted area to move the square.  Drag the corners or edges to resize it.
         br
-        | <b>Make sure to click the <span class="force-brand-dark-purple">"Crop Photo"</span> button when done!</b>
+        | <b>Make sure to click the <span class="force-brand-dark-purple">"Save Photo"</span> button when done!</b>
   .row.justify-content-center.with-sitewide-padding.no-gutters
     .col-5
       = image_tag @user.profile_picture.variant(resize: User.profile_picture_maximum_size), id: "cropbox"
@@ -18,7 +18,7 @@ script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.m
       div style=("width:100px; height:100px; overflow:hidden")
         = image_tag @user.profile_picture, id: "preview"
       br
-      = f.submit "Crop Photo", class: "btn btn-primary"
+      = f.submit "Save Photo", class: "btn btn-primary"
 
 br
 br

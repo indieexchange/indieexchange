@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  description: MyText
+  price: 9.99
+  subcategory: one
+  rating: 9.99
+  is_offering: false
+  is_promoted: false
+  is_visible: false
+  last_update_bump_at: 2019-02-16 15:54:11
+
+two:
+  title: MyString
+  description: MyText
+  price: 9.99
+  subcategory: two
+  rating: 9.99
+  is_offering: false
+  is_promoted: false
+  is_visible: false
+  last_update_bump_at: 2019-02-16 15:54:11

@@ -1,0 +1,53 @@
+.row.with-sitewide-padding.no-gutters.show-private-message-row.justify-content-center
+  .col-12
+    .row.justify-content-center.no-gutters
+      .col-2
+      .col-5
+        .headline.match-carded-content-margins Messages between you and #{@other_user.display_name}
+      .col-1
+  - if @private_message.messages.any?
+    .col-12
+      - @messages.each do |message|
+        .row.justify-content-center.message-containing-row.no-gutters
+          .col-2.text-right
+            .pm-profile-picture-holder
+              - if message.sender.has_cropped_profile_picture?
+                = image_tag(rails_representation_url(message.sender.pp_thumb), class: "pm-profile-picture")
+              - else
+                = image_tag("anonymous_user.png", class: "pm-profile-picture")
+          .col-5
+            .carded-content.less-padding-v
+              .name-and-time
+                .name.dib = message.sender.display_name
+                .time.dib = time_ago_in_words(message.created_at) + " ago"
+              .message = h(message.body).gsub(/\n/, '<br/>').html_safe
+          .col-1
+  - else
+    .col-2.text-right
+      .pm-profile-picture-holder
+        - if @other_user.has_cropped_profile_picture?
+          = image_tag(rails_representation_url(@other_user.pp_thumb), class: "pm-profile-picture")
+        - else
+          = image_tag("anonymous_user.png", class: "pm-profile-picture")
+    .col-5
+      .carded-content.less-padding-v
+        .this-is-the-start There are no messages yet between you and #{@other_user.display_name}
+    .col-1
+
+.row.with-sitewide-padding.no-gutters.justify-content-center.compose-message-row
+  .col-2
+  .col-5
+    .match-carded-content-margins
+      = form_for [@private_message, @message], url: new_message_private_message_path(@private_message) do |f|
+        .form-group
+          = f.label :body, "Compose a New Message", class: "form-label"
+          = f.text_area :body, rows: 6, class: "form-control"
+
+        = f.submit "SEND MESSAGE", class: 'btn btn-primary'
+  .col-1
+
+br
+br
+br
+br
+br

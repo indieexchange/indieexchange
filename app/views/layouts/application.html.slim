@@ -54,7 +54,7 @@ html
               = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
           .col-3.main-user-controls.text-right
             .profile-information
-              a.user-profile-link href="#{edit_user_path(current_user)}"
+              a.user-profile-link href="#{user_path(current_user)}"
                 - if current_user.has_cropped_profile_picture?
                   span.user-profile-picture
                     = image_tag(rails_representation_url(current_user.pp_thumb), class: "user-control-profile-picture", title: "Profile picture")
@@ -64,13 +64,14 @@ html
                 span.user-display-name
                   = current_user.display_name
             .message-information
-              a.user-messages-link href="/to-some-messages"
-                - if true # if user has no messages
-                  = icon('fas', 'envelope', class: 'messages-envelope', title: "Check your messages (no new messages)")
+              a.user-messages-link href="#{user_private_messages_path(current_user)}"
+                - if !current_user.has_unread_messages
+                  = icon('fas', 'envelope', class: 'messages-envelope', title: "See private messages (no new messages)")
                 - else
-                  = icon('fas', 'envelope-open-text', class: 'messages-envelope force-brand-light-purple', title: "Check your messages (new messages available)")
+                  .icon-and-count-holder
+                    <i class="fas fa-envelope-open-text messages-envelope with-counter force-brand-light-purple" title="Check your messages (new messages available)"><div class="unread-message-counter">#{current_user.unread_message_count_display}</div></i>
             .search-information
-              a.user-search-link href="/to-some-search-path"
+              a.user-search-link href="#{posts_path}"
                 = icon('fas', 'search', class: 'search-magnifying-glass', title: "Start a new search")
       - else # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters

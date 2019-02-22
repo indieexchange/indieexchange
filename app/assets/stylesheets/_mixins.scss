@@ -5,3 +5,11 @@
   -o-transition:      $what $time $how;
   transition:         $what $time $how;
 }
+
+@mixin gradient-text($angle: 45deg, $color: #f82, $lastcolor: #082) {
+  color: $color;
+  background: -webkit-linear-gradient($angle, $color, $lastcolor);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  display: inline-block;
+}

@@ -1,0 +1,41 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center
+  .col-8.text-center
+    .brand-banner.brand-banner-padded POST ATTACHMENTS
+    .brand-sub-banner.less-padding For your post "#{@post.title.truncate(60)}"
+
+.row.no-gutters.justify-content-center.attachment-gallery-row
+  .col-8
+    .carded-content.less-padding-v
+      .midsize-banner CURRENT ATTACHMENTS
+      - if @post.post_attachments.any?
+        .row.justify-content-left.attachment-previews-row
+          - @post.post_attachments.each do |post_attachment|
+            .col-md-4.col-sm-6.post-attachment-preview-row
+              .document-controls
+                a href="#{edit_post_post_attachment_path(@post, post_attachment)}"
+                  .edit-control.document-control = icon('fas', 'pencil-alt', class: "edit-control-icon")
+                a href="#{post_post_attachment_path(@post, post_attachment)}" data-method="delete" data-confirm="Really delete this attachment?"
+                  .delete-control.document-control = icon('fas', 'times', class: "delete-control-icon")
+              .post-attachment-preview.text-center.mx-auto
+                - if post_attachment.is_image_previewable?
+                  .document-preview.with-line-height.text-center
+                    = image_tag(rails_representation_url(post_attachment.document.variant(resize: "196x196").processed), class: "document-preview-image")
+                - else
+                  .document-preview.text-center = icon('fas', 'file-download', class: "document-preview-icon")
+
+              .post-attachment-description.text-center = post_attachment.description
+      - else
+        .no-attachments This post does not have any attachments right now.  You can add some with the button below
+
+.row.no-gutters.justify-content-center.attachment-actions-row
+  .col-8
+    .carded-content.less-padding-v
+      .midsize-banner ACTIONS
+      .attachment-actions
+        = link_to "ADD AN ATTACHMENT", new_post_post_attachment_path(@post), class: "btn btn-primary add-attachment"
+        = link_to "CONTINUE TO PREVIEW", preview_post_path(@post), class: "btn btn-success delete-attachments"
+br
+br
+br
+br
+br

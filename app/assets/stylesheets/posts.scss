@@ -1,0 +1,595 @@
+// Place all the styles related to the Posts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+@import "mixins";
+@import "brand_forms";
+@import "styled_select";
+
+a.full-post-link{
+  color: inherit;
+  &:hover{
+    text-decoration: inherit;
+  }
+}
+
+.result-row{
+  margin-top: 1.5rem;
+
+  .center-v{
+    margin: auto 0;
+  }
+
+  .price{
+    font-family: $roboto;
+    font-weight: 700;
+    font-size: 18px;
+    color: #6f5eed;
+  }
+
+  .pricing-word{
+    font-size: 14px;
+    margin-top: -7px;
+    font-style: italic;
+  }
+
+  .rating{
+    .rating-count{
+      font-family: $roboto;
+      font-style: italic;
+      margin-left: 5px;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+
+  .time-ago{
+    font-family: $roboto;
+    font-weight: 400;
+    font-size: 13px;
+    color: $brand-solid-grey-text;
+  }
+  .post-title{
+    font-family: $roboto;
+    font-size: 20px;
+    font-weight: 500;
+    color: $brand-off-black-two;
+  }
+
+  .post-description{
+    margin-top: 10px;
+    font-family: $roboto;
+    font-size: 15px;
+    font-weight: 300;
+  }
+  .result-profile-picture-holder{
+    .result-profile-picture{
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
+      border: 3px solid $brand-dark-purple;
+    }
+  }
+
+  .result-user-name{
+    font-family: $roboto;
+    font-size: 16px;
+    color: $brand-off-black-two;
+    margin-top: 0.5rem
+  }
+}
+
+.results-header-row{
+  margin-top: 1.5rem;
+  .header{
+    // color: $brand-solid-grey-text;
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 15px;
+    @include gradient-text(0deg, darken($brand-dark-purple, 10%), lighten($brand-dark-purple, 3%));
+  }
+}
+
+.post-count-row{
+  .found-jobs-line{
+    font-size: 22px;
+    color: $brand-off-black-two;
+    font-family: $roboto;
+    font-weight: 500;
+
+    .number-found, .subcategory-searched{
+      @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    }
+  }
+}
+
+.post-index-toggle-button{
+  margin-top: 30px;
+}
+
+.post-index-search-row.less-margin-top{
+  .card-brand-color{
+    margin-top: 1.5rem !important;
+  }
+}
+
+.hidden{
+  display: none;
+}
+
+.post-index-search-row{
+  .card-title{
+    margin-bottom: 1rem;
+  }
+
+  .card-brand-color{
+    padding: 20px 30px;
+  }
+
+  .category-label{
+    margin-bottom: 10px;
+  }
+
+  .search-filters-row{
+    [class*="col-"]{
+      margin-top: 10px;
+    }
+  }
+
+}
+
+.gallery-instruction{
+  font-family: $roboto;
+  font-weight: 300;
+  font-size: 13px;
+  margin-left: 15px;
+}
+
+.post-preview-instruction-row{
+  margin-top: 30px;
+
+  .carded-content{
+    background-color: lighten($brand-callout-yellow, 35%);
+
+    .is-preview{
+      font-family: $roboto;
+    }
+
+    .btn-vs{
+      font-size: 12px;
+      font-family: $roboto;
+      padding: 5px 15px;
+      margin-left: 10px;
+    }
+  }
+}
+
+.post-display-row.post-show-page{
+  margin-top: 40px;
+}
+
+.post-display-row{
+  margin-top: 20px;
+
+  .review-holding-area{
+    padding-top: 15px;
+    .author-information-area{
+      width: 25%;
+
+      .author-profile-picture-holder{
+        .author-profile-picture{
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          border: 2px solid $brand-dark-purple;
+        }
+      }
+
+      .author-name{
+        font-family: $roboto;
+        margin-top: 7px;
+        font-size: 13px;
+      }
+
+      .reviewed-at{
+        font-family: $roboto;
+        font-weight: 300;
+        color: $brand-solid-grey-text;
+        font-size: 12px;
+      }
+    }
+
+    .review-information-area{
+      vertical-align: top;
+      width: 70%;
+      margin-left: 5%;
+
+      .review-stars-and-count{
+        .review-count-holder{
+          font-family: $roboto;
+          margin-left: 5px;
+          font-weight: 300;
+          font-size: 13px;
+        }
+      }
+
+      .review-title{
+        font-family: $roboto;
+        font-size: 20px;
+        margin-top: 8px;
+        line-height: 22px;
+      }
+
+      .review-text{
+        font-family: $roboto;
+        font-weight: 300;
+        margin-top: 25px;
+      }
+
+      .review-link{
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .see-all-reviews{
+    margin-top: 20px;
+    .star-icon{
+      .more-reviews-star{
+        color: $brand-light-purple;
+        font-size: 18px;
+      }
+    }
+
+    .see-all-reviews-link{
+      @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+      font-family: $roboto;
+      font-weight: 500;
+      font-size: 25px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .right-arrow{
+      margin-left: 10px;
+      background-color: white;
+      box-shadow: 1px 1px 8px 0px #ccc;
+      height: 25px;
+      width: 25px;
+      border-radius: 50%;
+      .see-all-reviews-right{
+        font-size: 20px;
+        vertical-align: middle;
+        margin-left: 10px;
+        color: $brand-light-purple;
+      }
+    }
+  }
+
+  .review-headline-and-icon{
+    .review-icon-holder{
+      color: $brand-callout-yellow;
+      font-size: 25px;
+      vertical-align: top;
+    }
+
+    .review-headline{
+      margin-left: 10px;
+      font-family: $roboto;
+      font-weight: 500;
+      font-size: 27px;
+      color: $brand-off-black-two;
+    }
+  }
+
+  .update-area{
+    .update-headline{
+      font-family: $roboto;
+      font-size: 20px;
+      margin-top: 20px;
+      @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    }
+
+    .update-text-preview{
+      max-height: 65px;
+      overflow-y: hidden;
+      font-family: $roboto;
+      font-weight: 300;
+      margin-top: 15px;
+      line-height: 25px;
+    }
+
+    .update-text-preview.show-full{
+      max-height: inherit;
+      @include transition();
+    }
+
+    .update-text-full{
+      display: none;
+    }
+
+    .update-click-to-see-more{
+      margin-top: 20px;
+      @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+      cursor: pointer;
+    }
+  }
+
+  .description-area{
+    .description-headline{
+      font-family: $roboto;
+      font-size: 20px;
+      margin-top: 20px;
+      color: $brand-off-black-two;
+    }
+
+    .description-text{
+      font-family: $roboto;
+      font-weight: 300;
+      margin-top: 15px;
+      line-height: 25px;
+      color: #777777;
+    }
+  }
+
+  .job-information-row{
+    margin-top: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+
+    .info-type{
+      font-family: $roboto;
+      font-size: 13px;
+      color: #999;
+      font-weight: 300;
+      margin-left: 10px;
+      margin-right: 5px;
+    }
+
+    .info-type:first-child{
+      margin-left: 0px;
+    }
+
+    .info-data{
+      margin-right: 25px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+  }
+
+  .title-and-price{
+    .post-title{
+      font-family: $roboto;
+      font-size: 20px;
+      margin-top: 15px;
+      width: 75%;
+      color: $brand-off-black-two;
+    }
+
+    .post-price-info{
+      width: 25%;
+
+      .post-price-unit{
+        font-size: 13px;
+        font-family: $roboto;
+        font-weight: 300;
+        margin-top: -8px;
+      }
+      .post-price-header{
+        font-family: $roboto;
+        font-size: 15px;
+        color: $brand-solid-grey-text;
+        font-weight: 300;
+      }
+
+      .post-price-number{
+        .dollar-sign{
+          font-size: 15px;
+          position: relative;
+          top: -0.5em;
+          margin-right: 2px;
+        }
+        font-size: 25px;
+        font-family: $roboto;
+      }
+    }
+  }
+
+  .interested{
+    margin-top: 30px;
+    font-family: $roboto;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 5px;
+  }
+
+  .user-rating{
+    margin-top: 20px;
+    .user-rating-text{
+      font-family: $roboto;
+      font-weight: 300;
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    .user-rating-count{
+      font-family: $roboto;
+      margin-left: 5px;
+      font-weight: 300;
+      font-size: 13px;
+    }
+  }
+
+  .service-rating{
+    margin-top: 20px;
+    .service-rating-text{
+      font-family: $roboto;
+      font-weight: 300;
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    .service-rating-count{
+      font-family: $roboto;
+      margin-left: 5px;
+      font-weight: 300;
+      font-size: 13px;
+    }
+  }
+
+  .ratings-headline{
+    font-size: 20px;
+    font-family: $roboto;
+    margin-top: 10px;
+  }
+
+  .post-display-name{
+    font-family: $roboto;
+    margin-top: 7px;
+    font-size: 20px;
+  }
+
+  .post-time-ago{
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 13px;
+    color: $brand-solid-grey-text;
+  }
+  .post-profile-picture-holder{
+    .post-profile-picture{
+      height: 160px;
+      width: 160px;
+      border-radius: 50%;
+      border: 3px solid $brand-dark-purple;
+    }
+  }
+}
+
+.post-form-containing-row{
+  padding-top: 60px;
+  #pricing-style-text{
+    font-style: italic;
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+}
+
+.attachment-actions-row{
+  .attachment-actions{
+    margin-top: 20px;
+    .add-attachment{
+      margin-right: 20px;
+    }
+  }
+}
+
+.attachment-gallery-row.on-preview-page{
+  margin-top: 30px;
+}
+
+.attachment-gallery-row{
+  padding-bottom: 35px;
+
+  .attachment-previews-row{
+    margin-bottom: 30px;
+
+    .document-preview.with-line-height{
+      line-height: 131px;
+    }
+    .document-preview{
+      background-color: rgba($brand-light-purple, 0.1);
+
+      .document-preview-icon{
+        color: $brand-dark-purple;
+        font-size: 55px;
+        line-height: 131px;
+      }
+
+      .document-preview-image{
+        max-height: 100px;
+        max-width: 100px;
+      }
+    }
+
+    .post-attachment-preview-row{
+      margin-top: 55px;
+
+      .document-controls{
+        width: 155px;
+        margin-left: 20.5%;
+        margin-bottom: -15px;
+        display: flow-root;
+
+        .document-control{
+          background-color: white;
+          border-radius: 50%;
+          box-shadow: 3px 3px 3px 3px gray;
+          height: 25px;
+          width: 25px;
+          box-shadow: -1px 1px 8px 2px #d6d6d6;
+        }
+        .edit-control{
+          display: inline-block;
+          .edit-control-icon{
+            color: $brand-dark-purple;
+            font-size: 15px;
+            width: 50%;
+            margin-left: 5px;
+          }
+        }
+
+        .delete-control{
+          display: inline-block;
+          float: right;
+          .delete-control-icon{
+            color: darken($brand-warning-color, 10%);
+            font-size: 16px;
+            width: 50%;
+            margin-left: 7px;
+            margin-top: 4px;
+          }
+        }
+      }
+      .post-attachment-preview{
+        border: 2px solid rgba($brand-light-purple, 0.5);
+        border-radius: 5px;
+        width: 135px;
+        height: 135px;
+
+        .delete-button{
+          color: darken($brand-warning-color, 10%);
+          position: absolute;
+          font-size: 30px;
+          right: 68px;
+          top: -22px;
+          background-color: purple;
+          height: 35px;
+          width: 35px;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .post-attachment-description{
+      font-family: $roboto;
+      font-weight: 300;
+      font-size: 15px;
+      margin-top: 5px;
+    }
+  }
+
+  .no-attachments{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: italic;
+  }
+}

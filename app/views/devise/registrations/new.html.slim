@@ -1,13 +1,13 @@
 .row.new-registration-row.no-gutters
   .col-sm-9.col-md-7.col-lg-4.mx-auto
-    .card.card-signin.my-5
+    .card.card-brand-color.my-5
       .card-body
         = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
           = render "devise/shared/error_messages", resource: resource
           h5.card-title.text-center
             | NEW ACCOUNT
             .devise-subtext All fields are required
-          form.form-signin
+          form.form-brand-color
             .form-label-group
               = f.email_field :email, autofocus: true, placeholder: "Email Address", required: true, type: "email", class: "form-control", id: "inputEmail"
               label for="inputEmail"  Email address

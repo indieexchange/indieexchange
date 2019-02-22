@@ -1,0 +1,145 @@
+// Place all the styles related to the PrivateMessages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+
+.private-message-index-container-row{
+  .pm-containing-col{
+    margin-top: 20px;
+    .message-link{
+      &:hover{
+        text-decoration: none;
+      }
+
+      .unread-message{
+        border: 3px solid $brand-dark-purple;
+      }
+
+      .pm-containing-row{
+        .message{
+          font-family: $roboto;
+          font-weight: 300;
+          font-size: 16px;
+          margin-top: 5px;
+          color: black;
+        }
+
+        .unread-marker{
+          margin-bottom: 5px;
+          vertical-align: middle;
+        }
+
+        .name-and-time{
+          .name{
+            font-size: 20px;
+            font-family: $roboto;
+            color: $brand-off-black-two;
+          }
+
+          .time{
+            float: right;
+            font-size: 14px;
+            font-family: $roboto;
+            font-weight: 300;
+            color: $brand-solid-grey-text;
+            margin-right: 10px;
+          }
+        }
+
+        .pm-profile-picture-holder{
+          .pm-profile-picture{
+            height: 90px;
+            width: 90px;
+            border-radius: 50%;
+            border: 3px solid $brand-dark-purple;
+          }
+        }
+      }
+    }
+  }
+}
+
+.private-message-index-top-row{
+  margin-top: 40px;
+
+  .headline{
+    font-family: $roboto;
+    font-size: 24px;
+    font-weight: 400;
+    color: $brand-off-black-two;
+  }
+}
+
+.show-private-message-row{
+  margin-top: 40px;
+
+  .pm-profile-picture-holder{
+    .pm-profile-picture{
+      height: 90px;
+      width: 90px;
+      border-radius: 50%;
+      border: 3px solid $brand-dark-purple;
+    }
+  }
+
+  .headline{
+    font-family: $roboto;
+    font-size: 20px;
+    font-weight: 400;
+    color: $brand-off-black-two;
+    margin-bottom: 30px;
+  }
+
+  .message-containing-row{
+    margin-bottom: 20px;
+
+  }
+
+  .message{
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .name-and-time{
+    .name{
+      font-size: 20px;
+      font-family: $roboto;
+      color: $brand-off-black-two;
+    }
+
+    .time{
+      float: right;
+      font-size: 14px;
+      font-family: $roboto;
+      font-weight: 300;
+      color: $brand-solid-grey-text;
+    }
+  }
+  .pm-profile-picture-holder{
+    margin-right: 15px;
+    .pm-profile-picture{
+      border-radius: 50%;
+      border: 3px solid $brand-dark-purple;
+    }
+  }
+
+  .this-is-the-start{
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 14px;
+    font-style: italic;
+    color: darken($brand-dark-purple, 12%);
+  }
+}
+
+.compose-message-row{
+  margin-top: 50px;
+
+}
+
+.match-carded-content-margins{
+  margin-left: 8px;
+  margin-right: 8px;
+}

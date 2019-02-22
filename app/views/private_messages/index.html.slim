@@ -1,0 +1,27 @@
+.row.with-sitewide-padding.no-gutters.private-message-index-top-row.justify-content-center
+  .col-3
+  .col-6
+    .headline Your messages
+  .col-3
+
+.row.with-sitewide-padding.no-gutters.private-message-index-container-row.justify-content-center
+  - @private_messages.each do |private_message|
+    - is_unread = private_message.unread_by(current_user)
+    - other_user = private_message.other_user(current_user)
+    - last_message = private_message.messages.last
+    .col-3
+    .col-6.pm-containing-col
+      a.message-link href="#{start_private_message_path(current_user, other_user)}"
+        .carded-content.less-padding-v.less-padding-h.no-side-margin class="#{is_unread ? 'unread-message' : ''}"
+          .row.justify-content-center.pm-containing-row.no-gutters
+            .col-3.text-center
+              .pm-profile-picture-holder
+                = image_tag(rails_representation_url(other_user.pp_mid), class: "pm-profile-picture")
+            .col-9
+              .name-and-time
+                .name.dib = other_user.display_name
+                .time.dib = time_ago_in_words(private_message.last_message_time) + " ago"
+              - if is_unread
+                .unread-marker.branded-pill-button.xxs.dib UNREAD
+              .message = (last_message.sender == current_user ? "<b>You:</b> ".html_safe : "") + h(last_message.body.truncate(128)).gsub(/\n/, '<br/>').html_safe
+    .col-3
