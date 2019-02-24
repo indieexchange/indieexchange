@@ -25,7 +25,11 @@ class PostsController < ApplicationController
   end
 
   def posts
-    @posts = @user.posts
+    if @user == current_user
+      @posts = @user.posts
+    else
+      @posts = @user.posts.visible.published
+    end
   end
 
   def search

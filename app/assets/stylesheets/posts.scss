@@ -96,7 +96,7 @@ a.full-post-link{
 }
 
 .my-post-count-row{
-  padding-top: 30px;
+  padding-top: 50px;
 }
 
 .my-post-actions{
@@ -104,6 +104,37 @@ a.full-post-link{
 }
 
 .post-count-row, .my-post-count-row{
+  .sad-face-holder{
+    .sad-face-icon{
+      font-size: 120px;
+      color: $brand-light-purple;
+    }
+  }
+
+  .sorry{
+    font-family: $roboto;
+    font-size: 30px;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .no-posts{
+    font-family: $roboto;
+    font-weight: 300;
+    margin-top: 30px;
+    color: $brand-solid-grey-text;
+    margin-bottom: 30px;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 10px;
+  }
+
+  .message-them{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
   .make-posts{
     font-family: $roboto;
     margin-top: 15px;

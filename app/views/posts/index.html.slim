@@ -15,11 +15,11 @@
                 .form-label-group
                   .radio-group-label = label :seeking, "I want to see:"
                   .get-work
-                    .dib = radio_button_tag :seeking, false, !(ActiveModel::Type::Boolean.new.cast(params[:seeking]) or params[:seeking].blank?)
-                    .radio-button-label.dib = label :seeking, "Services offered by others", value: "true"
+                    .dib = radio_button_tag :seeking, false, ((!ActiveModel::Type::Boolean.new.cast(params[:seeking])) or params[:seeking].blank?)
+                    .radio-button-label.dib = label :seeking, "Services offered by others", value: "false"
                   .do-work
-                    .dib = radio_button_tag :seeking, true, (ActiveModel::Type::Boolean.new.cast(params[:seeking]) or params[:seeking].blank?)
-                    .radio-button-label.dib = label :seeking, "People who need my services", value: "false"
+                    .dib = radio_button_tag :seeking, true, ActiveModel::Type::Boolean.new.cast(params[:seeking])
+                    .radio-button-label.dib = label :seeking, "People who need my services", value: "true"
               .col-xl-6.col-lg-12
                 .form-label-group
                   .dropdown-label.category-label Category:

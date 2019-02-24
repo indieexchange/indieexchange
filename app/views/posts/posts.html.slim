@@ -1,10 +1,24 @@
 - is_self = (@user == current_user)
 - if !@posts&.any?
   .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-count-row
-    .col-12
-      .carded-content
-        .found-jobs-line My Posts
-        .make-posts You have no posts at this time.  You can get started by clicking the Create button below.
+    - if is_self
+      .col-4
+        .carded-content.text-center.less-padding-v
+          .sad-face-holder = icon('far', 'surprise', class: "sad-face-icon")
+          .sorry Oops!
+          .no-posts Looks like you don't have any posts right now, but you can create one with the button below.
+          hr.pre-bio-hr
+          .message-them
+            = link_to "Create a Post", new_post_path, class: "branded-pill-button thin send-them-a-message"
+    - else
+      .col-4
+        .carded-content.text-center.less-padding-v
+          .sad-face-holder = icon('far', 'sad-tear', class: "sad-face-icon")
+          .sorry Sorry!
+          .no-posts #{@user.display_name} has no posts that you can browse right now.
+          hr.pre-bio-hr
+          .message-them
+            = link_to "Send Them a Message", start_private_message_path(@user, current_user), class: "branded-pill-button thin send-them-a-message"
 - else
   .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-count-row
     .col-12
@@ -54,7 +68,7 @@
                   .dib = link_to "Edit", edit_post_path(post), class: "branded-pill-button xxs edit-button"
                   .dib = link_to "View", post_path(post), class: "branded-pill-button xxs"
 
-- if is_self
+- if is_self and @posts.any?
   .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-actions
     .col-12
       .carded-content.less-padding-v

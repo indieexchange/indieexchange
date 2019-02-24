@@ -28,7 +28,7 @@
                 = render partial: "shared/stars", locals: {score: 3.5, average: true}
                 span.review-counter 142 reviews
             .col-4.text-center
-              .active-ads = link_to "SEE ACTIVE ADS", "/", class: "btn branded-pill-button thin active-ads-link"
+              .active-ads = link_to "SEE ACTIVE ADS", user_posts_path(@user), class: "btn branded-pill-button thin active-ads-link"
             .col-4.text-right
               .follow-me
                 .follow-me-text Follow Me:
