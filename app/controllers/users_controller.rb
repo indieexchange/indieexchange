@@ -4,7 +4,7 @@ class UsersController < ApplicationController
                                   :crop_profile_picture]
   before_action :self_only, only: [:show, :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                  :crop_profile_picture]
+                                   :crop_profile_picture]
 
   # GET /users
   # GET /users.json
