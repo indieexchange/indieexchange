@@ -32,7 +32,7 @@ Subcategory.all.each do |subcategory|
       is_published: true,
       is_visible: true,
       is_offering: [true, false].sample,
-      user_id: (10..100).to_a.sample
+      user_id: User.all.map(&:id).sample
       )
     post.save!
     n += 1
