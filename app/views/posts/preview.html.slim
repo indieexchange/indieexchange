@@ -15,7 +15,10 @@
   .col-3
     .carded-content.less-padding-v.full-equal-height
       .post-profile-picture-holder.text-center
-        = image_tag(rails_representation_url(@user.pp_mid), class: "post-profile-picture", title: "Profile picture")
+        - if @user.has_cropped_profile_picture?
+          = image_tag(rails_representation_url(@user.pp_mid), class: "post-profile-picture", title: "Profile picture")
+        - else
+          = image_tag("anonymous_user.png", class: "post-profile-picture", title: "Profile picture")
       .post-display-name.text-center #{@user.display_name_untruncated}
       .post-time-ago.text-center Posted #{time_ago_in_words(@post.created_at)} ago
       hr.mid-light-grey-hr
