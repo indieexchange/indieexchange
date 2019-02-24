@@ -6,18 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# (10..100).each do |n|
-#   u = User.new(
-#     first_name: "Test#{n}",
-#     last_name: "Account#{n}",
-#     about_me: "Numerous diseases can cause a cat to feel hunger, thirst, or pain, all of which can lead to excessive meowing. ... Cats often meow to initiate play, petting, or to get you to talk to them. If you want to cut down on attention-seeking meows, stop responding when it happens. Only give her attention when she's quiet.",
-#     email: "test#{n}@gmail.com",
-#     password: "passwordpassword",
-#     password_confirmation: "passwordpassword",
-#     )
-#   u.skip_confirmation!
-#   u.save
-# end
+(10..100).each do |n|
+  u = User.new(
+    first_name: "Test#{n}",
+    last_name: "Account#{n}",
+    about_me: "Numerous diseases can cause a cat to feel hunger, thirst, or pain, all of which can lead to excessive meowing. ... Cats often meow to initiate play, petting, or to get you to talk to them. If you want to cut down on attention-seeking meows, stop responding when it happens. Only give her attention when she's quiet.",
+    email: "test#{n}@gmail.com",
+    password: "passwordpassword",
+    password_confirmation: "passwordpassword",
+    )
+  u.skip_confirmation!
+  u.save
+end
 
 n = 0
 words = ["one", "two", "three", "four", "five", "six", "SEVEN", "Eight"]
