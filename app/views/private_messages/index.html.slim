@@ -16,7 +16,10 @@
           .row.justify-content-center.pm-containing-row.no-gutters
             .col-3.text-center
               .pm-profile-picture-holder
-                = image_tag(rails_representation_url(other_user.pp_mid), class: "pm-profile-picture")
+                - if other_user.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(other_user.pp_mid), class: "pm-profile-picture")
+                - else
+                  = image_tag("anonymous_user.png", class: "pm-profile-picture")
             .col-9
               .name-and-time
                 .name.dib = other_user.display_name

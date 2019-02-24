@@ -48,6 +48,10 @@ body{
   display: inline-block;
 }
 
+.no-padding-right{
+  padding-right: 0px;
+}
+
 .hw{
   width: 50%;
 }
@@ -265,9 +269,10 @@ body{
 .flash-text{
   padding-top: 15px;
   padding-bottom: 15px;
-  font-family: $roboto-condensed;
+  font-family: $roboto;
   font-weight: bold;
-  letter-spacing: 0.5px
+  font-size: 15px;
+  color: #383a47;
 }
 
 .main-user-controls{
@@ -499,6 +504,45 @@ body{
   background-color: darken($brand-warning-color, 30%);
 }
 
+.btn-warning{
+  background-color: darken($brand-warning-yellow, 3%);
+  border-color: darken($brand-warning-yellow, 10%);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 10px 20px;
+  color: white;
+
+  &:hover{
+    background-color: darken($brand-warning-yellow, 8%);
+    color: white;
+  }
+
+  &:active{
+    background-color: darken($brand-warning-yellow, 10%);
+    color: white;
+  }
+
+  &:focus{
+    box-shadow: 0 0 0 0.2rem rgba(183, 151, 248, 0.5);
+    color: white;
+  }
+}
+
+.btn-warning:not(:disabled):not(.disabled):active, .btn-warning:not(:disabled):not(.disabled).active, .show > .btn-warning.dropdown-toggle{
+  background-color: darken($brand-warning-yellow, 5%);
+  color: white;
+}
+
+.brand-color-warning{
+  background-color: $brand-light-purple;
+  border-color: darken($brand-light-purple, 5%);
+}
+
+.brand-color-danger{
+  background-color: darken($brand-dark-purple, 5%);
+  border-color: darken($brand-dark-purple, 10%)
+}
+
 .branded-pill-button{
   color: $light-font-color;
   background: $purple-gradient-lightening-rightward;
@@ -531,7 +575,7 @@ body{
 .branded-pill-button.xxs{
   font-size: 10px;
   font-family: $roboto;
-  box-shadow: 2px 3px 7px 0px #8072ef69;
+  box-shadow: 1px 1px 5px 0px rgba(128, 114, 239, 0.71);
   padding: 3px 10px;
 }
 

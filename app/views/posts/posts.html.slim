@@ -1,0 +1,67 @@
+- is_self = (@user == current_user)
+- if !@posts&.any?
+  .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-count-row
+    .col-12
+      .carded-content
+        .found-jobs-line My Posts
+        .make-posts You have no posts at this time.  You can get started by clicking the Create button below.
+- else
+  .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-count-row
+    .col-12
+      .carded-content
+        - if is_self
+          .found-jobs-line My Posts (#{@posts.count})
+        - else
+          .found-jobs-line Posts by #{@user.display_name} (#{@posts.count})
+  .row.with-sitewide-padding.no-gutters.justify-content-center.results-header-row
+    .col-12
+      .carded-content.less-padding-v
+        .row
+          div class="#{is_self ? 'col-5' : 'col-6'}"
+            .header
+              b Title and description preview
+          .col-2
+            .header
+              b Price
+          .col-2
+            .header
+              b Rating
+          .col-1
+            .header
+              b Created
+          - if is_self
+            .col-2
+              .header
+  - @posts.each do |post|
+      .row.with-sitewide-padding.no-gutters.justify-content-center.result-row
+        .col-12
+          .carded-content.less-padding-v
+            .row
+              .center-v class="#{is_self ? 'col-5' : 'col-6'}"
+                .post-title = post.title
+                .post-description = h(post.description.truncate(80)).gsub(/\n/, '<br/>').html_safe
+              .col-2.center-v
+                .price $#{"%.2f" % post.price}
+                .pricing-word per #{post.subcategory.pricing_type}
+              .col-2.center-v
+                .rating
+                  == render partial: "shared/stars", locals: {score: Random.rand * 4 + 1, average: false}
+                  .rating-count.dib #{Random.rand(100)}
+              .col-1.center-v
+                .time-ago #{time_ago_in_words(post.created_at)} ago
+              - if is_self
+                .col-2.center-v.text-center
+                  .dib = link_to "Edit", edit_post_path(post), class: "branded-pill-button xxs edit-button"
+                  .dib = link_to "View", post_path(post), class: "branded-pill-button xxs"
+
+- if is_self
+  .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-actions
+    .col-12
+      .carded-content.less-padding-v
+        = link_to "Create New Post", new_post_path, class: "btn btn-success"
+br
+br
+br
+br
+br
+br

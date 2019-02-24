@@ -3,6 +3,52 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "variables";
+@import "mixins";
+
+.dashboard-search-row{
+  padding-top: 1.5rem;
+
+  .carded-content.less-padding-v{
+    padding-bottom: 0px;
+    padding-top: 33px;
+  }
+
+  .advanced-search-holder{
+    float: right;
+    .advanced-search{
+      padding: 7px 20px;
+      font-family: $roboto;
+    }
+  }
+
+  .quick-search-button{
+    .btn-sm.btn-primary{
+      padding: 7px 20px;
+      margin-left: 15px;
+      font-family: $roboto;
+    }
+  }
+  .quick-search{
+    font-family: $roboto;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple); 
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .im-seeking{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: $roboto;
+    font-weight: 300;
+  }
+
+  .quick-search-in{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: $roboto;
+    font-weight: 300;
+  }
+}
 
 .edit-user-row{
   padding-top: 60px;
@@ -13,7 +59,96 @@
 }
 
 .dashboard-top-row{
-  padding-top: 60px;
+  padding-top: 20px;
+
+  .dashboard-hr{
+    border-top-color: lighten($brand-light-purple, 10%);
+    margin-top: 2rem;
+  }
+
+  .dashboard-bottom-button{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .messages-cols{
+    .no-messages{
+      font-family: $roboto;
+      color: $brand-solid-grey-text;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+    }
+    .dashboard-messages-row{
+      margin-bottom: 3rem;
+
+      .dashboard-message-body{
+        font-family: $roboto;
+        font-weight: 300;
+        font-size: 14px;
+        color: $brand-off-black-two;
+
+        .dashboard-unread-pm{
+          margin-right: 5px;
+          .dashboard-unread-pm-icon{
+            @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+          }
+        }
+      }
+    }
+    .dashboard-message-pp{
+      .dashboard-message-pp-image{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 3px solid $brand-dark-purple;
+      }
+    }
+  }
+
+  .posts-cols{
+    .no-posts{
+      font-family: $roboto;
+      color: $brand-solid-grey-text;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+    }
+    .dashboard-posts-row{
+      margin-bottom: 30px;
+    }
+    .dashboard-post-title{
+      font-family: $roboto;
+      font-weight: 500;
+      color: $brand-off-black-two;
+      font-size: 18px;
+    }
+
+    .dashboard-post-description{
+      font-family: $roboto;
+      margin-top: 0.5rem;
+      color: $brand-off-black-two;
+      font-weight: 300;
+      font-size: 15px;
+    }
+  }
+
+  .user-information-cols{
+    .dashboard-pp{
+      .dashboard-pp-image{
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        border: 5px solid $brand-dark-purple;
+      }
+    }
+    .dashboard-name{
+      font-family: $roboto;
+      margin-top: 0.75rem;
+      font-size: 20px;
+      color: $brand-off-black-two;
+    }
+  }
 }
 
 .user-profile-reviews-row{

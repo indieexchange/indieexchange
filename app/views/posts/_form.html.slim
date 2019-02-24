@@ -1,3 +1,8 @@
+- if params[:action] == "edit"
+  .post-form-headline Edit Post
+- else
+  .post-form-headline New Post
+
 = form_for @post do |f|
   - if @post.errors.any?
     .error-explanation.form-error-container

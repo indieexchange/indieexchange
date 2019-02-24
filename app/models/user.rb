@@ -91,6 +91,14 @@ class User < ApplicationRecord
     about_me.blank? or !profile_picture.attached? or profile_picture_d.nil?
   end
 
+  def last_n_posts(n)
+    posts.last(n).reverse
+  end
+
+  def last_n_private_messages(n)
+    private_messages.hydrated.order(last_message_time: :desc).last(n)
+  end
+
   def complete_profile_call_to_action
     if about_me.blank? and !profile_picture.attached?
       cta = "Your profile is incomplete. For best results on Indie Exchange, please" +

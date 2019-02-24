@@ -22,12 +22,14 @@ Rails.application.routes.draw do
   patch "/users/:id/delete_profile_picture",          to: "users#delete_profile_picture", as: "delete_profile_picture_user"
   get "/users/:id/crop_profile_picture",              to: "users#crop_profile_picture",   as: "crop_profile_picture_user"
   get "/dashboard",                                   to: "users#dashboard",              as: "dashboard_user"
-  get "/users/:id/posts",                             to: "posts#index",                  as: "user_posts"
 
   get "/posts/:id/attachments",                       to: "posts#attachments",            as: "attachments_post"
   get "/posts/:id/preview",                           to: "posts#preview",                as: "preview_post"
   patch "/posts/:id/publish",                         to: "posts#publish",                as: "publish_post"
   post "/posts/search",                               to: "posts#search",                 as: "search_posts"
+  get "/users/:id/posts",                             to: "posts#posts",                  as: "user_posts"
+  patch "/posts/:id/unpublish",                       to: "posts#unpublish",              as: "unpublish_post"
+  patch "/posts/:id/bump",                            to: "posts#bump",                   as: "bump_post"
 
   patch "/posts/:post_id/post_attachments/:id/purge", to: "post_attachments#purge",       as: "purge_post_post_attachment"
 

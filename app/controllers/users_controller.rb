@@ -26,6 +26,11 @@ class UsersController < ApplicationController
   def edit
   end
 
+  def dashboard
+    @posts = @user.last_n_posts(2)
+    @private_messages = @user.last_n_private_messages(3)
+  end
+
   # POST /users
   # POST /users.json
   def create

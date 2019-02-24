@@ -44,6 +44,10 @@ a.full-post-link{
     }
   }
 
+  .edit-button{
+    margin-right: 5px;
+  }
+
   .time-ago{
     font-family: $roboto;
     font-weight: 400;
@@ -91,7 +95,20 @@ a.full-post-link{
   }
 }
 
-.post-count-row{
+.my-post-count-row{
+  padding-top: 30px;
+}
+
+.my-post-actions{
+  padding-top: 1.5rem;
+}
+
+.post-count-row, .my-post-count-row{
+  .make-posts{
+    font-family: $roboto;
+    margin-top: 15px;
+    font-weight: 300;
+  }
   .found-jobs-line{
     font-size: 22px;
     color: $brand-off-black-two;
@@ -146,6 +163,30 @@ a.full-post-link{
   margin-left: 15px;
 }
 
+.post-breadcrumb-row{
+  margin-top: 30px;
+
+  .button-room{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .post-breadcrumb{
+    font-family: $roboto;
+    font-weight: 500;
+    font-size: 16px;
+    color: $brand-dark-purple;
+    margin-right: 10px;
+  }
+  .right-arrow{
+    margin-right: 10px;
+    font-size: 13px;
+    font-family: $roboto;
+    vertical-align: text-bottom;
+    color: $brand-light-purple;
+  }
+}
+
 .post-preview-instruction-row{
   margin-top: 30px;
 
@@ -166,11 +207,18 @@ a.full-post-link{
 }
 
 .post-display-row.post-show-page{
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .post-display-row{
   margin-top: 20px;
+
+  .updated-recently{
+    &:hover{
+      padding: 5px 15px;
+      box-shadow: none;
+    }
+  }
 
   .review-holding-area{
     padding-top: 15px;
@@ -238,32 +286,38 @@ a.full-post-link{
     margin-top: 20px;
     .star-icon{
       .more-reviews-star{
-        color: $brand-light-purple;
-        font-size: 18px;
+        color: $brand-callout-yellow;
+        font-size: 12px;
       }
     }
 
     .see-all-reviews-link{
       @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
       font-family: $roboto;
-      font-weight: 500;
-      font-size: 25px;
+      font-weight: 700;
+      font-size: 20px;
       margin-left: 10px;
       vertical-align: middle;
+    }
+
+    .right-arrow-link{
+      vertical-align: text-top;
     }
 
     .right-arrow{
       margin-left: 10px;
       background-color: white;
       box-shadow: 1px 1px 8px 0px #ccc;
-      height: 25px;
-      width: 25px;
+      height: 20px;
+      width: 20px;
       border-radius: 50%;
+
       .see-all-reviews-right{
-        font-size: 20px;
+        font-size: 17px;
         vertical-align: middle;
-        margin-left: 10px;
+        margin-left: 8px;
         color: $brand-light-purple;
+        margin-bottom: 5px;
       }
     }
   }
@@ -374,16 +428,12 @@ a.full-post-link{
       width: 25%;
 
       .post-price-unit{
-        font-size: 13px;
+        font-size: 12px;
         font-family: $roboto;
         font-weight: 300;
         margin-top: -8px;
-      }
-      .post-price-header{
-        font-family: $roboto;
-        font-size: 15px;
+        font-style: italic;
         color: $brand-solid-grey-text;
-        font-weight: 300;
       }
 
       .post-price-number{
@@ -393,6 +443,7 @@ a.full-post-link{
           top: -0.5em;
           margin-right: 2px;
         }
+        color: darken($brand-dark-purple, 5%);
         font-size: 25px;
         font-family: $roboto;
       }
@@ -470,7 +521,33 @@ a.full-post-link{
 }
 
 .post-form-containing-row{
-  padding-top: 60px;
+  padding-top: 30px;
+
+  .post-controls{
+    margin-left: 50px;
+
+    .post-options{
+      font-family: $roboto;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .post-control{
+      margin-top: 1rem;
+    }
+
+    .post-control-option{
+      width: 160px;
+    }
+  }
+
+  .post-form-headline{
+    font-family: $roboto;
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+  }
   #pricing-style-text{
     font-style: italic;
     font-family: $roboto;

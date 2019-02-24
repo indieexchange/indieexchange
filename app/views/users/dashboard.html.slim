@@ -1,17 +1,89 @@
-
+.row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-search-row
+  .col-12
+    .carded-content.less-padding-v
+      .quick-search.dib Quick search:
+      .dib = form_tag search_posts_path do
+        .dib.im-seeking I'm seeking
+        .form-group.dib
+          = select_tag :seeking, options_for_select(Post.seeking_options), class: "form-control"
+        .dib.quick-search-in in
+        .form-group.dib
+          = select_tag :subcategory_id, options_for_select(Subcategory.selection_options), class: "form-control"
+        .dib.quick-search-button
+          = submit_tag "Search", class: "btn btn-sm btn-primary"
+      .dib.advanced-search-holder
+        = link_to "Advanced Search", posts_path, class: "btn btn-sm btn-success advanced-search"
 
 .row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-top-row
-  .col-6
+  .col-4.user-information-cols
     .carded-content.less-padding-v
-      .card-title-medium YOUR POSTS
-      .card-option
-        = link_to "View and manage your posts", user_posts_path(@user.id), class: "brand-link"
-      .card-option
-        = link_to "Create a new post", new_post_path, class: "brand-link"
-  .col-6
+      .before-button
+        .dashboard-pp.text-center
+          - if current_user.has_cropped_profile_picture?
+            = image_tag(rails_representation_url(current_user.pp_mid), class: "dashboard-pp-image")
+          - else
+            = image_tag("anonymous_user.png", class: "dashboard-pp-image")
+        .dashboard-name.text-center = current_user.display_name
+      hr.dashboard-hr
+      .with-button.text-center
+        .dashboard-bottom-button = link_to "View Your Profile", user_path(current_user), class: "branded-pill-button thin"
+  .col-4.posts-cols
     .carded-content.less-padding-v
-      .card-title-medium YOUR FOLLOWS
-      .card-option
-        = link_to "View your followers", "/some-path", class: "brand-link"
-      .card-option
-        = link_to "View those you follow", "/some-path", class: "brand-link"
+      .before-button
+        - if @posts.any?
+          - @posts.each do |post|
+            .row.dashboard-posts-row
+              .col-3.text-right
+                = link_to "View", post_path(post), class: "branded-pill-button xxs"
+              .col-9
+                .dashboard-post-title title="#{post.title}" = post.title.truncate(50)
+                .dashboard-post-description = post.description.truncate(100)
+        - else
+          .no-posts You have no posts at this time. You can manage and create posts using the button below.
+      hr.dashboard-hr
+      .with-button.text-center
+        .dashboard-bottom-button = link_to "View Your Posts", user_posts_path(current_user), class: "branded-pill-button thin"
+  .col-4.messages-cols
+    .carded-content.less-padding-v
+      .before-button
+        - if @private_messages.any?
+          - @private_messages.each do |private_message|
+            - last_message = private_message.last_message
+            - other_user = private_message.other_user(current_user)
+            .row.dashboard-messages-row
+              .col-2.text-center
+                a href="#{user_path(other_user)}"
+                  - if other_user.has_cropped_profile_picture?
+                    .dashboard-message-pp = image_tag(rails_representation_url(other_user.pp_thumb), class: "dashboard-message-pp-image", title: "View #{other_user.display_name}'s profile")
+                  - else
+                    .dashboard-message-pp = image_tag("anonymous_user.png", class: "dashboard-message-pp-image", title: "View #{other_user.display_name}'s profile")
+              .col-7.no-padding-right
+                .dashboard-message-body
+                  - if last_message.sender == current_user
+                    b You: &nbsp;
+                  - elsif private_message.unread_by(current_user)
+                    .dashboard-unread-pm.dib = icon('fas', 'exclamation-circle', class: "dashboard-unread-pm-icon")
+                  = private_message.last_message_body_to(75)
+              .col-3
+                = link_to "View", start_private_message_path(current_user, other_user), class: "branded-pill-button xxs", title: "Go to your private message with #{other_user.display_name}"
+        - else
+          .no-messages You have no messages at this time.  When you message other users, you will see your most recent messages appear here.
+      hr.dashboard-hr
+      .with-button.text-center
+        .dashboard-bottom-button = link_to "View Your Messages", user_private_messages_path(current_user), class: "branded-pill-button thin"
+
+br
+br
+br
+br
+br
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).ready(function(){
+    $(".before-button").matchHeight();
+  })

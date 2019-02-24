@@ -1,0 +1,10 @@
+.post-controls
+  .post-options Post Options
+  - if @post.id and @post.is_bumpable?
+    .post-control = link_to "Bump Post", bump_post_path(@post), method: :patch, class: "btn btn-success post-control-option", title: "You can bump your post to the top of the default search for its category once every 72 hours."
+  - if @post.is_published?
+    .post-control = link_to "Unpublish Post", unpublish_post_path(@post), method: :patch, class: "btn btn-warning post-control-option brand-color-warning", title: "Unpublishing a post means that only you can see it.  You can edit it and publish it again later at any time."
+  - elsif @post.id # (and also is unpublished)
+    .post-control = link_to "Publish Post", publish_post_path(@post), method: :patch, class: "btn btn-warning post-control-option brand-color-warning", title: "Other users will be able to see this post if you publish it.  You can unpublish (hide) it at any time."
+  - if @post.id
+    .post-control = link_to "Delete Post", post_path(@post), method: :delete, class: "btn btn-danger post-control-option brand-color-danger", data: {confirm: "Really delete this post? This can never be undone."}, title: "Deleting a post removes it permanently from Indie Exchange.  All data related to the post will also be permanently removed."
