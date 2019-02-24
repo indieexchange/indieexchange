@@ -19,7 +19,7 @@ class PrivateMessagesController < ApplicationController
 
   def start
     @message = Message.new
-    update_tracking_for(current_user)
+    @private_message.update_read_tracking_for(current_user)
     render :show
   end
 
@@ -29,11 +29,7 @@ class PrivateMessagesController < ApplicationController
                            recipient: @other_user,
                            private_message: @private_message))
     if @message.save
-      @other_user.unread_message_count += 1
-      @other_user.save
-
-      update_thread(current_user, @other_user)
-
+      @private_message.handle_new_message(current_user, @other_user, @user_a)
       redirect_back(fallback_location: root_path, notice: "Your message has been sent")
     else
       render :show, alert: "Your message could not be sent"
@@ -122,24 +118,6 @@ class PrivateMessagesController < ApplicationController
       end
 
       @other_user = @private_message.other_user(current_user)
-    end
-
-    def update_thread(sender, recipient)
-      if sender == @user_a
-        @private_message.update!(unread_a: false, unread_b: true, last_message_time: Time.now)
-      else
-        @private_message.update!(unread_a: true, unread_b: false, last_message_time: Time.now)
-      end
-    end
-
-    def update_tracking_for(reader)
-      if reader == @private_message.user_a and @private_message.unread_a
-        @private_message.update!(unread_a: false)
-        reader.update!(unread_message_count: reader.unread_message_count - 1)
-      elsif reader == @private_message.user_b and @private_message.unread_b
-        @private_message.update!(unread_b: false)
-        reader.update!(unread_message_count: reader.unread_message_count - 1)
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

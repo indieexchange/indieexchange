@@ -42,6 +42,15 @@ class User < ApplicationRecord
     [unread_message_count, 99].min
   end
 
+  def reduce_unread_count
+    update!(unread_message_count: unread_message_count - 1)
+  end
+
+  def handle_new_message_in(private_message)
+    # if someone already messaged you once and it's unread, don't increase the unread thread count again
+    update!(unread_message_count: unread_message_count + 1) if private_message.read_by(self)
+  end
+
   def self.profile_picture_maximum_size
     "450x450" # best to pick a highly divisible number
   end
