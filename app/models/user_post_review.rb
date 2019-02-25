@@ -22,7 +22,7 @@ class UserPostReview < ApplicationRecord
       post.rating = new_rating
     end
 
-    post.save!
+    post.save(touch: false)
   end
 
   def update_post_information_for_destruction
@@ -37,6 +37,6 @@ class UserPostReview < ApplicationRecord
       post.rating = new_rating
     end
 
-    post.save!
+    post.save(touch: false)
   end
 end

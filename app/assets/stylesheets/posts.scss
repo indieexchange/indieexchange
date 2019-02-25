@@ -270,6 +270,13 @@ a.full-post-link{
     .author-information-area{
       width: 25%;
 
+      a.author-profile-picture-holder{
+        color: $brand-off-black-two;
+        &:hover{
+          text-decoration: none;
+        }
+      }
+
       .author-profile-picture-holder{
         .author-profile-picture{
           height: 50px;
@@ -281,7 +288,7 @@ a.full-post-link{
 
       .author-name{
         font-family: $roboto;
-        margin-top: 7px;
+        padding-top: 7px;
         font-size: 13px;
       }
 

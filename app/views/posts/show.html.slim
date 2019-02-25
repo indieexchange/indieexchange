@@ -78,12 +78,16 @@
           hr.mid-light-grey-hr
           .review-holding-area
             .author-information-area.text-center.dib
-              a.author-profile-picture-holder href="#{user_path(review.reviewing_user)}"
-                - if review.reviewing_user.has_cropped_profile_picture?
-                  = image_tag("https://i.imgur.com/g02sMtm.png", class: "author-profile-picture")
-                - else
-                  = image_tag("anonymous_user.png", class: "author-profile-picture")
-              .author-name = review.reviewing_user.display_name
+              - if review.is_anonymous?
+                .author-profile-picture-holder = image_tag("anonymous_user_2.png", class: "author-profile-picture")
+                .author-name Anonymous
+              - else
+                a.author-profile-picture-holder href="#{user_path(review.reviewing_user)}"
+                  - if review.reviewing_user.has_cropped_profile_picture?
+                    = image_tag(rails_representation_url(review.reviewing_user.pp_thumb), class: "author-profile-picture", title: "Go to #{review.reviewing_user.display_name}'s profile")
+                  - else
+                    = image_tag("anonymous_user.png", class: "author-profile-picture", title: "Go to #{review.reviewing_user.display_name}'s profile")
+                  .author-name = review.reviewing_user.display_name
               .reviewed-at #{time_ago_in_words(review.created_at)} ago
             .review-information-area.dib
               .review-stars-and-count

@@ -44,7 +44,7 @@ class UserPostReviewsController < ApplicationController
     end
 
     def user_post_review_params
-      params.require(:user_post_review).permit(:title, :body, :score)
+      params.require(:user_post_review).permit(:title, :body, :score, :is_anonymous)
     end
 
     def set_instance_variables

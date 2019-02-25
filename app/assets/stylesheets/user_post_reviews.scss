@@ -84,6 +84,17 @@
 }
 
 .user-post-review-form-row{
+
+  .custom-control-label{
+    font-family: $roboto;
+    font-weight: 300;
+    color: white;
+  }
+
+  .custom-checkbox{
+    margin-top: 37px;
+  }
+
   .rating-selector{
     margin-bottom: 30px;
     .rating-selector-text{

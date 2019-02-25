@@ -27,6 +27,9 @@
             .form-label-group.brand-form-text-container
               = f.text_area :body, autofocus: true, rows: 8, required: true, type: "text", class: "form-control brand-form-text-area", id: "review-body", placeholder: " "
               label.text-area-label for="review-body" Write your review here
+            .custom-control.custom-checkbox.mb-3
+              = f.check_box :is_anonymous, class: "custom-control-input", id: "is-anonymous-checkbox"
+              label.custom-control-label.remember-me.errorable-text for="is-anonymous-checkbox" I want to leave this review anonymously
             = f.hidden_field :score, id: "score-input", value: 1
 
 

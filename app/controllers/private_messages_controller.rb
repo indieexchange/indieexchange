@@ -1,5 +1,7 @@
 class PrivateMessagesController < ApplicationController
   # before_action :set_private_message, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :not_with_self,                               only: [:start]
   before_action :set_instance_variables_from_users,           only: [:show, :edit, :update, :destroy, :start]
   before_action :set_instance_variables_from_private_message, only: [:new_message]
   before_action :set_user,                                    only: [:index]
@@ -118,6 +120,12 @@ class PrivateMessagesController < ApplicationController
       end
 
       @other_user = @private_message.other_user(current_user)
+    end
+
+    def not_with_self
+      if params[:id_a] == params[:id_b]
+        redirect_back(fallback_location: root_path, alert: "You can't message yourself")
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

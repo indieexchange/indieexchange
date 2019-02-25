@@ -11,13 +11,18 @@
         .carded-content.less-padding-v.less-padding-h.no-side-margin
           .row.justify-content-center.user-post-review-containing-row.no-gutters
             .col-4.text-center
-              a.reviewer-profile-link href="#{user_path(reviewer)}"
+              - if review.is_anonymous?
                 .user-post-review-profile-picture-holder
-                  - if reviewer.has_cropped_profile_picture?
-                    = image_tag(rails_representation_url(reviewer.pp_mid), class: "user-post-review-profile-picture")
-                  - else
-                    = image_tag("anonymous_user.png", class: "user-post-review-profile-picture")
-                .user-post-review-display-name = reviewer.display_name
+                  = image_tag("anonymous_user_2.png", class: "user-post-review-profile-picture")
+                .user-post-review-display-name Anonymous
+              - else
+                a.reviewer-profile-link href="#{user_path(reviewer)}"
+                  .user-post-review-profile-picture-holder
+                    - if reviewer.has_cropped_profile_picture?
+                      = image_tag(rails_representation_url(reviewer.pp_mid), class: "user-post-review-profile-picture", title: "Go to #{reviewer.display_name}'s profile")
+                    - else
+                      = image_tag("anonymous_user.png", class: "user-post-review-profile-picture", title: "Go to #{reviewer.display_name}'s profile")
+                  .user-post-review-display-name = reviewer.display_name
               .rating-container == render partial: "shared/stars", locals: {score: review.score, average: false}
               .time-ago = time_ago_in_words(review.created_at) + " ago"
             .col-8
