@@ -5,6 +5,141 @@
 @import "variables";
 @import "mixins";
 
+.no-reviews-row{
+  padding-top: 50px;
+  .surprise-holder{
+    .surprise-icon{
+      font-size: 120px;
+      color: $brand-light-purple;
+    }
+  }
+
+  .sorry{
+    font-family: $roboto;
+    font-size: 30px;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .no-posts{
+    font-family: $roboto;
+    font-weight: 300;
+    margin-top: 30px;
+    color: $brand-solid-grey-text;
+    margin-bottom: 30px;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 10px;
+  }
+
+  .message-them{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+.show-user-post-review-row{
+  .review-containing-col{
+    margin-top: 20px;
+
+    .user-post-review-containing-row{
+      .message{
+        font-family: $roboto;
+        font-weight: 300;
+        font-size: 16px;
+        margin-top: 5px;
+        color: black;
+      }
+
+      .see-review{
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .your-review-for{
+        font-family: $roboto;
+        color: $brand-solid-grey-text;
+        font-size: 13px;
+        font-style: italic;
+        font-weight: 300;
+      }
+
+      .title-container{
+        .title{
+          font-size: 20px;
+          font-family: $roboto;
+          color: $brand-off-black-two;
+          margin-left: 10px;
+        }
+      }
+
+      .user-post-review-display-name{
+        font-family: $roboto;
+        font-weight: 400;
+        margin-top: 10px;
+        color: $brand-off-black-two;
+        font-size: 20px;
+      }
+
+      .rating-container{
+        margin-top: 20px;
+      }
+
+      .rating-container.post-reviews{
+        line-height: 30px;
+        vertical-align: bottom;
+      }
+
+      .time-ago{
+        font-family: $roboto;
+        font-weight: 300;
+        font-size: 13px;
+        color: $brand-solid-grey-text;
+      }
+
+      .reviewer-profile-link{
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      .user-post-review-profile-picture-holder{
+        .user-post-review-profile-picture{
+          height: 120px;
+          width: 120px;
+          border-radius: 50%;
+          border: 3px solid $brand-dark-purple;
+        }
+      }
+    }
+  }
+}
+
+.show-user-post-controls-row{
+  margin-top: 20px;
+  .delete-review-button{
+    margin-left: 20px;
+  }
+}
+
+.show-user-post-review-top-row{
+  margin-top: 30px;
+
+  .post-review{
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-size: 30px;
+    font-weight: 700;
+    font-family: $roboto;
+  }
+
+  .post-title{
+    font-family: $roboto;
+    font-weight: 300;
+    color: $brand-off-black-two;
+  }
+}
+
 .dashboard-search-row{
   padding-top: 1.5rem;
 
@@ -58,7 +193,7 @@
   padding-top: 20px;
 }
 
-.dashboard-top-row{
+.dashboard-top-row, .dashboard-second-row{
   padding-top: 20px;
 
   .dashboard-hr{
@@ -69,6 +204,33 @@
   .dashboard-bottom-button{
     margin-top: 2rem;
     margin-bottom: 1rem;
+  }
+
+  .written-post-review-cols{
+    .no-post-reviews{
+      font-family: $roboto;
+      color: $brand-solid-grey-text;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 14px;
+      margin-bottom: 150px;
+    }
+    .you-reviewed{
+      .what-was-reviewed{
+        font-family: $roboto;
+      }
+
+      .review-title{
+        font-family: $roboto;
+        font-weight: 300;
+        font-size: 16px;
+      }
+
+      .review-link{
+        float: right;
+      }
+
+    }
   }
 
   .messages-cols{

@@ -30,9 +30,12 @@
         .user-rating-stars.dib == render partial: 'shared/stars', locals: {score: 4.5, average: true}
         .user-rating-count.dib &#40;999&#41;
       .service-rating
-        .service-rating-text Service
-        .service-rating-stars.dib == render partial: 'shared/stars', locals: {score: 4.2, average: false}
-        .service-rating-count.dib &#40;999&#41;
+        .service-rating-text Post
+        - if @reviews.any?
+          .service-rating-stars.dib == render partial: 'shared/stars', locals: {score: @post.rating, average: true}
+          .service-rating-count.dib = "(#{@post.number_of_ratings})"
+        - else
+          .service-rating-none No reviews yet
       - if @user != current_user
         hr.mid-light-grey-hr
         .interested.text-center Interested?
@@ -67,40 +70,40 @@
       .review-headline-and-icon
         .review-icon-holder.dib = icon('fas', 'star', class: "review-icon")
         .review-headline.dib User Reviews
-      hr.mid-light-grey-hr
-      .review-holding-area
-        .author-information-area.text-center.dib
-          .author-profile-picture-holder = image_tag("https://i.imgur.com/g02sMtm.png", class: "author-profile-picture")
-          .author-name = current_user.display_name
-          .reviewed-at #{time_ago_in_words(Time.now - 60.hours)} ago
-        .review-information-area.dib
-          .review-stars-and-count
-            .review-stars-holder.dib == render partial: "shared/stars", locals: {score: 4.25, average: false}
-            .review-count-holder.dib &#40;999&#41;
-          .review-title #{"Excellent sex scenes from a most excellent kitty".truncate(40)}
-          .review-text #{"Honestly, I'm surprised a cat can write so well, and I suspect this may be a hoax. Ut ac quam eu nulla volut pat tempor et sit amet nisi. Nunc tincidunt tempor ligula, a tempor nisi. Praesent consectetur felis metus, sit amet vehicula lorem fringilla sed. Integer convallis ligula quam, ac laoreet odio tincidunt eget.".truncate(80)}
-          .review-link
-            = link_to "FULL REVIEW", "/some-path#some-review-id", class: "btn branded-pill-button xs"
-      hr.mid-light-grey-hr
-      .review-holding-area
-        .author-information-area.text-center.dib
-          .author-profile-picture-holder = image_tag("https://i.imgur.com/5WrJS0c.png", class: "author-profile-picture")
-          .author-name = current_user.display_name
-          .reviewed-at #{time_ago_in_words(Time.now - 20.hours)} ago
-        .review-information-area.dib
-          .review-stars-and-count
-            .review-stars-holder.dib == render partial: "shared/stars", locals: {score: 4.25, average: false}
-            .review-count-holder.dib &#40;999&#41;
-          .review-title #{"Excellent sex scenes from a most excellent kitty".truncate(40)}
-          .review-text #{"Honestly, I'm surprised a cat can write so well, and I suspect this may be a hoax. Ut ac quam eu nulla volut pat tempor et sit amet nisi. Nunc tincidunt tempor ligula, a tempor nisi. Praesent consectetur felis metus, sit amet vehicula lorem fringilla sed. Integer convallis ligula quam, ac laoreet odio tincidunt eget.".truncate(80)}
-          .review-link
-            = link_to "FULL REVIEW", "/some-path#some-review-id", class: "btn branded-pill-button xs"
-      hr.mid-light-grey-hr
-        .see-all-reviews
-          .star-icon.dib = icon('fas', 'star', class: "more-reviews-star")
-          .dib = link_to "SEE ALL REVIEWS", "/some-path", class: "see-all-reviews-link"
-          a.right-arrow-link href="/some-path"
-            .right-arrow.dib = icon('fas', 'caret-right', class: "see-all-reviews-right")
+      - if current_user.can_review?(@post)
+        hr.mid-light-grey-hr
+          .leave-a-review-holder.text-right = link_to "Leave a Review", new_post_user_post_review_path(@post), class: "branded-pill-button xs green"
+      - if @reviews.any?
+        - @reviews.each do |review|
+          hr.mid-light-grey-hr
+          .review-holding-area
+            .author-information-area.text-center.dib
+              a.author-profile-picture-holder href="#{user_path(review.reviewing_user)}"
+                - if review.reviewing_user.has_cropped_profile_picture?
+                  = image_tag("https://i.imgur.com/g02sMtm.png", class: "author-profile-picture")
+                - else
+                  = image_tag("anonymous_user.png", class: "author-profile-picture")
+              .author-name = review.reviewing_user.display_name
+              .reviewed-at #{time_ago_in_words(review.created_at)} ago
+            .review-information-area.dib
+              .review-stars-and-count
+                .review-stars-holder.dib == render partial: "shared/stars", locals: {score: review.score, average: false}
+              .review-title = review.title.truncate(40)
+              .review-text = review.body.truncate(80)
+              .review-link
+                = link_to "FULL REVIEW", post_user_post_review_path(@post, review), class: "btn branded-pill-button xs"
+        hr.mid-light-grey-hr
+          .see-all-reviews
+            .star-icon.dib = icon('fas', 'star', class: "more-reviews-star")
+            .dib = link_to "SEE ALL REVIEWS", post_user_post_reviews_path(@post), class: "see-all-reviews-link"
+            a.right-arrow-link href="#{post_user_post_reviews_path(@post)}"
+              .right-arrow.dib = icon('fas', 'caret-right', class: "see-all-reviews-right")
+      - else
+        hr.mid-light-grey-hr
+          .no-reviews-holder.text-center
+            .sad-cry-icon-holder = icon('far', 'sad-cry', class: "sad-cry-icon")
+            .sorry Sorry!
+            .no-reviews There are no reviews for this post right now.
 
 .row.no-gutters.with-sitewide-padding.justify-content-center.attachment-gallery-row.on-preview-page
   .col-12

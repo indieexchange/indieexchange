@@ -1,0 +1,168 @@
+@import "variables";
+@import "mixins";
+@import "brand_forms";
+
+.show-user-post-controls-row{
+  margin-top: 20px;
+  .delete-review-button{
+    margin-left: 20px;
+  }
+}
+
+.show-user-post-review-top-row{
+  margin-top: 30px;
+
+  .post-review{
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-size: 30px;
+    font-weight: 700;
+    font-family: $roboto;
+  }
+
+  .post-title{
+    font-family: $roboto;
+    font-weight: 300;
+    color: $brand-off-black-two;
+  }
+}
+
+.show-user-post-review-row{
+  .review-containing-col{
+    margin-top: 20px;
+
+    .user-post-review-containing-row{
+      .message{
+        font-family: $roboto;
+        font-weight: 300;
+        font-size: 16px;
+        margin-top: 5px;
+        color: black;
+      }
+
+      .title-container{
+        .title{
+          font-size: 20px;
+          font-family: $roboto;
+          color: $brand-off-black-two;
+        }
+      }
+
+      .user-post-review-display-name{
+        font-family: $roboto;
+        font-weight: 400;
+        margin-top: 10px;
+        color: $brand-off-black-two;
+        font-size: 20px;
+      }
+
+      .rating-container{
+        margin-top: 20px;
+      }
+
+      .time-ago{
+        font-family: $roboto;
+        font-weight: 300;
+        font-size: 13px;
+        color: $brand-solid-grey-text;
+      }
+
+      .reviewer-profile-link{
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      .user-post-review-profile-picture-holder{
+        .user-post-review-profile-picture{
+          height: 120px;
+          width: 120px;
+          border-radius: 50%;
+          border: 3px solid $brand-dark-purple;
+        }
+      }
+    }
+  }
+}
+
+.user-post-review-form-row{
+  .rating-selector{
+    margin-bottom: 30px;
+    .rating-selector-text{
+      color: white;
+      font-family: $roboto;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    .rating-descriptor{
+      color: white;
+      font-family: $roboto;
+      font-size: 13px;
+      font-weight: 300;
+      margin-top: -3px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .stars{
+    .star{
+      font-size: 30px;
+      color: $brand-callout-yellow;
+      padding-right: 5px;
+      cursor: pointer;
+    }
+
+    .star:last-child{
+      margin-right: 0px;
+    }
+  }
+}
+
+.no-post-reviews-row{
+  margin-top: 40px;
+  .sad-face-holder{
+    .sad-face-icon{
+      font-size: 120px;
+      color: $brand-light-purple;
+    }
+  }
+
+  .sorry{
+    font-family: $roboto;
+    font-size: 30px;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .no-posts{
+    font-family: $roboto;
+    font-weight: 300;
+    margin-top: 30px;
+    color: $brand-solid-grey-text;
+    margin-bottom: 30px;
+    width: 80%;
+    margin: auto;
+    padding-bottom: 10px;
+  }
+
+  .message-them{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .make-posts{
+    font-family: $roboto;
+    margin-top: 15px;
+    font-weight: 300;
+  }
+  .found-jobs-line{
+    font-size: 22px;
+    color: $brand-off-black-two;
+    font-family: $roboto;
+    font-weight: 500;
+
+    .number-found, .subcategory-searched{
+      @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    }
+  }
+}

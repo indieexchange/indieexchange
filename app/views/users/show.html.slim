@@ -8,7 +8,7 @@
     .carded-content.full-equal-height.profile-summary-card
       .row
         .col-md-3
-          - if current_user.has_cropped_profile_picture?
+          - if @user.has_cropped_profile_picture?
             = image_tag(rails_representation_url(@user.pp_mid), class: "user-profile-profile-picure", title: "Profile picture")
           - else
             = image_tag("anonymous_user.png", class: "user-profile-profile-picure", title: "Profile picture")

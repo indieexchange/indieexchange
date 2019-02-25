@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_215452) do
+ActiveRecord::Schema.define(version: 2019_02_24_191106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,20 @@ ActiveRecord::Schema.define(version: 2019_02_23_215452) do
     t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
+  create_table "user_post_reviews", force: :cascade do |t|
+    t.bigint "reviewing_user_id"
+    t.bigint "target_user_id"
+    t.bigint "post_id"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.integer "score", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_user_post_reviews_on_post_id"
+    t.index ["reviewing_user_id"], name: "index_user_post_reviews_on_reviewing_user_id"
+    t.index ["target_user_id"], name: "index_user_post_reviews_on_target_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "about_me"
     t.string "first_name", null: false
@@ -149,4 +163,7 @@ ActiveRecord::Schema.define(version: 2019_02_23_215452) do
   add_foreign_key "private_messages", "users", column: "user_a_id"
   add_foreign_key "private_messages", "users", column: "user_b_id"
   add_foreign_key "subcategories", "categories"
+  add_foreign_key "user_post_reviews", "posts"
+  add_foreign_key "user_post_reviews", "users", column: "reviewing_user_id"
+  add_foreign_key "user_post_reviews", "users", column: "target_user_id"
 end

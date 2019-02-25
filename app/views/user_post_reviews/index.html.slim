@@ -1,0 +1,47 @@
+- if @reviews.any?
+  .row.with-sitewide-padding.no-gutters.show-user-post-review-top-row.justify-content-center
+    .col-lg-8.col-md-12.headline-cols
+      .post-review All Post Reviews
+      .post-title For post <b>"#{@post.title}"</b>
+
+  - @reviews.each do |review|
+    - reviewer = review.reviewing_user
+    .row.with-sitewide-padding.no-gutters.show-user-post-review-row.justify-content-center
+      .col-lg-8.col-md-12.review-containing-col
+        .carded-content.less-padding-v.less-padding-h.no-side-margin
+          .row.justify-content-center.user-post-review-containing-row.no-gutters
+            .col-4.text-center
+              a.reviewer-profile-link href="#{user_path(reviewer)}"
+                .user-post-review-profile-picture-holder
+                  - if reviewer.has_cropped_profile_picture?
+                    = image_tag(rails_representation_url(reviewer.pp_mid), class: "user-post-review-profile-picture")
+                  - else
+                    = image_tag("anonymous_user.png", class: "user-post-review-profile-picture")
+                .user-post-review-display-name = reviewer.display_name
+              .rating-container == render partial: "shared/stars", locals: {score: review.score, average: false}
+              .time-ago = time_ago_in_words(review.created_at) + " ago"
+            .col-8
+              .title-container
+                .title = review.title
+              .message = h(review.body).gsub(/\n/, '<br/>').html_safe
+
+  .row.with-sitewide-padding.no-gutters.show-user-post-controls-row.justify-content-center
+    .col-lg-8.col-md-12.review-containing-col
+      .dib = link_to "Go to Post", post_path(@post), class: "btn btn-primary"
+
+- else
+  .row.with-sitewide-padding.no-gutters.no-post-reviews-row.justify-content-center
+    .col-4
+      .carded-content.text-center.less-padding-v
+        .sad-face-holder = icon('far', 'sad-tear', class: "sad-face-icon")
+        .sorry Sorry!
+        .no-posts There are no reviews for this post right now.  Check back later!
+        hr.pre-bio-hr
+        .message-them
+          = link_to "Back to Post", post_path(@post), class: "branded-pill-button thin send-them-a-message"
+
+br
+br
+br
+br
+br

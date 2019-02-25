@@ -1,4 +1,5 @@
 class PrivateMessage < ApplicationRecord
+  # note: for consistency, user_a should ALWAYS have the lower id than user_b
   belongs_to :user_a, class_name: "User"
   belongs_to :user_b, class_name: "User"
 
@@ -12,6 +13,17 @@ class PrivateMessage < ApplicationRecord
 
   def unread_by(user)
     (user == user_a and unread_a) or (user == user_b and unread_b)
+  end
+
+  def self.between(u1, u2)
+    # reminder: user_a should have a lower id value than user_b
+    user_a, user_b = u1.id < u2.id ? [u1, u2] : [u2, u1]
+    PrivateMessage.where(user_a: user_a, user_b: user_b).first
+  end
+
+  def allows_review?
+    # allow a review as long as there's been at least one back-and-forth between the two
+    messages.where(sender: user_a).any? and messages.where(sender: user_b).any?
   end
 
   def update_read_tracking_for(reader)

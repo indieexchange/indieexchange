@@ -11,9 +11,25 @@
   margin-bottom: 2rem;
   font-weight: 300;
   font-size: $banner-font-size;
-  font-family: $roboto-condensed;
+  font-family: $roboto;
   color: $light-font-color;
   font-weight: bold;
+}
+
+.card-brand-color{
+  .btn-primary.disabled, .btn-primary:disabled{
+    background-color: $brand-green;
+    border-color: $brand-green;
+  }
+  .smaller-subtext{
+    font-family: $roboto;
+    font-size: 15px;
+    font-weight: 300;
+    width: 83%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+  }
 }
 
 .card-brand-color .card-body {
@@ -114,6 +130,29 @@
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
+}
+
+.brand-form-text-container{
+  .brand-form-text-area{
+    padding-top: 35px;
+    padding-left: 25px;
+    border-radius: 10px;
+  }
+
+  .brand-form-text-area:placeholder-shown + .text-area-label{
+    color: #999;
+  }
+
+  .brand-form-text-area:not(:placeholder-shown){
+    padding-top: 30px;
+    padding-bottom: 11px;
+  }
+
+  .brand-form-text-area:not(:placeholder-shown) + .text-area-label {
+    padding-top: calc(var(--input-padding-y) / 3 + 4px);
+    padding-bottom: calc(var(--input-padding-y) / 3);
+    font-size: 12px;
+  }
 }
 
 .brand-font-colored-button{

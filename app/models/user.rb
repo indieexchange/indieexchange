@@ -25,10 +25,17 @@ class User < ApplicationRecord
   has_many :private_messages_a, class_name: "PrivateMessage", foreign_key: "user_a_id", dependent: :destroy
   has_many :private_messages_b, class_name: "PrivateMessage", foreign_key: "user_b_id", dependent: :destroy
 
+  has_many :post_reviews_written, class_name: "UserPostReview", foreign_key: "reviewing_user_id", dependent: :destroy
+  has_many :post_reviews_received, class_name: "UserPostReview", foreign_key: "target_user_id", dependent: :destroy
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
   before_save :crop_profile_picture
 
   before_save :check_has_unread_messages, if: :will_save_change_to_unread_message_count?
+
+  def can_review?(post)
+    PrivateMessage.between(self, post.user)&.allows_review? and post.allows_review?(self)
+  end
 
   def private_messages
     private_messages_a.or(private_messages_b)
@@ -106,6 +113,10 @@ class User < ApplicationRecord
 
   def last_n_private_messages(n)
     private_messages.hydrated.order(last_message_time: :desc).last(n)
+  end
+
+  def last_n_post_reviews(n)
+    post_reviews_written.order(id: :desc).last(n)
   end
 
   def complete_profile_call_to_action

@@ -53,6 +53,7 @@ class PostsController < ApplicationController
     @category = @subcategory.category
     @offering_word = @post.offering_word
     @updated_recently = @post.updated_at > (Time.now - 24.hours)
+    @reviews = @post.user_post_reviews.order(id: :desc)
   end
 
   # GET /posts/new

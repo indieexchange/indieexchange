@@ -49,6 +49,8 @@ $roboto:           'Roboto',           sans-serif;
 
 $purple-gradient-lightening-rightward: linear-gradient(0.25turn, $brand-dark-purple, $brand-light-purple);
 $darker-purple-gradient-lightening-rightward: linear-gradient(0.25turn, darken($brand-dark-purple, 4%), darken($brand-light-purple, 4%));
+$green-linear-gradient: linear-gradient(0.25turn, darken($brand-green, 10%), $brand-green);
+$darker-green-linear-gradient: linear-gradient(0.25turn, darken($brand-green, 15%), darken($brand-green, 10%));
 
 // VARIABLES FOR: homepage & static
 $homepage-top-padding:                  80px;

@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   belongs_to :subcategory
   belongs_to :user
   has_many   :post_attachments, dependent: :destroy
+  has_many   :user_post_reviews, dependent: :destroy
 
   validates :title,       presence: true, length: { maximum: 128 }
   validates :description, presence: true, length: { maximum: 8192 }
@@ -34,6 +35,10 @@ class Post < ApplicationRecord
     else
       return false
     end
+  end
+
+  def allows_review?(reviewer)
+    user_post_reviews.where(reviewing_user: reviewer).blank?
   end
 
   def is_bumpable?

@@ -72,6 +72,24 @@
       .with-button.text-center
         .dashboard-bottom-button = link_to "View Your Messages", user_private_messages_path(current_user), class: "branded-pill-button thin"
 
+.row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-second-row
+  .col-4.written-post-review-cols
+    .carded-content.less-padding-v
+      .before-button-row-two
+        - if @post_reviews.any?
+          - @post_reviews.each do |post_review|
+            .you-reviewed
+              .what-was-reviewed You reviewed #{link_to "#{post_review.target_user.display_name}'s post:", post_path(post_review.post), class: "brand-link"}
+              .review-title = post_review.title
+              .stars-and-link
+                .review-stars.dib == render partial: "shared/stars", locals: {score: post_review.score, average: false}
+                .review-link.dib = link_to "See Review", post_user_post_review_path(post_review.post, post_review), class: "branded-pill-button xxs"
+        - else
+          .no-post-reviews You haven't reviewed any posts yet.  You can add a review to a post by going to its page and clicking the link to add a review.
+      hr.dashboard-hr
+      .with-button.text-center
+        .dashboard-bottom-button = link_to "View Your Post Reviews", post_reviews_user_path(current_user), class: "branded-pill-button thin"
+
 br
 br
 br
@@ -86,4 +104,5 @@ br
 javascript:
   $(document).ready(function(){
     $(".before-button").matchHeight();
+    $(".before-button-row-two").matchHeight();
   })

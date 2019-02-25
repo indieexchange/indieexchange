@@ -589,6 +589,24 @@ body{
   padding-right: 30px;
 }
 
+.branded-pill-button.green{
+  color: $light-font-color;
+  background: $green-linear-gradient;
+  box-shadow: 1px 1px 5px 0px #a9a9a9b5;
+  @include transition(all, 0.15s, ease-in-out);
+
+  &:hover{
+    text-decoration: none;
+    @include transition(all, 0.15s, ease-in-out);
+    color: white;
+    background: $darker-green-linear-gradient;
+  }
+
+  &:focus{
+    // box-shadow: 0px 8px 30px -5px $brand-light-purple;
+  }
+}
+
 .branded-callout{
   color: $light-font-color;
   font-family: $roboto;

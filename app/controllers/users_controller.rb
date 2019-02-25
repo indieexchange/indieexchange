@@ -1,15 +1,19 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard,
                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                  :crop_profile_picture]
-  before_action :self_only, only: [:show, :edit, :update, :destroy, :dashboard,
+                                  :crop_profile_picture, :post_reviews]
+  before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                   :crop_profile_picture]
+                                   :crop_profile_picture, :post_reviews]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def post_reviews
+    @reviews = @user.post_reviews_written.order(id: :desc)
   end
 
   # GET /users/1
@@ -29,22 +33,24 @@ class UsersController < ApplicationController
   def dashboard
     @posts = @user.last_n_posts(2)
     @private_messages = @user.last_n_private_messages(3)
+    @post_reviews = @user.last_n_post_reviews(3)
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    redirect_back(fallback_location: root_path, alert: "You don't have permission to take that action") and return
+    # @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    # respond_to do |format|
+    #   if @user.save
+    #     format.html { redirect_to @user, notice: 'User was successfully created.' }
+    #     format.json { render :show, status: :created, location: @user }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @user.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /users/1

@@ -21,6 +21,13 @@ a.full-post-link{
     margin: auto 0;
   }
 
+  .post-row-link{
+    color: inherit;
+    &:hover{
+      text-decoration: inherit;
+    }
+  }
+
   .price{
     font-family: $roboto;
     font-weight: 700;
@@ -41,6 +48,13 @@ a.full-post-link{
       margin-left: 5px;
       font-size: 12px;
       font-weight: 300;
+    }
+
+    .no-ratings{
+      font-family: $roboto;
+      font-size: 13px;
+      font-weight: 300;
+      color: $brand-solid-grey-text;
     }
   }
 
@@ -353,6 +367,30 @@ a.full-post-link{
     }
   }
 
+  .no-reviews-holder{
+    margin-top: 50px;
+    .sad-cry-icon{
+      font-size: 80px;
+      color: lighten($brand-light-purple, 7.5%);
+    }
+
+    .sorry{
+      font-family: $roboto;
+      font-size: 30px;
+      @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+      font-weight: 700;
+      margin-top: 15px;
+    }
+
+    .no-reviews{
+      font-family: $roboto;
+      font-weight: 300;
+      color: $brand-solid-grey-text;
+      font-size: 15px;
+      margin-top: 15px;
+    }
+  }
+
   .review-headline-and-icon{
     .review-icon-holder{
       color: $brand-callout-yellow;
@@ -508,6 +546,13 @@ a.full-post-link{
 
   .service-rating{
     margin-top: 20px;
+    .service-rating-none{
+      font-family: $roboto;
+      font-weight: 300;
+      font-size: 13px;
+      color: $brand-solid-grey-text;
+      margin-top: -3px;
+    }
     .service-rating-text{
       font-family: $roboto;
       font-weight: 300;
