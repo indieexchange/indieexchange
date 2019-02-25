@@ -54,6 +54,8 @@ class PostsController < ApplicationController
     @offering_word = @post.offering_word
     @updated_recently = @post.updated_at > (Time.now - 24.hours)
     @reviews = @post.user_post_reviews.order(id: :desc)
+    user_review_count = @user.user_reviews_received.count
+    @user_reviews = OpenStruct.new(any?: user_review_count.positive?, count: user_review_count, score: @user.rating)
   end
 
   # GET /posts/new

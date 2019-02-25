@@ -1,0 +1,42 @@
+- if @reviews.any?
+  .row.with-sitewide-padding.no-gutters.show-user-post-review-top-row.justify-content-center
+    .col-lg-8.col-md-12.headline-cols
+      .post-review Your User Reviews
+
+  - @reviews.each do |review|
+    - reviewer = review.reviewing_user
+    - target = review.target_user
+    .row.with-sitewide-padding.no-gutters.show-user-post-review-row.justify-content-center
+      .col-lg-8.col-md-12.review-containing-col
+        .carded-content.less-padding-v.less-padding-h.no-side-margin
+          .row.justify-content-center.user-post-review-containing-row.no-gutters
+            .col-4.text-center
+              a.reviewer-profile-link href="#{user_path(target)}"
+                .user-post-review-profile-picture-holder
+                  - if target.has_cropped_profile_picture?
+                    = image_tag(rails_representation_url(target.pp_mid), class: "user-post-review-profile-picture")
+                  - else
+                    = image_tag("anonymous_user.png", class: "user-post-review-profile-picture")
+                .user-post-review-display-name = target.display_name
+            .col-8
+              .your-review-for Your review for #{target.display_name}
+              .title-container
+                .rating-container.post-reviews.dib == render partial: "shared/stars", locals: {score: review.score, average: false}
+                .title.dib = review.title
+              .message = h(review.body.truncate(100)).gsub(/\n/, '<br/>').html_safe
+              .see-review = link_to "See Full Review", user_user_user_review_path(target, review), class: "btn btn-primary"
+- else
+  .row.with-sitewide-padding.no-gutters.justify-content-center.no-reviews-row
+    .col-4
+      .carded-content.text-center.less-padding-v
+        .surprise-holder = icon('far', 'surprise', class: "surprise-icon")
+        .sorry Oops!
+        .no-posts Looks like you don't have any reviews right now.  Maybe you can review someone that you've worked with!
+        hr.pre-bio-hr
+        .message-them
+          = link_to "Back to Your Profile", user_path(current_user), class: "branded-pill-button thin send-them-a-message"
+br
+br
+br
+br
+br

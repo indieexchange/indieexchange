@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard,
                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                  :crop_profile_picture, :post_reviews]
+                                  :crop_profile_picture, :post_reviews, :user_reviews]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                   :crop_profile_picture, :post_reviews]
+                                   :crop_profile_picture, :post_reviews, :user_reviews]
 
   # GET /users
   # GET /users.json
@@ -16,9 +16,14 @@ class UsersController < ApplicationController
     @reviews = @user.post_reviews_written.order(id: :desc)
   end
 
+  def user_reviews
+    @reviews = @user.user_reviews_written.order(id: :desc)
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
+    @reviews = @user.user_reviews_received.order(id: :desc)
   end
 
   # GET /users/new
@@ -34,6 +39,7 @@ class UsersController < ApplicationController
     @posts = @user.last_n_posts(2)
     @private_messages = @user.last_n_private_messages(3)
     @post_reviews = @user.last_n_post_reviews(3)
+    @user_reviews = @user.last_n_user_reviews(3)
   end
 
   # POST /users

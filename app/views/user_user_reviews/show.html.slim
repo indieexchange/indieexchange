@@ -1,0 +1,39 @@
+.row.with-sitewide-padding.no-gutters.show-user-post-review-top-row.justify-content-center
+  .col-lg-8.col-md-12.headline-cols
+    .post-review User Review
+    .post-title For <b>#{@target.display_name}</b>
+
+.row.with-sitewide-padding.no-gutters.show-user-post-review-row.justify-content-center
+  .col-lg-8.col-md-12.review-containing-col
+    .carded-content.less-padding-v.less-padding-h.no-side-margin
+      .row.justify-content-center.user-post-review-containing-row.no-gutters
+        .col-4.text-center
+          - if @user_user_review.is_anonymous?
+            .user-post-review-profile-picture-holder
+              = image_tag("anonymous_user_2.png", class: "user-post-review-profile-picture")
+            .user-post-review-display-name Anonymous
+          - else
+            a.reviewer-profile-link href="#{user_path(@reviewer)}"
+              .user-post-review-profile-picture-holder
+                - if @reviewer.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(@reviewer.pp_mid), class: "user-post-review-profile-picture")
+                - else
+                  = image_tag("anonymous_user.png", class: "user-post-review-profile-picture")
+              .user-post-review-display-name = @reviewer.display_name
+          .rating-container == render partial: "shared/stars", locals: {score: @user_user_review.score, average: false}
+          .time-ago = time_ago_in_words(@user_user_review.created_at) + " ago"
+        .col-8
+          .title-container
+            .title = @user_user_review.title
+          .message = h(@user_user_review.body).gsub(/\n/, '<br/>').html_safe
+
+.row.with-sitewide-padding.no-gutters.show-user-post-controls-row.justify-content-center
+  .col-lg-8.col-md-12.review-containing-col
+    .dib = link_to "See #{@target.display_name}'s Profile", user_path(@target), class: "btn btn-primary"
+    - if @reviewer == current_user
+      .dib.delete-review-button = link_to "Delete Review", user_user_user_review_path(@target), method: :delete, class: "btn btn-danger", data: {confirm: "Really delete this review? You can write a new review, but this review will be permanently deleted"}
+br
+br
+br
+br
+br

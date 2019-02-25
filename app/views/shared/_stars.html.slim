@@ -1,10 +1,11 @@
+- size ||= :normal
 - remaining_score = score
 - 5.times do
   - if remaining_score >= 0.75
-    span = icon('fas', 'star', class: "filled-star", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
+    span = icon('fas', 'star', class: "#{size} filled-star", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
   - elsif remaining_score >= 0.25
-    span = icon('fas', 'star-half', class: "half-star filled-star", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
-    span = icon('fas', 'star-half', class: "half-star fa-flip-horizontal unfilled-star half", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
+    span = icon('fas', 'star-half', class: "#{size} half-star filled-star", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
+    span = icon('fas', 'star-half', class: "#{size} half-star fa-flip-horizontal unfilled-star half", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
   - else
-    span = icon('fas', 'star', class: "unfilled-star whole", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
+    span = icon('fas', 'star', class: "#{size} unfilled-star whole", title: "#{average ? 'Average review: ' : ''}#{score} stars out of 5")
   - remaining_score -= 1

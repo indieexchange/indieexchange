@@ -89,6 +89,22 @@
       hr.dashboard-hr
       .with-button.text-center
         .dashboard-bottom-button = link_to "View Your Post Reviews", post_reviews_user_path(current_user), class: "branded-pill-button thin"
+  .col-4.written-user-review-cols
+    .carded-content.less-padding-v
+      .before-button-row-two
+        - if @user_reviews.any?
+          - @user_reviews.each do |user_review|
+            .you-reviewed
+              .what-was-reviewed You reviewed #{link_to "#{user_review.target_user.display_name}:", user_path(user_review.target_user), class: "brand-link"}
+              .review-title = user_review.title
+              .stars-and-link
+                .review-stars.dib == render partial: "shared/stars", locals: {score: user_review.score, average: false}
+                .review-link.dib = link_to "See Review", user_user_user_review_path(user_review.target_user, user_review), class: "branded-pill-button xxs"
+        - else
+          .no-post-reviews You haven't reviewed any users yet.  You can add a review to a user by going to their profile page and clicking the link to add a review.
+      hr.dashboard-hr
+      .with-button.text-center
+        .dashboard-bottom-button = link_to "View Your User Reviews", user_reviews_user_path(current_user), class: "branded-pill-button thin"
 
 br
 br

@@ -11,24 +11,26 @@
         - if current_user == @user
           .col-4.text-right
             .edit-details.dib
-              = link_to "EDIT POST", edit_post_path(@post), class: "btn btn-sm btn-primary"
+              = link_to "EDIT POST", edit_post_path(@post), class: "btn btn-sm btn-warning"
 
 .row.with-sitewide-padding.no-gutters.post-display-row.post-show-page
   .col-3
     .carded-content.less-padding-v.full-equal-height
-      .post-profile-picture-holder.text-center
-        - if @user.has_cropped_profile_picture?
-          = image_tag(rails_representation_url(@user.pp_mid), class: "post-profile-picture", title: "Profile picture")
-        - else
-          = image_tag("anonymous_user.png", class: "post-profile-picture", title: "Profile picture")
-      .post-display-name.text-center #{@user.display_name_untruncated}
+      a.post-profile-link href="#{user_path(@user)}"
+        .post-profile-picture-holder.text-center
+          - if @user.has_cropped_profile_picture?
+            = image_tag(rails_representation_url(@user.pp_mid), class: "post-profile-picture", title: "Profile picture")
+          - else
+            = image_tag("anonymous_user.png", class: "post-profile-picture", title: "Profile picture")
+        .post-display-name.text-center #{@user.display_name_untruncated}
       .post-time-ago.text-center Posted #{time_ago_in_words(@post.created_at)} ago
       hr.mid-light-grey-hr
       .ratings-headline.text-center Ratings
       .user-rating
         .user-rating-text User
-        .user-rating-stars.dib == render partial: 'shared/stars', locals: {score: 4.5, average: true}
-        .user-rating-count.dib &#40;999&#41;
+        - if @user_reviews.any?
+        .user-rating-stars.dib == render partial: 'shared/stars', locals: {score: @user_reviews.score, average: true}
+        .user-rating-count.dib &#40;#{@user_reviews.count}&#41;
       .service-rating
         .service-rating-text Post
         - if @reviews.any?

@@ -206,7 +206,7 @@
     margin-bottom: 1rem;
   }
 
-  .written-post-review-cols{
+  .written-post-review-cols, .written-user-review-cols{
     .no-post-reviews{
       font-family: $roboto;
       color: $brand-solid-grey-text;
@@ -411,9 +411,77 @@
     margin-right: 0px;
   }
 
+  .recent-reviews-with-icon{
+    padding-bottom: 20px;
+  }
+
   .recent-reviews-col{
     .review-hr{
       border-color: #eee;
+    }
+
+    .no-reviews-holder{
+      margin-top: 50px;
+      .sad-cry-icon{
+        font-size: 80px;
+        color: lighten($brand-light-purple, 7.5%);
+      }
+
+      .sorry{
+        font-family: $roboto;
+        font-size: 30px;
+        @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+        font-weight: 700;
+        margin-top: 15px;
+      }
+
+      .no-reviews{
+        font-family: $roboto;
+        font-weight: 300;
+        color: $brand-solid-grey-text;
+        font-size: 15px;
+        margin-top: 15px;
+      }
+    }
+
+    .see-all-reviews{
+      margin-top: 20px;
+      .star-icon{
+        .more-reviews-star{
+          color: $brand-callout-yellow;
+          font-size: 12px;
+        }
+      }
+
+      .see-all-reviews-link{
+        @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+        font-family: $roboto;
+        font-weight: 700;
+        font-size: 20px;
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+
+      .right-arrow-link{
+        vertical-align: text-top;
+      }
+
+      .right-arrow{
+        margin-left: 10px;
+        background-color: white;
+        box-shadow: 1px 1px 8px 0px #ccc;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+
+        .see-all-reviews-right{
+          font-size: 17px;
+          vertical-align: middle;
+          margin-left: 8px;
+          color: $brand-light-purple;
+          margin-bottom: 5px;
+        }
+      }
     }
 
     .stars-for-review{
@@ -435,6 +503,7 @@
       .review-text-snippet{
         font-family: $roboto;
         font-size: 16px;
+        font-weight: 700;
         font-style: italic;
       }
     }
@@ -442,6 +511,13 @@
     .review-profile-picture-and-name-holder{
       width: 150px;
       display: inline-block;
+
+      a.review-info-link{
+        color: $brand-off-black-two;
+        &:hover{
+          text-decoration: none;
+        }
+      }
 
       .reviewer-name{
         font-family: $roboto;
@@ -500,7 +576,6 @@
 
   .pre-bio-hr{
     border-color: #eee;
-    margin-top: 50px;
   }
   .user-summary{
 
@@ -546,6 +621,12 @@
   }
 
   .bottom-info-row{
+    .rating-text{
+      font-family: $roboto;
+      font-weight: 300;
+      font-size: 13px;
+      color: $brand-solid-grey-text;
+    }
     .ratings-container{
       margin-top: -8px;
 

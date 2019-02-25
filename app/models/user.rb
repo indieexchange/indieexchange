@@ -28,6 +28,9 @@ class User < ApplicationRecord
   has_many :post_reviews_written, class_name: "UserPostReview", foreign_key: "reviewing_user_id", dependent: :destroy
   has_many :post_reviews_received, class_name: "UserPostReview", foreign_key: "target_user_id", dependent: :destroy
 
+  has_many :user_reviews_written, class_name: "UserUserReview", foreign_key: "reviewing_user_id", dependent: :destroy
+  has_many :user_reviews_received, class_name: "UserUserReview", foreign_key: "target_user_id", dependent: :destroy
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
   before_save :crop_profile_picture
 
@@ -35,6 +38,14 @@ class User < ApplicationRecord
 
   def can_review?(post)
     PrivateMessage.between(self, post.user)&.allows_review? and post.allows_review?(self)
+  end
+
+  def can_review_user?(target_user)
+    PrivateMessage.between(self, target_user)&.allows_review? and target_user.allows_review?(self)
+  end
+
+  def allows_review?(reviewing_user)
+    user_reviews_received.where(reviewing_user: reviewing_user).blank?
   end
 
   def private_messages
@@ -117,6 +128,10 @@ class User < ApplicationRecord
 
   def last_n_post_reviews(n)
     post_reviews_written.order(id: :desc).last(n)
+  end
+
+  def last_n_user_reviews(n)
+    user_reviews_written.order(id: :desc).last(n)
   end
 
   def complete_profile_call_to_action

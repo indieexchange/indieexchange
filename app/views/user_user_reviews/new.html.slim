@@ -1,0 +1,72 @@
+.row.no-gutters.with-sitewide-padding.user-post-review-form-row
+  .col-sm-12.col-md-6.mx-auto
+    .card.card-brand-color.my-5
+      .card-body
+        = form_for([@target, @user_user_review]) do |f|
+          h5.card-title.text-center
+            | User Review
+            .smaller-subtext For #{@target.display_name}
+          - if @user_user_review.errors.any?
+            .error-explanation.form-error-container
+              - @user_user_review.errors.full_messages.each do |message|
+                .error-detail = message
+          form.form-brand-color
+            .rating-selector.text-center
+              .rating-selector-text Overall Rating
+              .rating-descriptor Click to select a rating of one to five stars
+              .stars
+                span.star.star-1 data-rating="1" = icon('fas', 'star', class: "star-1-icon star-icon")
+                span.star.star-2 data-rating="2" = icon('far', 'star', class: "star-2-icon star-icon")
+                span.star.star-3 data-rating="3" = icon('far', 'star', class: "star-3-icon star-icon")
+                span.star.star-4 data-rating="4" = icon('far', 'star', class: "star-4-icon star-icon")
+                span.star.star-5 data-rating="5" = icon('far', 'star', class: "star-5-icon star-icon")
+            .form-label-group
+              = f.text_field :title, autofocus: true, required: true, type: "text", class: "form-control", id: "title-input", placeholder: "Your review's headline"
+              label for="title-input" Your review's headline
+            br
+            .form-label-group.brand-form-text-container
+              = f.text_area :body, autofocus: true, rows: 8, required: true, type: "text", class: "form-control brand-form-text-area", id: "review-body", placeholder: " "
+              label.text-area-label for="review-body" Write your review here
+            .custom-control.custom-checkbox.mb-3
+              = f.check_box :is_anonymous, class: "custom-control-input", id: "is-anonymous-checkbox"
+              label.custom-control-label.remember-me.errorable-text for="is-anonymous-checkbox" I want to leave this review anonymously
+            = f.hidden_field :score, id: "score-input", value: 1
+
+
+            br
+            = f.submit "Submit Review", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
+
+br
+br
+br
+br
+br
+
+javascript:
+ $(document).ready(function(){
+  var reset_to = 1;
+  $(".star").hover(function(){
+    rightmost_filled_star_number = $(this).data().rating; // a number among 1, 2, 3, 4, 5
+    for(i = 1; i <= 5; i++){
+      if(i <= rightmost_filled_star_number) {
+        $(".star-" + i + "-icon").addClass('fas').removeClass('far');
+      } else {
+        $(".star-" + i + "-icon").addClass('far').removeClass('fas');
+      }
+    }
+  }, function(){
+    for(i = 1; i <= 5; i++){
+      if(i <= reset_to) {
+        $(".star-" + i + "-icon").addClass('fas').removeClass('far');
+      } else {
+        $(".star-" + i + "-icon").addClass('far').removeClass('fas');
+      }
+    }
+  });
+
+  $(".star").click(function(){
+    rating = $(this).data().rating;
+    $("#score-input").val(rating);
+    reset_to = rating;
+  })
+ });

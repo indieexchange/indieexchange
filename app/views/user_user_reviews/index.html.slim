@@ -1,11 +1,11 @@
 - if @reviews.any?
   .row.with-sitewide-padding.no-gutters.show-user-post-review-top-row.justify-content-center
     .col-lg-8.col-md-12.headline-cols.text-center
-      .post-review All Post Reviews
-      .post-title For post <b>"#{@post.title}"</b>
+      .post-review All User Reviews
+      .post-title For <b>#{@target.display_name}</b>
       .overall-rating
         .overall-rating-text Average Rating
-        .overall-rating-stars == render partial: "shared/stars", locals: {score: @post.rating, average: false, size: :large}
+        .overall-rating-stars == render partial: "shared/stars", locals: {score: @target.rating, average: false, size: :large}
 
   - @reviews.each do |review|
     - reviewer = review.reviewing_user
@@ -35,7 +35,7 @@
 
   .row.with-sitewide-padding.no-gutters.show-user-post-controls-row.justify-content-center
     .col-lg-8.col-md-12.review-containing-col
-      .dib = link_to "Go to Post", post_path(@post), class: "btn btn-primary"
+      .dib = link_to "Go to #{@target.display_name}'s Profile", user_path(@target), class: "btn btn-primary"
 
 - else
   .row.with-sitewide-padding.no-gutters.no-post-reviews-row.justify-content-center
@@ -43,10 +43,10 @@
       .carded-content.text-center.less-padding-v
         .sad-face-holder = icon('far', 'sad-tear', class: "sad-face-icon")
         .sorry Sorry!
-        .no-posts There are no reviews for this post right now.  Check back later!
+        .no-posts There are no reviews for this user right now.  Check back later!
         hr.pre-bio-hr
         .message-them
-          = link_to "Go to Post", post_path(@post), class: "branded-pill-button thin send-them-a-message"
+          = link_to "See #{@target.display_name}'s Profile", user_path(@target), class: "branded-pill-button thin send-them-a-message"
 
 br
 br

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "registrations" }
 
   resources :users do
+    resources :user_user_reviews
     resources :private_messages do
       resources :messages
     end
@@ -38,4 +39,5 @@ Rails.application.routes.draw do
   post "/private_messages/:id/new_message",           to: "private_messages#new_message",   as: "new_message_private_message"
 
   get "/user/:id/post_reviews",                       to: "users#post_reviews",             as: "post_reviews_user"
+  get "/user/:id/user_reviews",                       to: "users#user_reviews",             as: "user_reviews_user"
 end

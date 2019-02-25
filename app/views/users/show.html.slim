@@ -23,10 +23,12 @@
           br
           .row.bottom-info-row
             .col-4
-              / .rating-text Rating: <i>No ratings yet</i>
-              .ratings-container
-                = render partial: "shared/stars", locals: {score: 3.5, average: true}
-                span.review-counter 142 reviews
+              - if @user.number_of_ratings.positive?
+                .ratings-container
+                  = render partial: "shared/stars", locals: {score: @user.rating, average: true}
+                  span.review-counter #{pluralize(@user.number_of_ratings, "review")}
+              - else
+                .rating-text <i>No ratings yet</i>
             .col-4.text-center
               .active-ads = link_to "SEE ACTIVE ADS", user_posts_path(@user), class: "btn branded-pill-button thin active-ads-link"
             .col-4.text-right
@@ -40,56 +42,59 @@
               b About Me
             .about-me-text
               = h(@user.about_me).gsub(/\n/, '<br/>').html_safe
-            hr.pre-bio-hr
-            .text-center
-              = link_to "Send Me a Message!", "/some-path", class: "btn branded-pill-button message-me-button"
+            - if @user != current_user
+              hr.pre-bio-hr
+              .text-center
+                = link_to "Send Me a Message!", start_private_message_path(@user, current_user), class: "btn branded-pill-button message-me-button"
   .col-5.recent-reviews-col
     .carded-content.full-equal-height.recent-review-card
-      .icon-holder-outer
-        .icon-holder-inner
-          .icon-holder = icon('fas', 'bell', class: "recent-reviews-icon")
-      .recent-reviews Recent Reviews
-      hr.pre-bio-hr
-      / there should be a loop here...
-      .row.review-preview
-        .col-4
-          .review-profile-picture-and-name-holder
-            .review-profile-picture.text-center = image_tag("https://si.wsj.net/public/resources/images/BN-JX741_wolfe_8S_20150819160732.jpg", class: "review-profile-picture-image")
-            .reviewer-name.text-center Oven Vilson
-        .col-8
-          .review-text-holder
-            .review-text-snippet "#{"[Owen Wilson voice] Wao".truncate(75)}"
-          hr.review-hr
-          .stars-and-timing
-            .stars-for-review = render partial: "shared/stars", locals: {score: 5, average: false}
-            .review-timing Reviewed #{time_ago_in_words(Time.now - 2.days)} ago
-      hr.pre-bio-hr
-      .row.review-preview
-        .col-4
-          .review-profile-picture-and-name-holder
-            .review-profile-picture.text-center = image_tag("https://scontent-ams3-1.cdninstagram.com/vp/a8591bf40e8e17d20326d8e1b62bd8ec/5CAEB9EE/t51.2885-19/s320x320/26263797_182962365626123_5372818046492606464_n.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com", class: "review-profile-picture-image")
-            .reviewer-name.text-center Gnaxkcles Prower
-        .col-8
-          .review-text-holder
-            .review-text-snippet "#{"Bernie's work was amazing in every way.  I really like what autotune has done with his voice.".truncate(75)}"
-          hr.review-hr
-          .stars-and-timing
-            .stars-for-review = render partial: "shared/stars", locals: {score: 4, average: false}
-            .review-timing Reviewed #{time_ago_in_words(Time.now - 2.days)} ago
-      hr.pre-bio-hr
-      .row.review-preview
-        .col-4
-          .review-profile-picture-and-name-holder
-            .review-profile-picture.text-center = image_tag("https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQwMjY3NjU5MTk4NDczNDQ5/gettyimages-168582304_croppedjpg.jpg", class: "review-profile-picture-image")
-            .reviewer-name.text-center Bitney Steer
-        .col-8
-          .review-text-holder
-            .review-text-snippet "#{"thank u".truncate(75)}"
-          hr.review-hr
-          .stars-and-timing
-            .stars-for-review = render partial: "shared/stars", locals: {score: 2, average: false}
-            .review-timing Reviewed #{time_ago_in_words(Time.now - 2.days)} ago
-      hr.pre-bio-hr
+      .recent-reviews-with-icon
+        .icon-holder-outer
+          .icon-holder-inner
+            .icon-holder = icon('fas', 'bell', class: "recent-reviews-icon")
+        .recent-reviews Recent Reviews
+      - if current_user.can_review_user?(@user)
+        hr.mid-light-grey-hr
+          .leave-a-review-holder.text-right = link_to "Leave a Review", new_user_user_user_review_path(@user), class: "branded-pill-button xs green"
+      - if @reviews.any?
+        - @reviews.each do |review|
+          - reviewer = review.reviewing_user
+          hr.pre-bio-hr
+          .row.review-preview
+            .col-4
+              .review-profile-picture-and-name-holder
+                - if review.is_anonymous?
+                  .review-profile-picture.text-center
+                    = image_tag("anonymous_user_2.png", class: "review-profile-picture-image")
+                  .reviewer-name.text-center Anonymous
+                - else
+                  a.review-info-link href="#{user_path(reviewer)}"
+                    .review-profile-picture.text-center
+                      - if reviewer.has_cropped_profile_picture?
+                        = image_tag(rails_representation_url(reviewer.pp_mid), class: "review-profile-picture-image")
+                      - else
+                        = image_tag("anonymous_user.png", class: "review-profile-picture-image")
+                    .reviewer-name.text-center = reviewer.display_name
+            .col-8
+              .review-text-holder
+                .review-text-snippet = review.title.truncate(60)
+                .see-full-review = link_to "See Full Review", user_user_user_review_path(@user, review), class: "branded-pill-button xxs"
+              hr.review-hr
+              .stars-and-timing
+                .stars-for-review = render partial: "shared/stars", locals: {score: review.score, average: false}
+                .review-timing Reviewed #{time_ago_in_words(review.created_at)} ago
+        hr.mid-light-grey-hr
+        .see-all-reviews
+          .star-icon.dib = icon('fas', 'star', class: "more-reviews-star")
+          .dib = link_to "SEE ALL REVIEWS", user_user_user_reviews_path(@user), class: "see-all-reviews-link"
+          a.right-arrow-link href="#{user_user_user_reviews_path(@user)}"
+            .right-arrow.dib = icon('fas', 'caret-right', class: "see-all-reviews-right")
+      - else
+        hr.mid-light-grey-hr
+          .no-reviews-holder.text-center
+            .sad-cry-icon-holder = icon('far', 'sad-cry', class: "sad-cry-icon")
+            .sorry Sorry!
+            .no-reviews There are no reviews for this user right now.
 .row.with-sitewide-padding.no-gutters.justify-content-center.user-profile-reviews-row.more-margin
   .col-12.with-light-bottom-border-padded
     .talk-bubble-with-circle

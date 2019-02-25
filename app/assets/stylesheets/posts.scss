@@ -593,6 +593,13 @@ a.full-post-link{
     font-size: 13px;
     color: $brand-solid-grey-text;
   }
+
+  a.post-profile-link{
+    color: $brand-off-black-two;
+    &:hover{
+      text-decoration: none;
+    }
+  }
   .post-profile-picture-holder{
     .post-profile-picture{
       height: 160px;

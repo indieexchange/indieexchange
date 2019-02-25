@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_155144) do
+ActiveRecord::Schema.define(version: 2019_02_25_170133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,19 @@ ActiveRecord::Schema.define(version: 2019_02_25_155144) do
     t.index ["target_user_id"], name: "index_user_post_reviews_on_target_user_id"
   end
 
+  create_table "user_user_reviews", force: :cascade do |t|
+    t.bigint "reviewing_user_id"
+    t.bigint "target_user_id"
+    t.string "title", null: false
+    t.text "body", null: false
+    t.integer "score", null: false
+    t.boolean "is_anonymous", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewing_user_id"], name: "index_user_user_reviews_on_reviewing_user_id"
+    t.index ["target_user_id"], name: "index_user_user_reviews_on_target_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "about_me"
     t.string "first_name", null: false
@@ -147,6 +160,8 @@ ActiveRecord::Schema.define(version: 2019_02_25_155144) do
     t.datetime "last_active"
     t.integer "unread_message_count", default: 0, null: false
     t.boolean "has_unread_messages", default: false, null: false
+    t.integer "number_of_ratings", default: 0, null: false
+    t.decimal "rating", default: "0.0", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -167,4 +182,6 @@ ActiveRecord::Schema.define(version: 2019_02_25_155144) do
   add_foreign_key "user_post_reviews", "posts"
   add_foreign_key "user_post_reviews", "users", column: "reviewing_user_id"
   add_foreign_key "user_post_reviews", "users", column: "target_user_id"
+  add_foreign_key "user_user_reviews", "users", column: "reviewing_user_id"
+  add_foreign_key "user_user_reviews", "users", column: "target_user_id"
 end
