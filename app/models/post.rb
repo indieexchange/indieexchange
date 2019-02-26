@@ -17,6 +17,9 @@ class Post < ApplicationRecord
   scope :published, -> { where(is_published: true) }
   scope :visible,   -> { where(is_visible: true) }
 
+  has_many :post_comments, dependent: :destroy
+  has_many :post_comment_replies
+
   def self.seeking_options
     [["Services offered by others", false],["People who need my services", true]]
   end

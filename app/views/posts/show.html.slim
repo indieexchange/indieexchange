@@ -135,6 +135,90 @@
       - else
         .no-attachments This post does not have any attachments.
 
+.row.with-sitewide-padding.no-gutters.justify-content-center.post-reviews-row.more-margin
+  .col-12.with-light-bottom-border-padded
+    .talk-bubble-with-circle
+      = icon('fas', 'comments', class: "user-reviews-icon")
+    .reviews-banner Discussion for this post:
+- if @comments.any?
+  - @comments.each do |comment|
+    .row.with-sitewide-padding.no-gutters.justify-content-center.post-reviews-row.with-post.more-margin
+      .col-12.review-cols
+        .carded-content
+          .review-profile-picture-holder
+            a href="#{user_path(@user)}"
+              .review-profile-picture
+                - if comment.author.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(comment.author.pp_mid), class: "review-full-profile-picture-image", title: "Go to #{comment.author.display_name_untruncated}'s profile")
+                - else
+                  = image_tag("anonymous_user.png", class: "review-full-profile-picture-image", title: "Go to #{comment.author.display_name_untruncated}'s profile")
+          .review-info-holder
+            .reviewer-name
+              = comment.author.display_name_untruncated
+              span.review-date Posted on #{comment.created_at.strftime("%b %-d, %Y")}
+            / .report-dropdown.dropleft
+              / todo: the IDs here need to take a number to make them unique! such as ID of the review.  same with labelled by.
+              / todo: make them reportable
+              / a id="reportMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                = icon('fas', 'ellipsis-h', class: "report-dropdown-icon")
+              / .dropdown-menu aria-labelledby="reportMenuButton"
+                a.dropdown-item href="meow" Report
+            .full-review = h(comment.body).gsub(/\n/, '<br/>').html_safe
+    .row.with-sitewide-padding.no-gutters.justify-content-end.post-comments-row.with-post.more-margin
+      .col-11
+        .carded-content
+          - if comment.post_comment_replies.any?
+            - if comment.post_comment_replies.count > 2
+              .row.reply-display-row
+                = link_to "See #{pluralize(comment.post_comment_replies.count - 2, 'more reply')}", post_comment_replies_path(@post, comment), class: "brand-link gradient"
+            - comment.post_comment_replies.last(2).each do |reply|
+              .row.reply-display-row
+                .col-2
+                  .reply-profile-picture-holder.text-center
+                    a href="#{user_path(reply.author)}"
+                      - if reply.author.has_cropped_profile_picture?
+                        .profile-picture-small = image_tag(rails_representation_url(reply.author.pp_mid), class: "profile-picture-small-image")
+                      - else
+                        .profile-picture-small = image_tag("anonymous_user.png", class: "profile-picture-small-image")
+                .col-9
+                  .review-info-holder
+                    .reviewer-name
+                      = reply.author.display_name_untruncated
+                      span.review-date Posted on #{reply.created_at.strftime("%b %-d, %Y")}
+                  .full-review = h(reply.body).gsub(/\n/, '<br/>').html_safe
+          a.brand-link.gradient.add-a-reply-link data-toggle="collapse" href="#add-reply-#{comment.id}" aria-expanded="false" aria-controls="add-reply-#{comment.id}" Add a reply
+          .add-reply-area.collapse id="add-reply-#{comment.id}"
+            .new-reply-form = form_for([@post, PostCommentReply.new], url: post_reply_path(@post, comment), method: :put) do |f|
+              .row
+                .col-2
+                  .new-comment-profile-picture-holder.text-center
+                    - if current_user.has_cropped_profile_picture?
+                      .profile-picture-medium = image_tag(rails_representation_url(current_user.pp_mid), class: "profile-picture-medium-image")
+                    - else
+                      .profile-picture-medium = image_tag("anonymous_user.png", class: "profile-picture-medium-image")
+                .col-6
+                  .textarea-holder = f.text_area :body, rows: 5, class: "form-control new-comment-textarea", placeholder: "Write your reply here"
+                .col-3.submit-holder
+                  .new-comment-submit-holder
+                    = f.submit "POST NOW", class: "btn branded-pill-button"
+
+.row.with-sitewide-padding.no-gutters.new-post-comment-form.more-margin
+  .col-9
+    .carded-content
+      = form_for([@post, @comment], url: post_comment_path(@post), method: :put) do |f|
+        .row
+          .col-3
+            .new-comment-profile-picture-holder.text-center
+              - if current_user.has_cropped_profile_picture?
+                .profile-picture-medium = image_tag(rails_representation_url(current_user.pp_mid), class: "profile-picture-medium-image")
+              - else
+                .profile-picture-medium = image_tag("anonymous_user.png", class: "profile-picture-medium-image")
+          .col-6
+            .textarea-holder = f.text_area :body, rows: 5, class: "form-control new-comment-textarea", placeholder: "Write your question or comment here"
+          .col-2.submit-holder
+            .new-comment-submit-holder
+              = f.submit "POST NOW", class: "btn branded-pill-button"
+
 
 br
 br

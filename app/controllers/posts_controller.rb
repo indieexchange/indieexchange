@@ -1,10 +1,11 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post,  only: [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump]
-  before_action :set_user,  only: [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump]
-  before_action :set_puser, only: [                                                                   :posts]
-  before_action :self_only, only: [       :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump]
-  before_action :hide,      only: [:show]
+  before_action :set_post,  only:   [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump, :comment, :reply, :comment_replies]
+  before_action :set_user,  only:   [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump, :comment, :reply, :comment_replies]
+  before_action :set_puser, only:   [                                                                   :posts]
+  before_action :self_only, only:   [       :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump]
+  before_action :hide,      only:   [:show,                                                                                        :comment, :reply]
+  before_action :set_comment, only: [                                                                                                        :reply, :comment_replies]
 
   # GET /posts
   # GET /posts.json
@@ -22,6 +23,52 @@ class PostsController < ApplicationController
   def unpublish
     @post.update!(is_published: false)
     redirect_back(fallback_location: root_path, notice: "Your post has been unpublished")
+  end
+
+  def comment_replies
+    @subcategory = @post.subcategory
+    @category = @subcategory.category
+    @offering_word = @post.offering_word
+    @replies = @comment.post_comment_replies
+  end
+
+  def comment
+    @comment = PostComment.new(
+      body: params["post_comment"]["body"],
+      author_id: current_user.id,
+      post_id: @post.id,
+      target_id: @user.id
+      )
+
+    if @comment.save
+      redirect_to post_path(@post), notice: "Your comment has been added to this post"
+    else
+      redirect_to post_path(@post), alert: "Your comment could not be added because it was blank"
+    end
+  end
+
+  def reply
+    @reply = PostCommentReply.new(
+      body: params["post_comment_reply"]["body"],
+      author_id: current_user.id,
+      target_id: @user.id,
+      post_id: @post.id,
+      post_comment_id: @comment.id
+    )
+
+    if params[:direct]
+      if @reply.save
+        redirect_to post_comment_replies_path(@post, @comment), notice: "Your reply has been added"
+      else
+        redirect_to post_comment_replies_path(@post, @comment), alert: "Your reply could not be added because it was blank"
+      end
+    else
+      if @reply.save
+        redirect_to post_path(@post), notice: "Your reply has been added"
+      else
+        redirect_to post_path(@post), alert: "Your reply could not be added because it was blank"
+      end
+    end
   end
 
   def posts
@@ -56,6 +103,8 @@ class PostsController < ApplicationController
     @reviews = @post.user_post_reviews.order(id: :desc)
     user_review_count = @user.user_reviews_received.count
     @user_reviews = OpenStruct.new(any?: user_review_count.positive?, count: user_review_count, score: @user.rating)
+    @comments = @post.post_comments
+    @comment = PostComment.new
   end
 
   # GET /posts/new
@@ -129,6 +178,10 @@ class PostsController < ApplicationController
 
     def set_user
       @user = @post.user
+    end
+
+    def set_comment
+      @comment = PostComment.find(params[:comment_id])
     end
 
     def hide

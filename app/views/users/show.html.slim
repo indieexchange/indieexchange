@@ -95,27 +95,7 @@
             .sad-cry-icon-holder = icon('far', 'sad-cry', class: "sad-cry-icon")
             .sorry Sorry!
             .no-reviews There are no reviews for this user right now.
-.row.with-sitewide-padding.no-gutters.justify-content-center.user-profile-reviews-row.more-margin
-  .col-12.with-light-bottom-border-padded
-    .talk-bubble-with-circle
-      = icon('fas', 'comments', class: "user-reviews-icon")
-    .reviews-banner Reviews for #{@user.display_name_untruncated}:
-  .col-12.review-cols
-    .carded-content
-      .review-profile-picture-holder
-        .review-profile-picture = image_tag("https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQwMjY3NjU5MTk4NDczNDQ5/gettyimages-168582304_croppedjpg.jpg", class: "review-full-profile-picture-image")
-      .review-info-holder
-        .reviewer-name
-          | Bitney Sparrow
-          span.review-date Posted on #{(Time.now - 5.days).strftime("%b %-d, %Y")}
-        .report-dropdown.dropleft
-          / todo: the IDs here need to take a number to make them unique! such as ID of the review.  same with labelled by.
-          / todo: make them reportable
-          a id="reportMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            = icon('fas', 'ellipsis-h', class: "report-dropdown-icon")
-          .dropdown-menu aria-labelledby="reportMenuButton"
-            a.dropdown-item href="meow" Report
-        .full-review = BetterLorem.p(4, false, true).gsub('</p><p>', '<br><br>').html_safe
+
 
 br
 br

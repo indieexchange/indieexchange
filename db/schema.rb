@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_25_170133) do
+ActiveRecord::Schema.define(version: 2019_02_26_201157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,32 @@ ActiveRecord::Schema.define(version: 2019_02_25_170133) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_post_attachments_on_post_id"
     t.index ["user_id"], name: "index_post_attachments_on_user_id"
+  end
+
+  create_table "post_comment_replies", force: :cascade do |t|
+    t.bigint "post_id"
+    t.bigint "author_id"
+    t.bigint "target_id"
+    t.bigint "post_comment_id"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_post_comment_replies_on_author_id"
+    t.index ["post_comment_id"], name: "index_post_comment_replies_on_post_comment_id"
+    t.index ["post_id"], name: "index_post_comment_replies_on_post_id"
+    t.index ["target_id"], name: "index_post_comment_replies_on_target_id"
+  end
+
+  create_table "post_comments", force: :cascade do |t|
+    t.bigint "author_id"
+    t.bigint "target_id"
+    t.bigint "post_id"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_post_comments_on_author_id"
+    t.index ["post_id"], name: "index_post_comments_on_post_id"
+    t.index ["target_id"], name: "index_post_comments_on_target_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -174,6 +200,13 @@ ActiveRecord::Schema.define(version: 2019_02_25_170133) do
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "post_attachments", "posts"
   add_foreign_key "post_attachments", "users"
+  add_foreign_key "post_comment_replies", "post_comments"
+  add_foreign_key "post_comment_replies", "posts"
+  add_foreign_key "post_comment_replies", "users", column: "author_id"
+  add_foreign_key "post_comment_replies", "users", column: "target_id"
+  add_foreign_key "post_comments", "posts"
+  add_foreign_key "post_comments", "users", column: "author_id"
+  add_foreign_key "post_comments", "users", column: "target_id"
   add_foreign_key "posts", "subcategories"
   add_foreign_key "posts", "users"
   add_foreign_key "private_messages", "users", column: "user_a_id"

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :user_post_reviews
     resources :post_attachments
+    resources :post_comments
   end
   devise_for :users, controllers: { registrations: "registrations" }
 
@@ -40,4 +41,8 @@ Rails.application.routes.draw do
 
   get "/user/:id/post_reviews",                       to: "users#post_reviews",             as: "post_reviews_user"
   get "/user/:id/user_reviews",                       to: "users#user_reviews",             as: "user_reviews_user"
+
+  put "/post/:id/comment",                            to: "posts#comment",                  as: "post_comment"
+  put "/post/:id/comment/:comment_id",                to: "posts#reply",                    as: "post_reply"
+  get "/post/:id/comment/:comment_id",                to: "posts#comment_replies",          as: "post_comment_replies"
 end

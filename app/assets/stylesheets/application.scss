@@ -20,6 +20,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i;400,400i,500,700');
 
 @import "variables";
+@import "mixins";
 
 html {
   height: 100%;
@@ -375,6 +376,10 @@ body{
   }
 }
 
+.brand-link.gradient{
+  @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+}
+
 .brand-banner{
   font-size: $banner-font-size;
   color: $banner-color;
@@ -693,4 +698,22 @@ body{
 .carded-content.less-padding-v{
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.profile-picture-medium{
+  .profile-picture-medium-image{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid $brand-dark-purple;
+  }
+}
+
+.profile-picture-small{
+  .profile-picture-small-image{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 3px solid $brand-dark-purple;
+  }
 }

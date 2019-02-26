@@ -31,6 +31,12 @@ class User < ApplicationRecord
   has_many :user_reviews_written, class_name: "UserUserReview", foreign_key: "reviewing_user_id", dependent: :destroy
   has_many :user_reviews_received, class_name: "UserUserReview", foreign_key: "target_user_id", dependent: :destroy
 
+  has_many :post_comments_written, class_name: "PostComment", foreign_key: "author_id"
+  has_many :post_comments_received, class_name: "PostComment", foreign_key: "target_id"
+
+  has_many :post_comment_replies_written, class_name: "PostCommentReply", foreign_key: "author_id"
+  has_many :post_comment_replies_received, class_name: "PostCommentReply", foreign_key: "target_id"
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
   before_save :crop_profile_picture
 
