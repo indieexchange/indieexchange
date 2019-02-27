@@ -1,15 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard,
                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                  :crop_profile_picture, :post_reviews, :user_reviews]
+                                  :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                   :crop_profile_picture, :post_reviews, :user_reviews]
+                                   :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def clear_notifications
+    @user.notifications.destroy_all
+    @user.update!(unread_notification_count: 0, has_unread_notifications: false)
+    redirect_to user_path(@user), notice: "Your notifications have been cleared"
   end
 
   def post_reviews

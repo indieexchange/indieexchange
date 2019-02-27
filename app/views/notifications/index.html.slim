@@ -1,0 +1,29 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.notifications-row
+  .col-3
+    .notifications Notifications
+  - if @notifications.any? 
+    .col-3
+      .clear-notifications.text-right
+        = link_to "CLEAR NOTIFICATIONS", clear_notifications_path(@user), class: "btn btn-danger"
+
+
+- if @notifications.any?
+  - @notifications.each do |notification|
+    .row.with-sitewide-padding.no-gutters.justify-content-center.show-notifications-row
+      .col-6
+        a.notification-link href="#{notification.link}"
+          .carded-content.less-padding-v.notification-card class="#{notification.is_unread? ? 'is-unread' : ''}"
+            .notification-body.dib = notification.body
+            .notification-time.dib = time_ago_in_words(notification.created_at) + " ago"
+
+- else
+  .col-6
+    .carded-content.no-notifications-card
+      .no-notifications You don't have any notifications right now
+
+br
+br
+br
+br
+br
+br

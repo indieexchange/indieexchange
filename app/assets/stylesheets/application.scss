@@ -302,6 +302,50 @@ body{
     margin-left: 20px;
   }
 
+  .notification-information{
+    display: inline-block;
+    margin-left: 40px;
+
+    .user-notifications-link{
+      line-height: $indie-exchange-image-height;
+
+      .unread-notification-counter{
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: white;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        font-size: 12px;
+        box-shadow: 0px 0px 10px 3px #ccccccba;
+        padding-top: 4px;
+        font-family: $roboto;
+        font-weight: 700;
+        text-align: center;
+
+      }
+
+      .notifications-envelope.with-counter{
+        position: relative;
+      }
+
+      .notifications-envelope{
+        &:hover{
+          color: $brand-light-purple;
+          @include transition(all, 0.5s);
+        }
+
+        color: $icon-medium-gray;
+        font-size: $icon-medium-small-font-size;
+        height: $icon-medium-small-font-size;
+        width: $icon-medium-small-font-size;
+        vertical-align: middle;
+        @include transition(all, 0.5s);
+      }
+    }
+  }
+
   .message-information{
     display: inline-block;
     margin-left: 40px;

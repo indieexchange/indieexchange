@@ -740,6 +740,13 @@ a.full-post-link{
       font-weight: 300;
       font-size: 13px;
     }
+    .user-rating-none{
+      font-family: $roboto;
+      font-weight: 300;
+      font-size: 13px;
+      color: $brand-solid-grey-text;
+      margin-top: -3px;
+    }
   }
 
   .service-rating{

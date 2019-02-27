@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  is_unread: false
+  body: MyText
+  link: MyString
+  triggered_by: 1
+
+two:
+  user: two
+  is_unread: false
+  body: MyText
+  link: MyString
+  triggered_by: 1

@@ -1,0 +1,53 @@
+@import "variables";
+@import "mixins";
+
+.notifications-row{
+  margin-top: 30px;
+  margin-bottom: 15px;
+
+  .notifications{
+    font-family: $roboto;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-size: 30px;
+  }
+
+}
+
+.show-notifications-row{
+  margin-bottom: 20px;
+  .carded-content.no-notifications-card{
+    margin-left: 0px;
+    margin-right: 0px;
+
+    .no-notifications{
+      font-family: $roboto;
+      color: $brand-solid-grey-text;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 14px;
+    }
+  }
+
+  .notification-card{
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+  a.notification-link{
+    color: $brand-off-black-two;
+    font-family: $roboto;
+    font-weight: 300;
+  }
+
+  .notification-time{
+    float: right;
+    color: $brand-solid-grey-text;
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  .notification-card.is-unread{
+    border: 2px solid $brand-dark-purple;
+  }
+}

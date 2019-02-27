@@ -42,10 +42,10 @@ html
             .col-12.text-center
               .flash-text = current_user.complete_profile_call_to_action
         .row.with-sitewide-padding.main-navigation-row.no-gutters
-          .col-3
+          .col-4
             a href="/"
               = image_tag("indie_exchange.png", title: "Indie Exchange logo")
-          .col-6.main-navigation-links.text-center
+          .col-4.main-navigation-links.text-center
             span
               = link_to "HOME", "/", class: "main-navigation-link"
             span
@@ -54,7 +54,7 @@ html
               = link_to "RULES", "/new-page", class: "main-navigation-link"
             span
               = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
-          .col-3.main-user-controls.text-right
+          .col-4.main-user-controls.text-right
             .profile-information
               a.user-profile-link href="#{user_path(current_user)}"
                 - if current_user.has_cropped_profile_picture?
@@ -65,6 +65,13 @@ html
                     = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "Profile picture")
                 span.user-display-name
                   = current_user.display_name
+            .notification-information
+              a.user-notifications-link href="#{user_notifications_path(current_user)}"
+                - if !current_user.has_unread_notifications
+                  = icon('fas', 'bell', class: 'notifications-envelope', title: "See notifications (no new notifications)")
+                - else
+                  .icon-and-count-holder
+                    <i class="fas fa-bell notifications-envelope with-counter force-brand-light-purple" title="Check your notifications (new notifications available)"><div class="unread-notification-counter">#{current_user.unread_notification_count_display}</div></i>
             .message-information
               a.user-messages-link href="#{user_private_messages_path(current_user)}"
                 - if !current_user.has_unread_messages

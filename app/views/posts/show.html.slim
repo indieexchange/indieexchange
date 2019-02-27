@@ -29,8 +29,10 @@
       .user-rating
         .user-rating-text User
         - if @user_reviews.any?
-        .user-rating-stars.dib == render partial: 'shared/stars', locals: {score: @user_reviews.score, average: true}
-        .user-rating-count.dib &#40;#{@user_reviews.count}&#41;
+          .user-rating-stars.dib == render partial: 'shared/stars', locals: {score: @user_reviews.score, average: true}
+          .user-rating-count.dib &#40;#{@user_reviews.count}&#41;
+        - else
+          .user-rating-none No reviews yet
       .service-rating
         .service-rating-text Post
         - if @reviews.any?

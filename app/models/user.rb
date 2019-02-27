@@ -37,6 +37,8 @@ class User < ApplicationRecord
   has_many :post_comment_replies_written, class_name: "PostCommentReply", foreign_key: "author_id"
   has_many :post_comment_replies_received, class_name: "PostCommentReply", foreign_key: "target_id"
 
+  has_many :notifications, dependent: :destroy
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
   before_save :crop_profile_picture
 
@@ -64,6 +66,10 @@ class User < ApplicationRecord
 
   def unread_message_count_display
     [unread_message_count, 99].min
+  end
+
+  def unread_notification_count_display
+    [unread_notification_count, 99].min
   end
 
   def reduce_unread_count

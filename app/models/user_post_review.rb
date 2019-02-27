@@ -8,7 +8,12 @@ class UserPostReview < ApplicationRecord
   validates :score, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 5 }
 
   after_create :update_post_information
+  after_create :notify_post_author
   before_destroy :update_post_information_for_destruction
+
+  def notify_post_author
+    Notification.configure!(:post_review_received, target_user, {user_post_review: self})
+  end
 
   def update_post_information
     post.number_of_ratings += 1

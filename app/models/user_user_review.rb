@@ -9,6 +9,12 @@ class UserUserReview < ApplicationRecord
   after_create :update_target_information
   before_destroy :update_target_information_for_destruction
 
+  after_create :notify_target_user
+
+  def notify_target_user
+    Notification.configure!(:user_review_received, target_user, {user_user_review: self})
+  end
+
   def update_target_information
     target_user.number_of_ratings += 1
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_26_201157) do
+ActiveRecord::Schema.define(version: 2019_02_27_193137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,17 @@ ActiveRecord::Schema.define(version: 2019_02_26_201157) do
     t.index ["private_message_id"], name: "index_messages_on_private_message_id"
     t.index ["recipient_id"], name: "index_messages_on_recipient_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.boolean "is_unread", default: true, null: false
+    t.text "body", null: false
+    t.string "link", null: false
+    t.integer "triggered_by", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "post_attachments", force: :cascade do |t|
@@ -188,6 +199,8 @@ ActiveRecord::Schema.define(version: 2019_02_26_201157) do
     t.boolean "has_unread_messages", default: false, null: false
     t.integer "number_of_ratings", default: 0, null: false
     t.decimal "rating", default: "0.0", null: false
+    t.boolean "has_unread_notifications", default: false, null: false
+    t.integer "unread_notification_count", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -198,6 +211,7 @@ ActiveRecord::Schema.define(version: 2019_02_26_201157) do
   add_foreign_key "messages", "private_messages"
   add_foreign_key "messages", "users", column: "recipient_id"
   add_foreign_key "messages", "users", column: "sender_id"
+  add_foreign_key "notifications", "users"
   add_foreign_key "post_attachments", "posts"
   add_foreign_key "post_attachments", "users"
   add_foreign_key "post_comment_replies", "post_comments"

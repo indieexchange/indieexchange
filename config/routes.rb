@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :user_user_reviews
+    resources :notifications, only: [:index]
     resources :private_messages do
       resources :messages
     end
@@ -45,4 +46,5 @@ Rails.application.routes.draw do
   put "/post/:id/comment",                            to: "posts#comment",                  as: "post_comment"
   put "/post/:id/comment/:comment_id",                to: "posts#reply",                    as: "post_reply"
   get "/post/:id/comment/:comment_id",                to: "posts#comment_replies",          as: "post_comment_replies"
+  get "/users/:id/clear_notifications",               to: "users#clear_notifications",      as: "clear_notifications"
 end
