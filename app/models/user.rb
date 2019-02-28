@@ -53,6 +53,15 @@ class User < ApplicationRecord
     otp_provisioning_uri(label, issuer: issuer)
   end
 
+  def clear_2fa_information!
+    update!(otp_required_for_login: false,
+            otp_secret: nil,
+            encrypted_otp_secret: nil,
+            encrypted_otp_secret_iv: nil,
+            encrypted_otp_secret_salt: nil,
+            consumed_timestep: nil)
+  end
+
   def can_review?(post)
     PrivateMessage.between(self, post.user)&.allows_review? and post.allows_review?(self)
   end

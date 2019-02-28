@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
   def deactivate_tfa
     if params[:user][:otp_attempt].gsub(" ", "") == @user.current_otp
-      @user.update!(otp_required_for_login: false, otp_secret: nil)
+      @user.clear_2fa_information!
       redirect_to user_path(@user), notice: "Two-factor authentication for your account has been disabled"
     else
       redirect_back(fallback_location: root_path, alert: "Incorrect code: deactivation could not be completed")
