@@ -8,7 +8,7 @@
           = select_tag :seeking, options_for_select(Post.seeking_options), class: "form-control"
         .dib.quick-search-in in
         .form-group.dib
-          = select_tag :subcategory_id, options_for_select(Subcategory.selection_options), class: "form-control"
+          = select_tag :cat_subcat_string, options_for_select(Category.search_options), class: "form-control"
         .dib.quick-search-button
           = submit_tag "Search", class: "btn btn-sm btn-primary"
       .dib.advanced-search-holder

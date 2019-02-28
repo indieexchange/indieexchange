@@ -25,7 +25,7 @@
                   .dropdown-label.category-label Category:
                   .styled-select
                     .select-hider
-                    = select_tag :subcategory_id, options_for_select(Subcategory.selection_options, params[:subcategory_id]), class: "subcategory-selector"
+                    = select_tag :cat_subcat_string, options_for_select(Category.search_options, params[:cat_subcat_string]), class: "subcategory-selector"
               .col-xl-6.col-lg-12
                 .form-label-group
                   = text_field_tag :maximum_price, params[:maximum_price], placeholder: "Max price", required: false, type: "text", class: "form-control", id: "input-maximum-price", title: "Maximum price: numbers only, such as 10, 2.50, 0.50, or .25", pattern: "^\.[0-9]+$|^[0-9]+\.[0-9]+$|^[0-9]+$"
@@ -43,7 +43,7 @@ br
   .row.with-sitewide-padding.no-gutters.justify-content-center.post-count-row
     .col-12
       .carded-content
-        .found-jobs-line <span class="number-found">#{@posts.count}</span> posts found in <span class="subcategory-searched">#{@subcategory.title}</span> matching your criteria
+        .found-jobs-line <span class="number-found">#{@posts.count}</span> posts found in <span class="subcategory-searched">#{@found_in}</span> matching your criteria
   .row.with-sitewide-padding.no-gutters.justify-content-center.results-header-row
     .col-12
       .carded-content.less-padding-v
@@ -80,7 +80,7 @@ br
                 .post-description = h(post.description.truncate(128)).gsub(/\n/, '<br/>').html_safe
               .col-1.center-v
                 .price $#{"%.2f" % post.price}
-                .pricing-word per #{@subcategory.pricing_type}
+                .pricing-word per #{post.subcategory.pricing_type}
               .col-1.center-v
                 .time-ago #{time_ago_in_words(post.created_at)} ago
               .col-2.center-v
@@ -106,15 +106,15 @@ javascript:
       showing = !showing;
     });
 
-    var pricing_types = #{ Subcategory.pricing_type_words }
+    var pricing_types = #{ Category.pricing_type_words }
 
     function updateWording() {
-      word = pricing_types[parseInt($("#subcategory_id").val())]
+      word = pricing_types[$("#cat_subcat_string").val()]
       $("#pricing-type").text("(per " + word + ")");
     }
 
     // do it whenever there is a change
-    $("#subcategory_id").on('change', function(){
+    $("#cat_subcat_string").on('change', function(){
       updateWording();
     })
 

@@ -15,16 +15,6 @@ html
       .row.no-gutters
         .col-12
           .header-top-bar
-            .row.with-sitewide-padding.align-items-center.top-bar-line-height.no-gutters
-              .col-12.text-right
-                .sitewide-actions-area
-                  = icon('fas', 'envelope', class: 'sitewide-navbar-icon', title: "Envelope")
-                  span.sitewide-contact-us
-                    = link_to "CONTACT US", "mailto:#{CONTACT_EMAIL}", class: "sitewide-navbar-link"
-                  - if signed_in?
-                    = icon('fas', 'sign-out-alt', title: "An arrow pointing right", class: "sitewide-navbar-icon pl30")
-                    span.sitewide-sign-out
-                      = link_to "SIGN OUT", destroy_user_session_path, method: :delete, class: "sitewide-navbar-link"
       - if notice
         .row.with-sitewide-padding.notice-row.no-gutters
           .col-12.text-center
@@ -42,10 +32,11 @@ html
             .col-12.text-center
               .flash-text = current_user.complete_profile_call_to_action
         .row.with-sitewide-padding.main-navigation-row.no-gutters
-          .col-4
+          .col-3
             a href="/"
               = image_tag("indie_exchange.png", title: "Indie Exchange logo")
-          .col-4.main-navigation-links.text-center
+          / maybe this part can be used on the logged-out homepage or something????
+          /.col-4.main-navigation-links.text-center
             span
               = link_to "HOME", "/", class: "main-navigation-link"
             span
@@ -54,17 +45,10 @@ html
               = link_to "RULES", "/new-page", class: "main-navigation-link"
             span
               = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
-          .col-4.main-user-controls.text-right
-            .profile-information
-              a.user-profile-link href="#{user_path(current_user)}"
-                - if current_user.has_cropped_profile_picture?
-                  span.user-profile-picture
-                    = image_tag(rails_representation_url(current_user.pp_thumb), class: "user-control-profile-picture", title: "Profile picture")
-                - else
-                  span.user-profile-picture
-                    = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "Profile picture")
-                span.user-display-name
-                  = current_user.display_name
+          .col-9.main-user-controls.text-right
+            .search-information
+              a.user-search-link href="#{posts_path}"
+                = icon('fas', 'search', class: 'search-magnifying-glass', title: "Start a new search")
             .notification-information
               a.user-notifications-link href="#{user_notifications_path(current_user)}"
                 - if !current_user.has_unread_notifications
@@ -79,9 +63,20 @@ html
                 - else
                   .icon-and-count-holder
                     <i class="fas fa-envelope-open-text messages-envelope with-counter force-brand-light-purple" title="Check your messages (new messages available)"><div class="unread-message-counter">#{current_user.unread_message_count_display}</div></i>
-            .search-information
-              a.user-search-link href="#{posts_path}"
-                = icon('fas', 'search', class: 'search-magnifying-glass', title: "Start a new search")
+            .profile-information
+              a.user-profile-link.dropdown-toggle#profile-dropdown-link href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                - if current_user.has_cropped_profile_picture?
+                  span.user-profile-picture
+                    = image_tag(rails_representation_url(current_user.pp_thumb), class: "user-control-profile-picture", title: "See more menu options")
+                - else
+                  span.user-profile-picture
+                    = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "See more menu options")
+              .dropdown-menu aria-labelledby="profile-dropdown-link"
+                a.dropdown-item href="#{edit_user_path(current_user)}" Profile Settings
+                a.dropdown-item href="#{dashboard_user_path(current_user)}" Dashboard
+                a.dropdown-item href="/some-path" Help, FAQ, & More
+                a.dropdown-item href="#{user_path(current_user)}" See My Profile
+                a.dropdown-item href="#{destroy_user_session_path}" data-method="delete" Sign Out
       - else # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3

@@ -20,7 +20,7 @@ class Subcategory < ApplicationRecord
   end
 
   def self.json_ready_string(ruby_hash)
-    "{#{ruby_hash.map{ |k, v| "#{k}: '#{v}'" }.join(", ")}}".html_safe
+    "{#{ruby_hash.map{ |k, v| "'#{k}': '#{v}'" }.join(", ")}}".html_safe
   end
 
   def pricing_type_is_acceptable

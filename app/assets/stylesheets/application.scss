@@ -279,17 +279,35 @@ body{
 .main-user-controls{
   line-height: $indie-exchange-image-height;
   .profile-information{
+    margin-right: 8px;
+    margin-left: $nav-bar-icon-spacing;
     display: inline-block;
 
-    a{
+    a.user-profile-link{
+      color: $brand-dark-purple;
       &:hover{
-        text-decoration: none;
+        color: $brand-light-purple;
+      }
+    }
+
+    .dropdown-menu{
+      left: -30px !important;
+      top: 10px !important;
+      a.dropdown-item{
+        line-height: 30px;
+        display: block;
+        font-family: $roboto;
+        font-weight: 400;
+        color: $brand-dark-purple;
+        &:hover{
+          background: lighten($brand-light-purple, 20%);
+        }
       }
     }
   }
   .user-control-profile-picture{
-    height: 60px;
-    width: 60px;
+    height: 30px;
+    width: 30px;
     border-radius: 50%;
     border: 2px solid $brand-dark-purple;
   }
@@ -304,7 +322,7 @@ body{
 
   .notification-information{
     display: inline-block;
-    margin-left: 40px;
+    margin-left: $nav-bar-icon-spacing;
 
     .user-notifications-link{
       line-height: $indie-exchange-image-height;
@@ -348,7 +366,7 @@ body{
 
   .message-information{
     display: inline-block;
-    margin-left: 40px;
+    margin-left: $nav-bar-icon-spacing;
 
     .user-messages-link{
       line-height: $indie-exchange-image-height;
@@ -392,7 +410,6 @@ body{
 
   .search-information{
     display: inline-block;
-    margin-left: 40px;
 
     .user-search-link{
       line-height: $indie-exchange-image-height;

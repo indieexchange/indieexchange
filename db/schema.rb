@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_042008) do
+ActiveRecord::Schema.define(version: 2019_02_28_201159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,7 +115,9 @@ ActiveRecord::Schema.define(version: 2019_02_28_042008) do
     t.datetime "updated_at", null: false
     t.text "news"
     t.boolean "is_published", default: false, null: false
-    t.index ["is_published", "is_visible", "subcategory_id", "is_offering", "price", "last_update_bump_at"], name: "search_index"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_posts_on_category_id"
+    t.index ["is_published", "is_visible", "category_id", "subcategory_id", "is_offering", "price", "last_update_bump_at"], name: "new_search_index"
     t.index ["subcategory_id"], name: "index_posts_on_subcategory_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
@@ -235,6 +237,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_042008) do
   add_foreign_key "post_comments", "posts"
   add_foreign_key "post_comments", "users", column: "author_id"
   add_foreign_key "post_comments", "users", column: "target_id"
+  add_foreign_key "posts", "categories"
   add_foreign_key "posts", "subcategories"
   add_foreign_key "posts", "users"
   add_foreign_key "private_messages", "users", column: "user_a_id"
