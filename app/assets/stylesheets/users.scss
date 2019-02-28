@@ -604,11 +604,19 @@
       height: 30px;
       width: 30px;
       box-shadow: 0px 4px 10px 0px rgba(128, 128, 128, 0.5);
+      &:hover{
+        box-shadow: 0px 4px 10px 0px #ef7474a1;
+      }
 
       .follow-me-heart{
         margin-right: 7px;
         margin-top: 8px;
         color: #95959a;
+        cursor: pointer;
+      }
+
+      .follow-me-heart.red{
+        color: $brand-warning-color;
       }
     }
   }

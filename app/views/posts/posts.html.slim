@@ -24,7 +24,11 @@
     .col-12
       .carded-content
         - if is_self
-          .found-jobs-line My Posts (#{@posts.count})
+          .row
+            .col-8
+              .found-jobs-line My Posts (#{@posts.count})
+            .col-4.text-right
+              = link_to "Create New Post", new_post_path, class: "btn btn-success"
         - else
           .found-jobs-line Posts by #{@user.display_name} (#{@posts.count})
   .row.with-sitewide-padding.no-gutters.justify-content-center.results-header-row
@@ -92,11 +96,6 @@
                   .col-1.center-v
                     .time-ago #{time_ago_in_words(post.created_at)} ago
 
-- if is_self and @posts.any?
-  .row.with-sitewide-padding.no-gutters.justify-content-center.my-post-actions
-    .col-12
-      .carded-content.less-padding-v
-        = link_to "Create New Post", new_post_path, class: "btn btn-success"
 br
 br
 br

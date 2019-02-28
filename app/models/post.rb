@@ -20,6 +20,41 @@ class Post < ApplicationRecord
   has_many :post_comments, dependent: :destroy
   has_many :post_comment_replies
 
+  after_save :notify_followers_of_visibility
+  after_save :notify_followers_of_update_news, if: :saved_change_to_news?
+  after_save :notify_follower_of_nonvisibility
+  before_destroy :notify_followers_of_destroy
+
+  def notify_followers_of_visibility
+    if (saved_change_to_is_visible? and is_visible) or (saved_change_to_is_published? and is_published?)
+      user.followers.each do |follower|
+        Notification.configure!(:followed_post_visibility, follower, {post: self})
+      end
+    end
+  end
+
+  def notify_followers_of_update_news
+    unless hidden?
+      user.followers.each do |follower|
+        Notification.configure!(:followed_updates_post_news, follower, {post: self})
+      end
+    end
+  end
+
+  def notify_follower_of_nonvisibility
+    if (saved_change_to_is_visible? and !is_visible) or (saved_change_to_is_published? and !is_published?)
+      user.followers.each do |follower|
+        Notification.configure!(:followed_post_nonvisibility, follower, {post: self})
+      end
+    end
+  end
+
+  def notify_followers_of_destroy
+    user.followers.each do |follower|
+      Notification.configure!(:followed_destroys_post, follower, {post: self})
+    end
+  end
+
   def self.seeking_options
     [["Services offered by others", false],["People who need my services", true]]
   end

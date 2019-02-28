@@ -32,9 +32,11 @@
             .col-4.text-center
               .active-ads = link_to "SEE ACTIVE ADS", user_posts_path(@user), class: "btn branded-pill-button thin active-ads-link"
             .col-4.text-right
-              .follow-me
-                .follow-me-text Follow Me:
-                .follow-me-heart-container = icon('fas', 'heart', class: "follow-me-heart")
+              - if current_user != @user
+                .follow-me
+                  .follow-me-text = @is_following ? "Following" : "Follow Me:"
+                  .follow-me-heart-container title="#{@is_following ? 'Click to unfollow' : 'Click to follow'}"
+                    = icon('fas', 'heart', class: "follow-me-heart #{@is_following ? 'red' : ''}")
       hr.pre-bio-hr
         .row
           .col-12
@@ -96,6 +98,48 @@
             .sorry Sorry!
             .no-reviews There are no reviews for this user right now.
 
+
+javascript:
+  $(document).ready(function(){
+    var is_following = #{@is_following};
+    var current_user_id = #{current_user.id};
+    var target_id = #{@user.id};
+    $(".follow-me-heart-container").click(function(){
+      if( !is_following ){
+        $.ajax({
+          url: `/users/${current_user_id}/follow/${target_id}`,
+          type: 'GET',
+          dataType: 'json',
+          data: {},
+        })
+        .done(function() {
+          $(".follow-me-heart").addClass("red");
+          $(".follow-me-text").text("Following");
+          $(".follow-me-text-container").attr("title", "Click to unfollow");
+          is_following = true;
+        })
+        .fail(function(xhr, options, error) {
+          alert("Following encountered an error: " + error);
+        });
+      } else {
+        $.ajax({
+          url: `/users/${current_user_id}/unfollow/${target_id}`,
+          type: 'GET',
+          dataType: 'json',
+          data: {},
+        })
+        .done(function() {
+          $(".follow-me-heart").removeClass("red");
+          $(".follow-me-text").text("Follow Me:");
+          $(".follow-me-text-container").attr("title", "Click to follow");
+          is_following = false;
+        })
+        .fail(function() {
+          alert("Unfollowing encountered an error: " + error);
+        });
+      }
+    });
+  });
 
 br
 br

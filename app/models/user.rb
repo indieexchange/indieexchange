@@ -39,6 +39,12 @@ class User < ApplicationRecord
   has_many :post_comment_replies_written, class_name: "PostCommentReply", foreign_key: "author_id"
   has_many :post_comment_replies_received, class_name: "PostCommentReply", foreign_key: "target_id"
 
+  has_many :following_others, class_name: "UserUserFollow", foreign_key: "follower_id"
+  has_many :followed_by_others, class_name: "UserUserFollow", foreign_key: "target_id"
+
+  has_many :followers, through: :followed_by_others, source: :follower
+  has_many :followeds, through: :following_others, source: :target
+
   has_many :notifications, dependent: :destroy
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
@@ -60,6 +66,10 @@ class User < ApplicationRecord
             encrypted_otp_secret_iv: nil,
             encrypted_otp_secret_salt: nil,
             consumed_timestep: nil)
+  end
+
+  def is_following?(target)
+    UserUserFollow.where(follower: self, target: target).any?
   end
 
   def can_review?(post)

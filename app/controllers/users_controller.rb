@@ -2,11 +2,11 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
-                                   :tfa, :activate_tfa, :deactivate_tfa]
+                                   :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
-                                   :tfa, :activate_tfa, :deactivate_tfa]
+                                   :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow]
 
   # GET /users
   # GET /users.json
@@ -26,6 +26,22 @@ class UsersController < ApplicationController
 
   def user_reviews
     @reviews = @user.user_reviews_written.order(id: :desc)
+  end
+
+  def follow
+    target = User.find(params[:target_id])
+    uuf = UserUserFollow.new(target: target, follower: current_user)
+    if uuf.save
+      render json: { success: true }, status: 200
+    else
+      render json: { success: false, error: uuf.errors.full_messages.first }, status: 403
+    end
+  end
+
+  def unfollow
+    target = User.find(params[:target_id])
+    uuf = UserUserFollow.where(target: target, follower: current_user).first&.destroy!
+    render json: { success: true }, status: 200
   end
 
   def tfa
@@ -55,6 +71,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @reviews = @user.user_reviews_received.order(id: :desc)
+    @is_following = current_user.is_following?(@user)
   end
 
   # GET /users/new

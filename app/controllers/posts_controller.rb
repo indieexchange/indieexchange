@@ -139,7 +139,11 @@ class PostsController < ApplicationController
       if params[:save_and_add_attachments].present?
         redirect_to attachments_post_path(@post), notice: "Your post has been saved. You may manage its attachments below"
       else # then we want to go directly to preview
-        redirect_to preview_post_path(@post), notice: "Your post has been saved. Please check the preview below"
+        if @post.is_published?
+          redirect_to post_path(@post), notice: "Your post has been saved and is available for viewing"
+        else
+          redirect_to preview_post_path(@post), notice: "Your post has been saved. Please check the preview below"
+        end
       end
     else
       render :edit

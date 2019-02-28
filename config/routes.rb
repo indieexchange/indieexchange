@@ -29,7 +29,8 @@ Rails.application.routes.draw do
   get "/users/:id/tfa",                               to: "users#tfa",                      as: "tfa_user"
   patch "/users/:id/activate_tfa",                    to: "users#activate_tfa",             as: "activate_tfa_user"
   patch "/users/:id/deactivate_tfa",                  to: "users#deactivate_tfa",           as: "deactivate_tfa_user"
-
+  get "/users/:id/follow/:target_id",                 to: "users#follow",                   as: "follow_user"
+  get "/users/:id/unfollow/:target_id",               to: "users#unfollow",                 as: "unfollow_user"
 
   get "/posts/:id/attachments",                       to: "posts#attachments",              as: "attachments_post"
   get "/posts/:id/preview",                           to: "posts#preview",                  as: "preview_post"

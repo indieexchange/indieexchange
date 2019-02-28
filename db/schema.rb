@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_015042) do
+ActiveRecord::Schema.define(version: 2019_02_28_042008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,6 +154,15 @@ ActiveRecord::Schema.define(version: 2019_02_28_015042) do
     t.index ["target_user_id"], name: "index_user_post_reviews_on_target_user_id"
   end
 
+  create_table "user_user_follows", force: :cascade do |t|
+    t.bigint "follower_id"
+    t.bigint "target_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follower_id"], name: "index_user_user_follows_on_follower_id"
+    t.index ["target_id"], name: "index_user_user_follows_on_target_id"
+  end
+
   create_table "user_user_reviews", force: :cascade do |t|
     t.bigint "reviewing_user_id"
     t.bigint "target_user_id"
@@ -234,6 +243,8 @@ ActiveRecord::Schema.define(version: 2019_02_28_015042) do
   add_foreign_key "user_post_reviews", "posts"
   add_foreign_key "user_post_reviews", "users", column: "reviewing_user_id"
   add_foreign_key "user_post_reviews", "users", column: "target_user_id"
+  add_foreign_key "user_user_follows", "users", column: "follower_id"
+  add_foreign_key "user_user_follows", "users", column: "target_id"
   add_foreign_key "user_user_reviews", "users", column: "reviewing_user_id"
   add_foreign_key "user_user_reviews", "users", column: "target_user_id"
 end
