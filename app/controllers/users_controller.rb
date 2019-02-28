@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :dashboard,
-                                  :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                  :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications]
+  before_action :set_user, only: [ :show, :edit, :update, :destroy, :dashboard,
+                                   :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
+                                   :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
+                                   :tfa, :activate_tfa, :deactivate_tfa]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
-                                   :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications]
+                                   :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
+                                   :tfa, :activate_tfa, :deactivate_tfa]
 
   # GET /users
   # GET /users.json
@@ -24,6 +26,29 @@ class UsersController < ApplicationController
 
   def user_reviews
     @reviews = @user.user_reviews_written.order(id: :desc)
+  end
+
+  def tfa
+    @qrcode_link = @user.qrcode_link
+    @already_enabled = @user.otp_required_for_login
+  end
+
+  def deactivate_tfa
+    if params[:user][:otp_attempt].gsub(" ", "") == @user.current_otp
+      @user.update!(otp_required_for_login: false, otp_secret: nil)
+      redirect_to user_path(@user), notice: "Two-factor authentication for your account has been disabled"
+    else
+      redirect_back(fallback_location: root_path, alert: "Incorrect code: deactivation could not be completed")
+    end
+  end
+
+  def activate_tfa
+    if params[:user][:otp_attempt].gsub(" ", "") == @user.current_otp
+      @user.update!(otp_required_for_login: true)
+      redirect_to user_path(@user), notice: "Two-factor authentication has been enabled for your account"
+    else
+      redirect_back(fallback_location: root_path, alert: "Sorry, your confirmation failed. Try deleting and re-scanning the QR code")
+    end
   end
 
   # GET /users/1
@@ -123,6 +148,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:about_me, :first_name, :last_name, :username,
-        :profile_picture, :crop_x, :crop_y, :crop_w, :crop_h)
+        :profile_picture, :crop_x, :crop_y, :crop_w, :crop_h, :otp_attempt)
     end
 end

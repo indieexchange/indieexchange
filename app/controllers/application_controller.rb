@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def update_params
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
     devise_parameter_sanitizer.permit(:sign_up) do |u|
       u.permit(:first_name, :last_name, :email, :password, :password_confirmation, :terms_of_service, :age)
     end

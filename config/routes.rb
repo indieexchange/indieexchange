@@ -26,6 +26,10 @@ Rails.application.routes.draw do
   patch "/users/:id/delete_profile_picture",          to: "users#delete_profile_picture",   as: "delete_profile_picture_user"
   get "/users/:id/crop_profile_picture",              to: "users#crop_profile_picture",     as: "crop_profile_picture_user"
   get "/dashboard",                                   to: "users#dashboard",                as: "dashboard_user"
+  get "/users/:id/tfa",                               to: "users#tfa",                      as: "tfa_user"
+  patch "/users/:id/activate_tfa",                    to: "users#activate_tfa",             as: "activate_tfa_user"
+  patch "/users/:id/deactivate_tfa",                  to: "users#deactivate_tfa",           as: "deactivate_tfa_user"
+
 
   get "/posts/:id/attachments",                       to: "posts#attachments",              as: "attachments_post"
   get "/posts/:id/preview",                           to: "posts#preview",                  as: "preview_post"

@@ -11,7 +11,10 @@
               label for="inputEmail"  Email address
             .form-label-group
               = f.password_field :password, placeholder: "Password", required: true, type: "password", class: "form-control", id: "inputPassword"
-              label for="inputPassword"  Password (minimum #{@minimum_password_length} characters)
+              label for="inputPassword"  Password
+            .form-label-group
+              = f.text_field :otp_attempt, placeholder: "2FA code (if enabled)", type: "password", class: "form-control", id: "inputPassword"
+              label for="inputPassword"  2FA code (if enabled)
             .custom-control.custom-checkbox.mb-3
               = f.check_box :remember_me, class: "custom-control-input", id: "rememberMeCheckBox"
               label.custom-control-label.remember-me.errorable-text for="rememberMeCheckBox" Remember me for two weeks

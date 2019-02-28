@@ -4,8 +4,10 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :trackable, :lockable,
+  devise :registerable, :trackable, :lockable,
          :recoverable, :rememberable, :validatable, :confirmable
+
+  devise :two_factor_authenticatable, otp_secret_encryption_key: ENV["INDIE_EXCHANGE_ENCRYPTION_KEY"]
 
   validates_acceptance_of :terms_of_service, message: "must be accepted"
   validates_acceptance_of :age,              message: "must be over 18"
@@ -43,6 +45,13 @@ class User < ApplicationRecord
   before_save :crop_profile_picture
 
   before_save :check_has_unread_messages, if: :will_save_change_to_unread_message_count?
+
+  def qrcode_link
+    update!(otp_secret: User.generate_otp_secret) unless otp_secret.present?
+    issuer = "Indie Exchange"
+    label = "#{issuer}:#{email}"
+    otp_provisioning_uri(label, issuer: issuer)
+  end
 
   def can_review?(post)
     PrivateMessage.between(self, post.user)&.allows_review? and post.allows_review?(self)

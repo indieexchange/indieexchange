@@ -5,6 +5,8 @@
         .profile-option.basic-information.active-page Basic Information
       a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
         .profile-option.profile-picture Profile Picture
+      a.profile-option-link href="#{tfa_user_path(current_user)}"
+        .profile-option.profile-picture Two-factor Auth
   .col-1
   .col-5
     == render 'form'

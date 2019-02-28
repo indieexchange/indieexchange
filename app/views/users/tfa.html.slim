@@ -1,0 +1,54 @@
+script src="//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"
+
+.row.with-sitewide-padding.no-gutters.justify-content-center.edit-user-row
+  .col-2
+    .profile-options
+      a.profile-option-link href="#{edit_user_path(current_user)}"
+        .profile-option.basic-information Basic Information
+      a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
+        .profile-option.profile-picture Profile Picture
+      a.profile-option-link href="#{tfa_user_path(current_user)}"
+        .profile-option.profile-picture.active-page Two-factor Auth
+  .col-1
+  .col-5.activate-tfa-cols
+    - if !@already_enabled
+      .activate-tfa Activate 2FA
+      .tfa-instructions Two-factor authentication ("2FA") helps keep your account significantly more secure.  In addition to needing a password to sign in, you will also need access to a physical device which generates a single-use password which changes every 30 seconds.  <b>If you want to keep your account as secure as possible, you should enable 2FA</b>.
+      .tfa-instructions To activate two-factor authentication, scan the image below with your preferred two-factor authentication app (for example, Google Authenticator, Authy, or others).
+
+      .qrcode-holder#user-tfa
+
+      = form_for(@user, url: activate_tfa_user_path(@user), method: :patch) do |f|
+        .form-group.otp-attempt-form
+          .otp-attempt-label = f.label :otp_attempt, "Now enter the six digit code below (without spaces):"
+          .otp-attempt-field = f.text_field :otp_attempt, class: "form-control"
+
+        = f.submit "Activate 2FA", class: "btn btn-primary"
+    - else
+      .activate-tfa 2FA Enabled
+      .tfa-instructions <b>2FA is active for your account</b>.  If, for some reason, you wish to disable it, enter your 2FA code into the form below and then click to disable.
+
+      = form_for(@user, url: deactivate_tfa_user_path(@user), method: :patch) do |f|
+        .form-group.otp-attempt-form
+          .otp-attempt-label = f.label :otp_attempt, "Enter your six-digit code:"
+          .otp-attempt-field = f.text_field :otp_attempt, class: "form-control", required: true
+
+        = f.submit "Disable 2FA", class: "btn btn-danger", data: {confirm: "Really disable 2FA?  It makes your account significantly less secure."}
+
+javascript:
+  $(document).ready(function(){
+    var qrcode = new QRCode("user-tfa", {
+      text: "#{@qrcode_link}",
+      width: 256,
+      height: 256,
+      colorDark: "#8072ef",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    })
+  })
+
+br
+br
+br
+br
+br
