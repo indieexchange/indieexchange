@@ -5,6 +5,90 @@
 @import "variables";
 @import "mixins";
 
+.lapsed-row{
+  font-family: $roboto;
+  .lapsed-headline{
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 30px;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+  }
+}
+
+.lapsed-row-two{
+  font-family: $roboto;
+  font-weight: 300;
+  .add-card{
+    margin-top: 20px;
+
+    .add-card-form{
+      margin-top: 20px;
+    }
+  }
+}
+
+.join-row, .wait-row{
+  margin-top: 30px;
+  font-family: $roboto;
+  .headline{
+    font-weight: 700;
+    font-size: 30px;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+  }
+
+  .success{
+    .success-headline{
+      color: $brand-dark-purple;
+      font-size: 16px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .spinning-gif{
+    margin-top: 20px;
+    img{
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  .headline-subtext{
+    font-weight: 300;
+    margin-top: 20px
+  }
+}
+
+.join-options{
+  margin-top: 50px;
+  font-family: $roboto;
+  .promo-code, .stripe{
+    background-color: lighten($brand-light-purple, 15%);
+    padding: 50px 50px;
+    border-radius: 10px
+  }
+
+  .stripe{
+    .pay-with-stripe-form{
+      margin-top: 25px;
+    }
+  }
+
+  .or-col{
+    margin: auto 0;
+    font-size: 30px;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-weight: 700;
+  }
+
+  .promo-code-form{
+    margin-top: 20px;
+    .promo-code-input{
+      font-weight: 300;
+    }
+  }
+}
+
 .no-reviews-row{
   padding-top: 50px;
   .surprise-holder{
@@ -214,6 +298,77 @@
 
     .otp-attempt-field{
       width: 50%;
+    }
+  }
+}
+
+.payment-management-cols{
+  font-family: $roboto;
+
+  .payment-method, .subscription-status, .start-membership, .payment-history{
+    &:first-child{
+      margin-top: 0px;
+    }
+
+    margin-top: 50px;
+    font-size: 24px;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+  }
+
+  .no-payment-method, .start-membership-explanation{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .start-membership-explanation{
+    font-weight: 300;
+  }
+
+  .payment-method-container, .subscription-status-container, .payment-container{
+    margin-top: 15px;
+    background-color: white;
+    width: 100%;
+    padding: 10px 10px;
+    border: 1px solid $brand-light-purple;
+
+    .delete-payment-method, .delete-subscription-status{
+      line-height: 50px;
+      margin-right: 10px;
+
+      .btn-xs.payments-page-width{
+        width: 80px;
+      }
+    }
+
+    .payment-method-description, .subscription-status-description, .payment-description{
+      font-weight: 300;
+      color: darken($brand-dark-purple, 5%);
+      font-size: 14px;
+      margin-left: 10px;
+      line-height: 50px;
+      font-weight: bold;
+    }
+
+    .payment-description.payment-date{
+      float: right;
+      margin-right: 10px;
+      color: $brand-solid-grey-text;
+    }
+
+    .payment-method-icon-holder, .subscription-status-icon-holder, .payment-icon-holder{
+      .expiring{
+        color: $brand-warning-color;
+      }
+
+      .succeeded{
+        color: $brand-green;
+      }
+      font-size: 30px;
+      color: $brand-light-purple;
+      margin-left: 10px;
+      line-height: 50px;
+      vertical-align: middle;
     }
   }
 }

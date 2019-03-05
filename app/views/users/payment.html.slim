@@ -1,0 +1,53 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.edit-user-row
+  .col-2
+    .profile-options
+      a.profile-option-link href="#{edit_user_path(current_user)}"
+        .profile-option.basic-information Basic Information
+      a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
+        .profile-option.profile-picture Profile Picture
+      a.profile-option-link href="#{tfa_user_path(current_user)}"
+        .profile-option.profile-picture. Two-factor Auth
+      a.profile-option-link href="#{payment_user_path(current_user)}"
+        .profile-option.profile-picture.active-page Payment
+  .col-1
+  .col-5.payment-management-cols
+    - if @user.is_trial_period and @user.trial_until and @user.trial_until > Time.now and !@user.stripe_card_id
+      .start-membership Start Your Membership
+      .start-membership-explanation You are currently using a free trial which ends in #{ pluralize(((@user.trial_until - Time.now)/(1.day)).to_i, "day")}. To continue using Indie Exchange after that date, you will need to add a card below to pay the monthly membership fee.
+
+      .start-membership-explanation Please note that although you can add your card now or any other time, <b>you will not be charged until #{(@user.trial_until - PADDING_FOR_PAYMENT).strftime('%B %-d, %Y')}</b>.
+      .start-membership-form = form_tag add_card_stripe_webhook_index_path
+        script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY']}" data-name="Indie Exchange" data-email="#{current_user.email}" data-locale="auto" data-description="Monthly Subscription" data-image="http://indieexchange.herokuapp.com/indie_exchange_stripe.png" data-zip-code="true" data-panel-label="Add" data-label="Add Card"
+    - else
+      - if @user.stripe_card_id.present?
+        .payment-method Current Payment Method
+        .payment-method-container.dib
+          .payment-method-icon-holder.dib = icon('far', 'credit-card', class: 'payment-method-icon')
+          .payment-method-description.dib = @user.stripe_card_brand + " ending in " + @user.stripe_card_last_four
+          .delete-payment-method.dib.float-right = link_to "Delete", delete_card_user_path(@user), method: :patch, class: "btn btn-danger btn-xs payments-page-width", data: {confirm: "Are you sure you want to delete this card?"}
+      - else
+        .payment-method Current Payment Method
+        .no-payment-method Please add a card to continue your membership.
+        = form_tag add_card_stripe_webhook_index_path
+          script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV["INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY"]}" data-image="http://indieexchange.herokuapp.com/indie_exchange_stripe.png" data-name="Indie Exchange" data-panel-label="Add New Card" data-label="Add New Card" data-allow-remember-me=false data-locale="auto" data-email="#{@user.email}" data-amount="0"
+      .subscription-status Membership Status
+      .subscription-status-container.dib
+        - if @user.stripe_card_id?
+          .subscription-status-icon-holder.dib = icon('far', 'check-circle', class: 'subscription-status-icon')
+          .subscription-status-description.dib
+            | Member through #{(@user.must_pay_next_at).strftime('%b %-d, %Y')} (payment on #{(@user.must_pay_next_at - PADDING_FOR_PAYMENT).strftime('%b %-d, %Y')})
+        - else
+          .subscription-status-icon-holder.dib = icon('fas', 'exclamation-circle', class: 'subscription-status-icon expiring')
+          .subscription-status-description.dib = "Access will end #{@user.must_pay_next_at.strftime('%b %-d, %Y')}. Please add a card!"
+      - if @payments.any?
+        .payment-history Payment History
+        - @payments.each do |payment|
+          .payment-container
+            .payment-icon-holder.dib = icon('fas', 'money-bill', class: 'payment-icon succeeded')
+            .payment-description.dib $#{"%.2f" % payment.amount} (#{payment.card_brand} ****#{payment.card_last_four})
+            .payment-description.payment-date.dib #{payment.created_at.strftime('%b %-d, %Y')}
+br
+br
+br
+br
+br

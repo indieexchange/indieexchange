@@ -1,0 +1,11 @@
+p Hello #{@user.first_name},
+
+p Our records show that you don't have a card attached to your account to act as a payment method right now.  Unless you add a card to your account before #{@user.must_pay_next_at.strftime("%b %-d, %Y")}, your account will be suspended.  This means that other users will not be able to see your posts, and you won't be able to interact with other users in any way.
+
+p To continue using Indie Exchange, please log in, go to "Profile Settings" and then click the "Payments" tab and add a card.
+
+p If you have any questions, please let us know.
+
+p
+  | Thank you!
+  br The Indie Exchange Team

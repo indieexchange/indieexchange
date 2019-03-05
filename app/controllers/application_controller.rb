@@ -4,8 +4,19 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :update_params, if: :devise_controller?
+  before_action :ensure_membership, unless: :devise_controller?
 
   after_action :update_last_active
+
+  def ensure_membership
+    if signed_in? and !current_user.allowed_to_use_site?
+      if current_user.is_lapsed?
+        redirect_to lapsed_user_path(current_user), notice: "Your membership has lapsed.  Please see below for details" and return
+      else
+        redirect_to join_user_path(current_user), notice: "Please choose an option for joining Indie Exchange before continuing" and return
+      end
+    end
+  end
 
   def update_last_active
     if signed_in?

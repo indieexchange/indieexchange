@@ -49,6 +49,10 @@ body{
   display: inline-block;
 }
 
+.display-none{
+  display: none;
+}
+
 .no-padding-right{
   padding-right: 0px;
 }
@@ -498,6 +502,11 @@ body{
 }
 
 // button stuff!
+.btn.btn-xs{
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
 .btn-primary{
   background-color: darken($brand-dark-purple, 22%);
   border-color: darken($brand-dark-purple, 30%);

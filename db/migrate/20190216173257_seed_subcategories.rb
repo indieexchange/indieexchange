@@ -10,7 +10,7 @@ class SeedSubcategories < ActiveRecord::Migration[5.2]
     Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Copyediting",          pricing_type: "word")
     Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Development",          pricing_type: "word")
     Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Newsletter",           pricing_type: "booking")
-    Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advertisting",         pricing_type: "booking")
+    Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advertising",         pricing_type: "booking")
     Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advanced Reader Copy", pricing_type: "booking")
     Subcategory.create!(category: Category.find_by_title("Miscellaneous"), title: "Virtual Assistant",    pricing_type: "hour")
     Subcategory.create!(category: Category.find_by_title("Miscellaneous"), title: "Formatting",           pricing_type: "booking")

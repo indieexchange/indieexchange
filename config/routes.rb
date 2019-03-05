@@ -13,6 +13,15 @@ Rails.application.routes.draw do
       resources :messages
     end
   end
+
+  resources :stripe_webhook, path: "/", only: [] do
+    collection do
+      post :stripe
+      post :subscribe
+      post :add_card
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "static#home"
 
@@ -31,6 +40,10 @@ Rails.application.routes.draw do
   patch "/users/:id/deactivate_tfa",                  to: "users#deactivate_tfa",           as: "deactivate_tfa_user"
   get "/users/:id/follow/:target_id",                 to: "users#follow",                   as: "follow_user"
   get "/users/:id/unfollow/:target_id",               to: "users#unfollow",                 as: "unfollow_user"
+  get "/users/:id/payment",                           to: "users#payment",                  as: "payment_user"
+  patch "/users/:id/begin_trial",                     to: "users#begin_trial",              as: "begin_trial_user"
+  get "/users/:id/check_stripe",                      to: "users#check_stripe",             as: "check_stripe_user"
+  get "/users/:id/wait_for_stripe",                   to: "users#wait_for_stripe",          as: "wait_for_stripe_user"
 
   get "/posts/:id/attachments",                       to: "posts#attachments",              as: "attachments_post"
   get "/posts/:id/preview",                           to: "posts#preview",                  as: "preview_post"
@@ -52,4 +65,9 @@ Rails.application.routes.draw do
   put "/post/:id/comment/:comment_id",                to: "posts#reply",                    as: "post_reply"
   get "/post/:id/comment/:comment_id",                to: "posts#comment_replies",          as: "post_comment_replies"
   get "/users/:id/clear_notifications",               to: "users#clear_notifications",      as: "clear_notifications"
+  get "/users/:id/join",                              to: "users#join",                     as: "join_user"
+  get "/users/:id/lapsed",                            to: "users#lapsed",                   as: "lapsed_user"
+  patch "/users/:id/delete_card",                     to: "users#delete_card",              as: "delete_card_user"
+  patch "/users/:id/cancel_subscription",             to: "users#cancel_subscription",      as: "cancel_subscription_user"
+  patch "/users/:id/resubscribe",                     to: "users#resubscribe",              as: "resubscribe_user"
 end

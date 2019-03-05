@@ -47,10 +47,55 @@ class User < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change
+  has_many :payments, dependent: :destroy
+
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change, :promo_code
   before_save :crop_profile_picture
 
   before_save :check_has_unread_messages, if: :will_save_change_to_unread_message_count?
+
+  def allowed_to_use_site?
+    (is_verified and verified_until > Time.now) or (is_trial_period and trial_until > Time.now)
+  end
+
+  def stripe_customer
+    Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id.present?
+  end
+
+  def stripe_card
+    stripe_customer.sources.retrieve(stripe_card_id) if stripe_card_id.present?
+  end
+
+  def must_pay_immediately?
+    (!is_verified) and (!is_trial_period)
+  end
+
+  def must_pay_next_at
+    [verified_until || Time.now, trial_until || Time.now].max
+  end
+
+  def delete_card
+    if stripe_customer_id.present? and stripe_card_id.present?
+      Stripe::Customer.delete_source(stripe_customer_id, stripe_card_id)
+      update!(stripe_card_id: nil, stripe_card_brand: nil, stripe_card_last_four: nil)
+    end
+  end
+
+  def can_add_trial?
+    is_verified == false and is_trial_period == false
+  end
+
+  def suspend_account_for_payment
+    stripe_customer&.sources&.map(&:delete)
+    update!(is_verified: false, is_trial_period: false, is_lapsed: true,
+            stripe_card_id: nil, stripe_card_brand: nil, stripe_card_last_four: nil)
+    posts.map{ |post| post.update!(is_visible: false) }
+    ApplicationMailer.notify_user_membership_expired(self).deliver_now
+  end
+
+  def unsuspend_account_after_payment
+    posts.map{ |post| post.update!(is_visible: true) }
+  end
 
   def qrcode_link
     update!(otp_secret: User.generate_otp_secret) unless otp_secret.present?

@@ -1,17 +1,62 @@
 class UsersController < ApplicationController
+  skip_before_action :ensure_membership, only: [:join, :begin_trial, :wait_for_stripe, :check_stripe, :lapsed]
+  before_action :redirect_lapsed,        only: [:join, :begin_trial, :wait_for_stripe, :check_stripe         ]
   before_action :set_user, only: [ :show, :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
-                                   :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow]
+                                   :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
+                                   :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
+                                   :resubscribe, :lapsed]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
-                                   :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow]
+                                   :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
+                                   :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
+                                   :resubscribe, :lapsed]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def join
+  end
+
+  def lapsed
+  end
+
+  def wait_for_stripe
+  end
+
+  def check_stripe
+    render json: { is_verified: @user.is_verified }
+  end
+
+  def resubscribe
+    @user.resubscribe
+    redirect_to payment_user_path(@user), notice: "Thanks! Your membership has been activated."
+  end
+
+  def cancel_subscription
+    @user.cancel_subscription
+    redirect_to payment_user_path(@user), notice: "Your subscription has been cancelled"
+  end
+
+  def delete_card
+    @user.delete_card
+    redirect_to payment_user_path(current_user), notice: "Your card has been removed"
+  end
+
+  def begin_trial
+    if !current_user.can_add_trial?
+      redirect_back(fallback_location: root_path, alert: "Sorry, your account isn't eligible for a free trial")
+    elsif params[:user][:promo_code] == "indie-exchange-45-free"
+      current_user.update!(is_trial_period: true, trial_until: Time.now + 45.days)
+      redirect_to root_path, notice: "Thanks! Your 45-day free trial has begun"
+    else
+      redirect_back(fallback_location: root_path, alert: "Oops! That coupon code didn't work")
+    end
   end
 
   def clear_notifications
@@ -26,6 +71,10 @@ class UsersController < ApplicationController
 
   def user_reviews
     @reviews = @user.user_reviews_written.order(id: :desc)
+  end
+
+  def payment
+    @payments = @user.payments.order(id: :desc)
   end
 
   def follow
@@ -154,6 +203,12 @@ class UsersController < ApplicationController
   end
 
   private
+    def redirect_lapsed
+      if current_user.is_lapsed?
+        redirect_to lapsed_user_path(current_user), alert: "Please reactivate your membership below"
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id]) if params[:id]

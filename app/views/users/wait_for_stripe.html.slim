@@ -1,0 +1,40 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.join-row
+  .col-6.text-center
+    .headline We're Processing Your Payment Now...
+    .headline-subtext This should only take a few seconds, so hang tight!
+    .result-area
+      .headline-subtext.checking
+        b Checking for updates...
+      .spinning-gif.checking
+        = image_tag("ajax-loader.gif")
+      .success.display-none
+        .success-headline Success! Your payment succeeded.
+        .text-center = link_to "Let's update your profile", edit_user_path(@user), class: "btn btn-lg btn-primary"
+
+javascript:
+  $(document).ready(function(){
+    var user_id = #{@user.id};
+    var succeeded = false
+    setInterval(function(){
+      if(succeeded == false){
+        $.ajax({
+          url: `/users/${user_id}/check_stripe`,
+          type: 'GET',
+          dataType: 'json',
+          data: {},
+        })
+        .done(function(data) {
+          if(data.is_verified){
+            $(".checking").hide();
+            $(".success").show();
+          }
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+      }
+    }, 3500);
+  })

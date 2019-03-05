@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_28_201159) do
+ActiveRecord::Schema.define(version: 2019_03_05_021811) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(version: 2019_02_28_201159) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.decimal "amount", null: false
+    t.string "card_brand", null: false
+    t.string "card_last_four", null: false
+    t.boolean "succeeded", null: false
+    t.string "stripe_charge_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "post_attachments", force: :cascade do |t|
@@ -217,6 +229,15 @@ ActiveRecord::Schema.define(version: 2019_02_28_201159) do
     t.string "encrypted_otp_secret_salt"
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login"
+    t.boolean "is_verified", default: false, null: false
+    t.datetime "verified_until"
+    t.string "stripe_customer_id"
+    t.string "stripe_card_id"
+    t.boolean "is_trial_period", default: false, null: false
+    t.datetime "trial_until"
+    t.string "stripe_card_brand"
+    t.string "stripe_card_last_four"
+    t.boolean "is_lapsed", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -228,6 +249,7 @@ ActiveRecord::Schema.define(version: 2019_02_28_201159) do
   add_foreign_key "messages", "users", column: "recipient_id"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "notifications", "users"
+  add_foreign_key "payments", "users"
   add_foreign_key "post_attachments", "posts"
   add_foreign_key "post_attachments", "users"
   add_foreign_key "post_comment_replies", "post_comments"

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 9.99
+  card_brand: MyString
+  card_last_four: MyString
+  succeeded: false
+  user: one
+
+two:
+  amount: 9.99
+  card_brand: MyString
+  card_last_four: MyString
+  succeeded: false
+  user: two

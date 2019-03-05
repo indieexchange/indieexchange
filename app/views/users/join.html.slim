@@ -1,0 +1,31 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.join-row
+  .col-6.text-center
+    .headline Welcome to Indie Exchange!
+    .headline-subtext Membership at Indie Exchange requires a $10 monthly subscription.  This subscription is all-inclusive and gives you complete access to all features of the site.  During our special promotional period, you can also use a coupon code to get 45 days of free membership!
+
+.row.with-sitewide-padding.no-gutters.justify-content-center.join-options
+  .col-3.promo-code.height-match
+    .promo-code-enter.text-center If you have a code for free membership, enter it here:
+    .promo-code-form = form_for(@user, url: begin_trial_user_path) do |f|
+      .form-group
+        = f.text_field :promo_code, placeholder: "Promo code", class: "form-control promo-code-input"
+        .text-center = f.submit "Begin Trial", class: "btn btn-success"
+  .col-1.or-col
+    .or.text-center OR
+  .col-3.stripe.height-match
+    .pay-with-stripe.text-center Click here to pay with a credit or debit card via Stripe:
+    .pay-with-stripe-form.text-center = form_tag subscribe_stripe_webhook_index_path
+      script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY']}" data-name="Indie Exchange" data-amount="1000" data-email="#{current_user.email}" data-locale="auto" data-description="Monthly Subscription" data-image="http://indieexchange.herokuapp.com/indie_exchange_stripe.png" data-zip-code="true"
+
+br
+br
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).ready(function(){
+    $(".height-match").matchHeight();
+  })

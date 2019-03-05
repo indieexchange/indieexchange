@@ -9,6 +9,8 @@ script src="//cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"
         .profile-option.profile-picture Profile Picture
       a.profile-option-link href="#{tfa_user_path(current_user)}"
         .profile-option.profile-picture.active-page Two-factor Auth
+      a.profile-option-link href="#{payment_user_path(current_user)}"
+        .profile-option.profile-picture Payment
   .col-1
   .col-5.activate-tfa-cols
     - if !@already_enabled

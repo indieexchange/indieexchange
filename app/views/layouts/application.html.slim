@@ -27,7 +27,7 @@ html
         / do nothing -- don't check for user or anything in case that has to do with the error.
         / just let the error pages render without the header
       - elsif signed_in?
-        - if current_user.profile_incomplete? and !on_profile_page(request.path, current_user.id)
+        - if current_user.profile_incomplete? and !block_profile_completeness_method(request.path, current_user.id)
           .row.with-sitewide-padding.request-row.no-gutters
             .col-12.text-center
               .flash-text = current_user.complete_profile_call_to_action

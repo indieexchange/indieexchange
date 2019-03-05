@@ -1,0 +1,1 @@
+PADDING_FOR_PAYMENT = 48.hours

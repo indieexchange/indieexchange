@@ -1,7 +1,12 @@
 module ApplicationHelper
 
-  def on_profile_page(path, id)
-    path == "/users/#{id}/profile_picture" or path == "/users/#{id}/edit" ? true : false
+  def block_profile_completeness_method(path, id)
+    path == "/users/#{id}/profile_picture" or
+    path == "/users/#{id}/crop_profile_picture" or
+    path == "/users/#{id}/edit" or
+    path == "/users/#{id}/join" or
+    path == "/users/#{id}/lapsed" or
+    path == "/users/#{id}/wait_for_stripe" ? true : false
   end
 
   def stylesheet_for(controller)
