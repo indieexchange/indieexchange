@@ -88,7 +88,7 @@ class PostsController < ApplicationController
                   subcat(subcategory_id).
                   max_price(params[:maximum_price].present? ? params[:maximum_price].to_f : nil).
                   keywords(params[:keywords].present? ? params[:keywords].split(" ") : nil).
-                  order(:last_update_bump_at)
+                  order(last_update_bump_at: :desc)
 
     @category = Category.find(category_id)
     @subcategory = Subcategory.find(subcategory_id) if subcategory_id
