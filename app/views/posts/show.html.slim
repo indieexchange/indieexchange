@@ -148,7 +148,7 @@
       .col-12.review-cols
         .carded-content
           .review-profile-picture-holder
-            a href="#{user_path(@user)}"
+            a href="#{user_path(comment.author)}"
               .review-profile-picture
                 - if comment.author.has_cropped_profile_picture?
                   = image_tag(rails_representation_url(comment.author.pp_mid), class: "review-full-profile-picture-image", title: "Go to #{comment.author.display_name_untruncated}'s profile")
