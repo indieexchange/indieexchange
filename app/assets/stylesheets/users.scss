@@ -389,9 +389,13 @@
     margin-top: 2rem;
   }
 
-  .dashboard-bottom-button{
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+  .with-button{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    .button-pair{
+      margin-right: 5px;
+      margin-left: 5px;
+    }
   }
 
   .written-post-review-cols, .written-user-review-cols{

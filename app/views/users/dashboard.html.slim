@@ -39,10 +39,11 @@
                 .dashboard-post-title title="#{post.title}" = post.title.truncate(50)
                 .dashboard-post-description = post.description.truncate(100)
         - else
-          .no-posts You have no posts at this time. You can manage and create posts using the button below.
+          .no-posts You have no posts at this time. You can manage and create posts using the buttons below.
       hr.dashboard-hr
       .with-button.text-center
-        .dashboard-bottom-button = link_to "View Your Posts", user_posts_path(current_user), class: "branded-pill-button thin"
+        .dashboard-bottom-button.dib = link_to "View Your Posts", user_posts_path(current_user), class: "branded-pill-button thin button-pair"
+        .dashboard-bottom-button.dib = link_to "Create New Post", new_post_path, class: "branded-pill-button thin button-pair"
   .col-4.messages-cols
     .carded-content.less-padding-v
       .before-button
