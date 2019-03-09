@@ -106,6 +106,38 @@
       hr.dashboard-hr
       .with-button.text-center
         .dashboard-bottom-button = link_to "View Your User Reviews", user_reviews_user_path(current_user), class: "branded-pill-button thin"
+  .col-4.written-user-review-cols
+    .carded-content.less-padding-v
+      .before-button-row-two
+        .you-reviewed
+          .what-was-reviewed Followers:
+        - if current_user.followed_by_others.any?
+          .row.no-gutters
+            - current_user.followed_by_others.order(created_at: :desc).first(6).each do |fbo|
+              - follower = fbo.follower
+              .col-4.text-center
+                - if follower.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(follower.pp_thumb), class: "follow-profile-picture", title: "#{follower.display_name_untruncated}", data: {toggle: "tooltip", placement: "top"})
+                - else
+                  = image_tag("anonymous_user.png", class: "follow-profile-picture", title: "#{follower.display_name_untruncated}", data: {toggle: "tooltip", placement: "top"})
+        - else
+          .no-post-reviews No one is following you at this time
+        .you-reviewed.with-top-margin
+          .what-was-reviewed Following:
+        - if current_user.following_others.any?
+          .row.no-gutters
+            - current_user.following_others.order(created_at: :desc).first(6).each do |fo|
+              - followed = fo.target
+              .col-4.text-center
+                - if followed.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(followed.pp_thumb), class: "follow-profile-picture", title: "#{followed.display_name_untruncated}", data: {toggle: "tooltip", placement: "top"})
+                - else
+                  = image_tag("anonymous_user.png", class: "follow-profile-picture", title: "#{followed.display_name_untruncated}", data: {toggle: "tooltip", placement: "top"})
+        - else
+          .no-post-reviews You aren't following anyone at this time.  Click the #{icon('fas', 'heart', style: "font-size: 12px;")} on someone's profile to follow them
+      hr.dashboard-hr
+      .with-button.text-center
+        .dashboard-bottom-button = link_to "View Follows", follows_user_path(current_user), class: "branded-pill-button thin"
 
 br
 br

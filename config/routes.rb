@@ -72,4 +72,5 @@ Rails.application.routes.draw do
   patch "/users/:id/delete_card",                             to: "users#delete_card",              as: "delete_card_user"
   patch "/users/:id/cancel_subscription",                     to: "users#cancel_subscription",      as: "cancel_subscription_user"
   patch "/users/:id/resubscribe",                             to: "users#resubscribe",              as: "resubscribe_user"
+  get "/users/:id/follows",                                   to: "users#follows",                  as: "follows_user"
 end

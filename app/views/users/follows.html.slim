@@ -1,0 +1,69 @@
+.container.follows-container
+  .row
+    .col-12
+      .follows-headline People You're Following
+  - if @followeds.any?
+    .row
+      - @followeds.each do |follow|
+        - user = follow.target
+        .col-lg-3.col-md-4.col-sm-6
+          .card.follower-card
+            a href="#{user_path(user)}"
+              .image-holder
+                - if user.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(user.pp_mid), class: "card-img-top follow-profile-picture", title: "#{user.display_name_untruncated}")
+                - else
+                  = image_tag("anonymous_user.png", class: "card-img-top follow-profile-picture", title: "#{user.display_name_untruncated}")
+            .card-body
+              h5.card-title = user.display_name_untruncated
+              p.card-text = user.about_me.truncate(70)
+            .card-body.separated
+              = link_to "View Posts", user_posts_path(user), class: "card-link brand-link gradient"
+            .card-body.separated
+              = link_to "Message", user_path(user), class: "card-link brand-link gradient"
+  - else
+    .row
+      .col-12
+        .not-following You're not following anyone right now. Click the #{icon('fas', 'heart', style: "font-size: 10px;")} on someone's profile to follow them.
+  br
+  br
+  .row
+    .col-12
+      .follows-headline Your Followers
+  - if @followers.any?
+    .row
+      - @followers.each do |follow|
+        - user = follow.follower
+        .col-lg-3.col-md-4.col-sm-6
+          .card.follower-card
+            a href="#{user_path(user)}"
+              .image-holder
+                - if user.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(user.pp_mid), class: "card-img-top follow-profile-picture", title: "#{user.display_name_untruncated}")
+                - else
+                  = image_tag("anonymous_user.png", class: "card-img-top follow-profile-picture", title: "#{user.display_name_untruncated}")
+            .card-body
+              h5.card-title = user.display_name_untruncated
+              p.card-text = user.about_me.truncate(70)
+            .card-body.separated
+              = link_to "View Posts", user_posts_path(user), class: "card-link brand-link gradient"
+            .card-body.separated
+              = link_to "Message", user_path(user), class: "card-link brand-link gradient"
+  - else
+    .row
+      .col-12
+        .not-following No one is following you right now.
+
+br
+br
+br
+br
+br
+br
+br
+br
+
+javascript:
+  $(document).ready(function(){
+    $('.card-text').matchHeight();
+  })

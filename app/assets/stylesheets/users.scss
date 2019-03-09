@@ -5,6 +5,39 @@
 @import "variables";
 @import "mixins";
 
+.follows-container{
+  margin-top: 30px;
+  font-family: $roboto;
+  font-weight: 300;
+  .follows-headline{
+    font-size: 30px;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-weight: 700;
+  }
+
+  .not-following{
+    margin-top: 15px;
+    color: $brand-solid-grey-text;
+    font-style: italic;
+    font-size: 15px;
+  }
+
+  .follower-card{
+    margin-top: 20px;
+
+    .card-body.separated{
+      border-top: 1px solid rgba(0, 0, 0, 0.125);
+    }
+    .image-holder{
+      height: 150px;
+      .follow-profile-picture{
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
 .lapsed-row{
   font-family: $roboto;
   .lapsed-headline{
@@ -406,6 +439,19 @@
       font-weight: 300;
       font-size: 14px;
       margin-bottom: 150px;
+    }
+
+    .follow-profile-picture{
+      height: 50px;
+      width: 50px;
+      border: 2px solid $brand-dark-purple;
+      border-radius: 50%;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .you-reviewed.with-top-margin{
+      margin-top: 15px;
     }
     .you-reviewed{
       .what-was-reviewed{

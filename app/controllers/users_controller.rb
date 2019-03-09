@@ -6,18 +6,23 @@ class UsersController < ApplicationController
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
-                                   :resubscribe, :lapsed]
+                                   :resubscribe, :lapsed, :follows]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
-                                   :resubscribe, :lapsed]
+                                   :resubscribe, :lapsed, :follows]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def follows
+    @followers = @user.followed_by_others.includes(:follower).order(created_at: :desc)
+    @followeds = @user.following_others.includes(:target).order(created_at: :desc)
   end
 
   def join
