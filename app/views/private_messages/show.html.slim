@@ -10,11 +10,12 @@
       - @messages.each do |message|
         .row.justify-content-center.message-containing-row.no-gutters
           .col-2.text-right
-            .pm-profile-picture-holder
-              - if message.sender.has_cropped_profile_picture?
-                = image_tag(rails_representation_url(message.sender.pp_thumb), class: "pm-profile-picture")
-              - else
-                = image_tag("anonymous_user.png", class: "pm-profile-picture")
+            a href="#{user_path(message.sender)}"
+              .pm-profile-picture-holder
+                - if message.sender.has_cropped_profile_picture?
+                  = image_tag(rails_representation_url(message.sender.pp_thumb), class: "pm-profile-picture")
+                - else
+                  = image_tag("anonymous_user.png", class: "pm-profile-picture")
           .col-5
             .carded-content.less-padding-v
               .name-and-time
@@ -24,11 +25,12 @@
           .col-1
   - else
     .col-2.text-right
-      .pm-profile-picture-holder
-        - if @other_user.has_cropped_profile_picture?
-          = image_tag(rails_representation_url(@other_user.pp_thumb), class: "pm-profile-picture")
-        - else
-          = image_tag("anonymous_user.png", class: "pm-profile-picture")
+      a href="#{user_path(message.sender)}"
+        .pm-profile-picture-holder
+          - if @other_user.has_cropped_profile_picture?
+            = image_tag(rails_representation_url(@other_user.pp_thumb), class: "pm-profile-picture")
+          - else
+            = image_tag("anonymous_user.png", class: "pm-profile-picture")
     .col-5
       .carded-content.less-padding-v
         .this-is-the-start There are no messages yet between you and #{@other_user.display_name}
