@@ -22,7 +22,7 @@
   .col-12.review-cols
     .carded-content
       .review-profile-picture-holder
-        a href="#{user_path(@user)}"
+        a href="#{user_path(@comment.author)}"
           .review-profile-picture
             - if @comment.author.has_cropped_profile_picture?
               = image_tag(rails_representation_url(@comment.author.pp_mid), class: "review-full-profile-picture-image", title: "Go to #{@comment.author.display_name_untruncated}'s profile")
@@ -32,6 +32,9 @@
         .reviewer-name
           = @comment.author.display_name_untruncated
           span.review-date Posted on #{@comment.created_at.strftime("%b %-d, %Y")}
+        - if @comment.author == current_user
+          .delete.dib
+            a href="#{destroy_comment_post_path(@post, @comment)}" data-method="delete" data-confirm="Really delete this comment?" = icon('fas', 'trash', class: 'delete-post-comment')
         / .report-dropdown.dropleft
           / todo: the IDs here need to take a number to make them unique! such as ID of the review.  same with labelled by.
           / todo: make them reportable
@@ -58,6 +61,9 @@
                 .reviewer-name
                   = reply.author.display_name_untruncated
                   span.review-date Posted on #{reply.created_at.strftime("%b %-d, %Y")}
+                  - if reply.author == current_user
+                    .delete.dib
+                      a href="#{destroy_post_comment_reply_path(@post, @comment, reply)}" data-method="delete" data-confirm="Really delete this reply?" = icon('fas', 'trash', class: 'delete-post-comment-reply')
               .full-review = h(reply.body).gsub(/\n/, '<br/>').html_safe
       .add-reply-area id="add-reply-#{@comment.id}"
         .new-reply-form = form_for([@post, PostCommentReply.new], url: post_reply_path(@post, @comment, direct: true), method: :put) do |f|

@@ -1,15 +1,34 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_post,  only:   [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump, :comment, :reply, :comment_replies]
-  before_action :set_user,  only:   [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump, :comment, :reply, :comment_replies]
+  before_action :set_post,  only:   [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump, :comment, :reply, :comment_replies, :destroy_comment, :destroy_reply]
+  before_action :set_user,  only:   [:show, :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump, :comment, :reply, :comment_replies, :destroy_comment, :destroy_reply]
   before_action :set_puser, only:   [                                                                   :posts]
   before_action :self_only, only:   [       :edit, :update, :destroy, :preview, :attachments, :publish,         :unpublish, :bump]
-  before_action :hide,      only:   [:show,                                                                                        :comment, :reply]
-  before_action :set_comment, only: [                                                                                                        :reply, :comment_replies]
+  before_action :hide,      only:   [:show,                                                                                        :comment, :reply,                   :destroy_comment, :destroy_reply]
+  before_action :set_comment, only: [                                                                                                        :reply, :comment_replies, :destroy_comment, :destroy_reply]
+  before_action :set_reply, only:   [                                                                                                                                                    :destroy_reply]
 
   # GET /posts
   # GET /posts.json
   def index
+  end
+
+  def destroy_reply
+    if @reply.author == current_user
+      @reply.destroy
+      redirect_back(fallback_location: root_path, notice: "Your reply has been removed")
+    else
+      redirect_back(fallback_location: root_path, alert: "You don't have permission to take this action")
+    end
+  end
+
+  def destroy_comment
+    if @comment.author == current_user
+      @comment.destroy
+      redirect_to post_path(@post), notice: "Your comment has been removed"
+    else
+      redirect_back(fallback_location: post_path(@post), alert: "You don't have permission to take this action")
+    end
   end
 
   def bump
@@ -200,6 +219,10 @@ class PostsController < ApplicationController
 
     def set_comment
       @comment = PostComment.find(params[:comment_id])
+    end
+
+    def set_reply
+      @reply = PostCommentReply.find(params[:reply_id])
     end
 
     def hide

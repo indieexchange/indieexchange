@@ -32,6 +32,16 @@ a.full-post-link{
     border-bottom: 1px solid #eee;
 
     .review-info-holder{
+      .delete{
+        float: right;
+        a{
+          color: $brand-solid-grey-text;
+          &:hover{
+            color: $brand-dark-purple;
+          }
+        }
+      }
+      
       .full-review{
         font-family: $roboto;
         font-weight: 300;
@@ -78,6 +88,17 @@ a.full-post-link{
         margin-left: 40px;
         vertical-align: top;
         width: calc(100% - 175px);
+
+        .delete{
+          float: right;
+          a{
+            color: $brand-solid-grey-text;
+            &:hover{
+              color: $brand-dark-purple;
+            }
+          }
+        }
+
         .full-review{
           font-family: $roboto;
           font-weight: 300;

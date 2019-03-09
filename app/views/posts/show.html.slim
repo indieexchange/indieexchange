@@ -165,6 +165,9 @@
                 = icon('fas', 'ellipsis-h', class: "report-dropdown-icon")
               / .dropdown-menu aria-labelledby="reportMenuButton"
                 a.dropdown-item href="meow" Report
+            - if comment.author == current_user
+              .delete.dib
+                a href="#{destroy_comment_post_path(@post, comment)}" data-method="delete" data-confirm="Really delete this comment?" = icon('fas', 'trash', class: 'delete-post-comment')
             .full-review = h(comment.body).gsub(/\n/, '<br/>').html_safe
     .row.with-sitewide-padding.no-gutters.justify-content-end.post-comments-row.with-post.more-margin
       .col-11
@@ -187,6 +190,9 @@
                     .reviewer-name
                       = reply.author.display_name_untruncated
                       span.review-date Posted on #{reply.created_at.strftime("%b %-d, %Y")}
+                      - if reply.author == current_user
+                        .delete.dib
+                          a href="#{destroy_post_comment_reply_path(@post, comment, reply)}" data-method="delete" data-confirm="Really delete this reply?" = icon('fas', 'trash', class: 'delete-post-comment-reply')
                   .full-review = h(reply.body).gsub(/\n/, '<br/>').html_safe
           a.brand-link.gradient.add-a-reply-link data-toggle="collapse" href="#add-reply-#{comment.id}" aria-expanded="false" aria-controls="add-reply-#{comment.id}" Add a reply
           .add-reply-area.collapse id="add-reply-#{comment.id}"
