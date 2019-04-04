@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_05_021811) do
+ActiveRecord::Schema.define(version: 2019_04_04_025443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 2019_03_05_021811) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "announcement_replies", force: :cascade do |t|
+    t.bigint "announcement_id"
+    t.bigint "user_id"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["announcement_id"], name: "index_announcement_replies_on_announcement_id"
+    t.index ["user_id"], name: "index_announcement_replies_on_user_id"
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_announcements_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -238,6 +256,8 @@ ActiveRecord::Schema.define(version: 2019_03_05_021811) do
     t.string "stripe_card_brand"
     t.string "stripe_card_last_four"
     t.boolean "is_lapsed", default: false, null: false
+    t.boolean "has_unread_announcement", default: false, null: false
+    t.boolean "is_admin", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -245,6 +265,9 @@ ActiveRecord::Schema.define(version: 2019_03_05_021811) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "announcement_replies", "announcements"
+  add_foreign_key "announcement_replies", "users"
+  add_foreign_key "announcements", "users"
   add_foreign_key "messages", "private_messages"
   add_foreign_key "messages", "users", column: "recipient_id"
   add_foreign_key "messages", "users", column: "sender_id"

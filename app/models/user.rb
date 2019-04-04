@@ -49,6 +49,9 @@ class User < ApplicationRecord
 
   has_many :payments, dependent: :destroy
 
+  has_many :announcements, dependent: :destroy
+  has_many :announcement_replies, dependent: :destroy
+
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :validate_profile_picture_change, :promo_code
   before_save :crop_profile_picture
 

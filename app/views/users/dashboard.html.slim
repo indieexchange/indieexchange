@@ -1,3 +1,12 @@
+- if current_user.is_admin?
+  .row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-search-row
+    .col-12
+      .carded-content.less-padding-v
+        .quick-search.dib Admin tools: &nbsp; &nbsp;
+        .dib = link_to "New Announcement", new_announcement_path, class: "btn btn-sm btn-primary"
+        br
+        br
+
 .row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-search-row
   .col-12
     .carded-content.less-padding-v
@@ -13,6 +22,7 @@
           = submit_tag "Search", class: "btn btn-sm btn-primary"
       .dib.advanced-search-holder
         = link_to "Advanced Search", posts_path, class: "btn btn-sm btn-success advanced-search"
+
 
 .row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-top-row
   .col-4.user-information-cols

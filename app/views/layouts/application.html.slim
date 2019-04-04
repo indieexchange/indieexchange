@@ -31,6 +31,10 @@ html
           .row.with-sitewide-padding.request-row.no-gutters
             .col-12.text-center
               .flash-text = current_user.complete_profile_call_to_action
+        - elsif current_user.has_unread_announcement?
+          .row.with-sitewide-padding.announcement-row.no-gutters
+            .col-12.text-center
+              .announcement-text New announcement! Check out our #{link_to "Announcements page", announcements_path} to see it
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
             a href="/"

@@ -1,0 +1,292 @@
+// Place all the styles related to the Announcements controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "variables";
+@import "mixins";
+@import "brand_forms";
+@import "styled_select";
+
+.new-announcement{
+  font-family: $roboto;
+  font-size: 30px;
+  color: $brand-dark-purple;
+}
+
+.announcements-row{
+  margin-top: 30px;
+  margin-bottom: 15px;
+
+  .announcements{
+    font-family: $roboto;
+    font-weight: 700;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-size: 30px;
+  }
+
+}
+
+.announcement-profile-picture-holder{
+  display: inline-block;
+  .announcement-profile-picture{
+    .announcement-full-profile-picture-image{
+      height: 110px;
+      width: 110px;
+      border-radius: 50%;
+      border: 3px solid $brand-dark-purple;
+    }
+  }
+}
+
+.announcement-info-holder{
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+
+  .delete{
+    float: right;
+    a{
+      color: $brand-solid-grey-text;
+      &:hover{
+        color: $brand-dark-purple;
+      }
+    }
+  }
+
+  .full-announcement{
+    font-family: $roboto;
+    font-weight: 300;
+    margin-top: 30px;
+    width: 80%;
+  }
+  .report-dropdown{
+    float: right;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    .dropdown-menu{
+      .dropdown-item{
+        color: red;
+        font-family: $roboto;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+    .report-dropdown-icon{
+      color: #b3b3b3;
+    }
+  }
+  .announcement-name{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: $roboto;
+    .announcement-date{
+      color: #bbb;
+      font-size: 12px;
+      font-weight: 400;
+      border-left: 1px solid #aaa;
+      margin-left: 10px;
+      padding-top: 2px;
+      padding-left: 10px;
+    }
+  }
+}
+
+.announcement-show-row{
+  margin-top: 60px;
+
+  .review-cols{
+    margin-bottom: 20px;
+    .carded-content{
+      .review-info-holder{
+        display: inline-block;
+        margin-left: 40px;
+        vertical-align: top;
+        width: calc(100% - 175px);
+
+        .delete{
+          float: right;
+          a{
+            color: $brand-solid-grey-text;
+            &:hover{
+              color: $brand-dark-purple;
+            }
+          }
+        }
+
+        .full-review{
+          font-family: $roboto;
+          font-weight: 300;
+          margin-top: 30px;
+          width: 70%;
+        }
+        .report-dropdown{
+          float: right;
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+          .dropdown-menu{
+            .dropdown-item{
+              color: red;
+              font-family: $roboto;
+              font-size: 14px;
+              font-weight: 500;
+            }
+          }
+          .report-dropdown-icon{
+            color: #b3b3b3;
+          }
+        }
+        .reviewer-name{
+          display: inline-block;
+          font-size: 20px;
+          font-weight: 500;
+          font-family: $roboto;
+          .review-date{
+            color: #bbb;
+            font-size: 12px;
+            font-weight: 400;
+            border-left: 1px solid #aaa;
+            margin-left: 10px;
+            padding-top: 2px;
+            padding-left: 10px;
+          }
+        }
+      }
+      .review-profile-picture-holder{
+        display: inline-block;
+        .review-profile-picture{
+          .review-full-profile-picture-image{
+            height: 110px;
+            width: 110px;
+            border-radius: 50%;
+            border: 3px solid $brand-dark-purple;
+          }
+        }
+      }
+    }
+  }
+  .talk-bubble-with-circle{
+    background-color: white;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-shadow: 0px 4px 10px 0px rgba(128, 128, 128, 0.5);
+    display: inline-block;
+
+    .user-reviews-icon{
+      font-size: 35px;
+      color: $brand-dark-purple;
+      margin-left: 9px;
+      margin-top: 12px;
+    }
+  }
+  .reviews-banner{
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 30px;
+    font-weight: 700;
+    font-family: $roboto;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+  }
+}
+
+.post-comments-row{
+  .carded-content{
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .reply-display-row{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    border-bottom: 1px solid #eee;
+
+    .review-info-holder{
+      .delete{
+        float: right;
+        a{
+          color: $brand-solid-grey-text;
+          &:hover{
+            color: $brand-dark-purple;
+          }
+        }
+      }
+      
+      .full-review{
+        font-family: $roboto;
+        font-weight: 300;
+        margin-top: 30px;
+      }
+
+      .reviewer-name{
+        font-family: $roboto;
+        color: $brand-off-black-two;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      .review-date{
+        color: #bbb;
+        font-size: 12px;
+        font-weight: 400;
+        border-left: 1px solid #aaa;
+        margin-left: 10px;
+        padding-top: 2px;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .add-a-reply-link{
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+}
+
+.new-post-comment-form, .new-reply-form{
+  margin-top: 30px;
+
+  .carded-content{
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+
+  .submit-holder{
+    margin-left: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .new-comment-label{
+    font-family: $roboto;
+    font-weight: 300;
+    font-size: 14px;
+    color: lighten($brand-solid-grey-text, 15%);
+  }
+
+  .textarea-holder{
+    ::placeholder{
+      color: #a9a9a9;
+    }
+  }
+
+  .new-comment-textarea{
+    border: none;
+    resize: none;
+    &:focus{
+      box-shadow: none;
+    }
+  }
+
+  .new-comment-submit-holder{
+    .branded-pill-button{
+      font-family: $roboto;
+      font-weight: 400;
+      font-size: 15px;
+      padding: 15px 25px;
+    }
+  }
+}
+

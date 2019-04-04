@@ -271,6 +271,15 @@ body{
   }
 }
 
+.announcement-row{
+  background-color: darken($brand-green, 15%);
+  a{
+    font-weight: 700;
+    color: white;
+    text-decoration: underline;
+  }
+}
+
 .flash-text{
   padding-top: 15px;
   padding-bottom: 15px;
@@ -278,6 +287,15 @@ body{
   font-weight: bold;
   font-size: 15px;
   color: #383a47;
+}
+
+.announcement-text{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-family: $roboto;
+  font-weight: 500;
+  font-size: 15px;
+  color: $white;
 }
 
 .main-user-controls{

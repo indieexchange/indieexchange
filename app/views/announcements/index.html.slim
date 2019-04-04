@@ -1,0 +1,39 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.announcements-row
+  .col-6.text-center
+    .announcements Announcements
+
+- if @announcements.any?
+  - @announcements.each do |announcement|
+    .row.with-sitewide-padding.no-gutters.justify-content-center.announcements-row
+      .col-8.text-center
+        .carded-content
+          .row
+            .col-3
+              .announcement-profile-picture-holder
+                a href="#{user_path(announcement.user)}"
+                  .announcement-profile-picture
+                    - if announcement.user.has_cropped_profile_picture?
+                      = image_tag(rails_representation_url(announcement.user.pp_mid), class: "announcement-full-profile-picture-image", title: "Go to #{announcement.user.display_name_untruncated}'s profile")
+                    - else
+                      = image_tag("anonymous_user.png", class: "announcement-full-profile-picture-image", title: "Go to #{announcement.user.display_name_untruncated}'s profile")
+            .col-9
+              .announcement-info-holder
+                .announcement-name
+                  = announcement.user.display_name_untruncated
+                  span.announcement-date Posted on #{announcement.created_at.strftime("%b %-d, %Y")}
+                .full-announcement = h(announcement.body.truncate(200)).gsub(/\n/, '<br/>').html_safe
+                br
+                .see-full-announcement = link_to "See full announcement and discussion", announcement_path(announcement), class: "brand-link gradient"
+
+- else
+  .row.with-sitewide-padding.no-gutters.justify-content-center.announcements-row
+    .col-6.text-center
+      .carded-content
+        .no-announcements There are no announcements right now
+
+
+br
+br
+br
+br
+br

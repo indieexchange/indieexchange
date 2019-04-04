@@ -1,10 +1,12 @@
 .row.with-sitewide-padding.no-gutters.justify-content-center.notifications-row
   .col-3
     .notifications Notifications
-  - if @notifications.any? 
+  - if @notifications.any?
     .col-3
       .clear-notifications.text-right
         = link_to "CLEAR NOTIFICATIONS", clear_notifications_path(@user), class: "btn btn-danger"
+  - else
+    .col-3
 
 
 - if @notifications.any?
@@ -17,9 +19,10 @@
             .notification-time.dib = time_ago_in_words(notification.created_at) + " ago"
 
 - else
-  .col-6
-    .carded-content.no-notifications-card
-      .no-notifications You don't have any notifications right now
+  .row.with-sitewide-padding.no-gutters.justify-content-center.show-notifications-row
+    .col-6
+      .carded-content.no-notifications-card
+        .no-notifications You don't have any notifications right now
 
 br
 br

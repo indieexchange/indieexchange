@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :announcements
   resources :posts do
     resources :user_post_reviews
     resources :post_attachments
@@ -73,4 +74,7 @@ Rails.application.routes.draw do
   patch "/users/:id/cancel_subscription",                     to: "users#cancel_subscription",      as: "cancel_subscription_user"
   patch "/users/:id/resubscribe",                             to: "users#resubscribe",              as: "resubscribe_user"
   get "/users/:id/follows",                                   to: "users#follows",                  as: "follows_user"
+
+  put "/announcements/:id/reply",                             to: "announcements#reply",            as: "reply_announcement"
+  delete "/announcements/:id/reply/:reply_id",                to: "announcements#destroy_reply",    as: "destroy_announcement_reply"
 end

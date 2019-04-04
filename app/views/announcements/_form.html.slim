@@ -1,0 +1,20 @@
+= form_for @announcement do |f|
+  - if @announcement.errors.any?
+    .error-explanation.form-error-container
+      - @announcement.errors.full_messages.each do |message|
+        .error-detail = message
+
+  .form-group
+    = f.label :body, class: "form-label less-margin"
+    = f.text_area :body, autofocus: true, rows: 6, class: "form-control"
+
+  - if @announcement.id
+    = f.submit "UPDATE ANNOUNCEMENT", class: "btn btn-primary"
+  - else
+    = f.submit "SEND ANNOUNCEMENT", class: "btn btn-primary", data: {confirm: "Are you sure you want to post this announcement for all users to see?"}
+
+br
+br
+br
+br
+br
