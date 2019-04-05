@@ -15,8 +15,11 @@
       .profile-picture-fullsize-review
         = image_tag(rails_representation_url(current_user.pp_full))
 
+      = link_to "Change Crop Selection", crop_profile_picture_user_path(current_user), class: "btn btn-primary", style: "width: 200px"
+      br
+      br
       = form_for @user, url: delete_profile_picture_user_path(@user) do |f|
-        = f.submit "DELETE PHOTO", class: "btn btn-primary"
+        = f.submit "Delete Picture", class: "btn btn-danger", style: "width: 200px", data: {confirm: "Really delete your profile picture?"}
     - else
       - if @user.errors.any?
         .error-explanation.form-error-container
@@ -27,16 +30,18 @@
         | Upload an image file from your computer under 4MB.
         br Once uploaded, you will be able to set the thumbnail area of the photo.
       = form_for @user, url: update_profile_picture_user_path(@user) do |f|
-        label.btn.btn-success
+        label.btn.btn-success#choose-photo-button
           span#instruction Choose Photo
-          = f.file_field :profile_picture, style: "display: none", accept: "image/x-png,image/png,image/jpeg,image/bmp"
+          = f.file_field :profile_picture, style: "display: none", accept: "image/x-png,image/png,image/jpeg,image/bmp", id: "photo-select"
 
         .current-photo-selection
           | Current selection:
           span.selected-file-name Nothing selected
+          br
+          .choose-another.brand-purple-text Choose another instead?
 
         .actions
-          = f.submit "Upload Selected Photo", class: "btn btn-primary", id: "submit-photo-button"
+          = f.submit "Continue & Crop", class: "btn btn-primary", id: "submit-photo-button"
 
 br
 br
@@ -53,5 +58,14 @@ javascript:
     $(".selected-file-name").text(label);
     $(".current-photo-selection").show();
     $("#submit-photo-button").show();
-    $("#instruction").text("Choose a Different Photo");
+    $("#choose-photo-button").hide()
+
+    $(document).ready(function(){
+      $(".choose-another").click(function(){
+        $(".current-photo-selection").hide();
+        $("#choose-photo-button").show();
+        $("#submit-photo-button").hide();
+        $("#photo-select").val(null);
+      })
+    })
   });

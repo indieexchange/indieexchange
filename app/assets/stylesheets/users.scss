@@ -866,6 +866,10 @@
     font-size: $small-font-size;
     font-style: italic;
   }
+
+  .choose-another{
+    cursor: pointer;
+  }
 }
 
 #submit-photo-button{
