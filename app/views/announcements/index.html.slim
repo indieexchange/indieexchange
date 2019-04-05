@@ -21,6 +21,7 @@
                 .announcement-name
                   = announcement.user.display_name_untruncated
                   span.announcement-date Posted on #{announcement.created_at.strftime("%b %-d, %Y")}
+                .announcement-title = announcement.title
                 .full-announcement = h(announcement.body.truncate(200)).gsub(/\n/, '<br/>').html_safe
                 br
                 .see-full-announcement = link_to "See full announcement and discussion", announcement_path(announcement), class: "brand-link gradient"

@@ -6,6 +6,7 @@ module ApplicationHelper
     path == "/users/#{id}/edit" or
     path == "/users/#{id}/join" or
     path == "/users/#{id}/lapsed" or
+    path.match?(/announcements\/\d+/) or
     path == "/users/#{id}/wait_for_stripe" ? true : false
   end
 

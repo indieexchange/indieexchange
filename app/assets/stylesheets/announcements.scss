@@ -56,7 +56,7 @@
   .full-announcement{
     font-family: $roboto;
     font-weight: 300;
-    margin-top: 30px;
+    margin-top: 20px;
     width: 80%;
   }
   .report-dropdown{
@@ -76,6 +76,15 @@
       color: #b3b3b3;
     }
   }
+  .announcement-title{
+    font-family: $roboto;
+    font-size: 26px;
+    font-weight: bold;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    margin-top: 20px;
+    display: block;
+  }
+
   .announcement-name{
     display: inline-block;
     font-size: 20px;
@@ -113,6 +122,15 @@
               color: $brand-dark-purple;
             }
           }
+        }
+
+        .announcement-title{
+          font-family: $roboto;
+          font-size: 26px;
+          font-weight: bold;
+          @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+          margin-top: 20px;
+          display: block;
         }
 
         .full-review{

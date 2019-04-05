@@ -27,7 +27,11 @@ html
         / do nothing -- don't check for user or anything in case that has to do with the error.
         / just let the error pages render without the header
       - elsif signed_in?
-        - if current_user.profile_incomplete? and !block_profile_completeness_method(request.path, current_user.id)
+        - if current_user.has_unread_first_announcement? and Announcement.any? and current_user.allowed_to_use_site?
+          .row.with-sitewide-padding.announcement-row.no-gutters
+            .col-12.text-center
+              .announcement-text Hey! Before getting started, please read our #{link_to "welcome post", announcement_path(Announcement.first)} for new members!
+        - elsif current_user.profile_incomplete? and !block_profile_completeness_method(request.path, current_user.id)
           .row.with-sitewide-padding.request-row.no-gutters
             .col-12.text-center
               .flash-text = current_user.complete_profile_call_to_action
@@ -80,6 +84,7 @@ html
                 a.dropdown-item href="#{dashboard_user_path}" Dashboard
                 a.dropdown-item href="/some-path" Help, FAQ, & More
                 a.dropdown-item href="#{user_path(current_user)}" See My Profile
+                a.dropdown-item href="#{announcements_path}" Announcements
                 a.dropdown-item href="#{destroy_user_session_path}" data-method="delete" Sign Out
       - else # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters

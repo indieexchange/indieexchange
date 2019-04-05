@@ -4,10 +4,8 @@ class Category < ApplicationRecord
   def self.search_options
     options = []
     self.all.order(:id).each do |cat|
-      puts "Inserting #{cat.title}"
       options << ["All #{cat.title}", "#{cat.id}"]
       cat.subcategories.order(:id).each do |s|
-        puts "Inserting #{s.title}"
         options << ["[#{cat.title}] #{s.title}", "#{cat.id}-#{s.id}"]
       end
     end

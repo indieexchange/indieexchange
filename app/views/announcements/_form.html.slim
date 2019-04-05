@@ -4,9 +4,14 @@
       - @announcement.errors.full_messages.each do |message|
         .error-detail = message
 
+
+  .form-group
+    = f.label :title, class: "form-label less-margin"
+    = f.text_field :title, autofocus: true, rows: 6, class: "form-control"
+
   .form-group
     = f.label :body, class: "form-label less-margin"
-    = f.text_area :body, autofocus: true, rows: 6, class: "form-control"
+    = f.text_area :body, rows: 6, class: "form-control"
 
   - if @announcement.id
     = f.submit "UPDATE ANNOUNCEMENT", class: "btn btn-primary"
