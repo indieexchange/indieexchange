@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'tech@indiepubexchange.com' # change to support@, and search app-wide
+  default from: '"Indie Exchange Support" <tech@indiepubexchange.com>' # change to support@, and search app-wide
   layout 'mailer'
 
   def subscription_payment_succeeded(user)
