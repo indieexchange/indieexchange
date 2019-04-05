@@ -14,7 +14,7 @@ class AnnouncementsController < ApplicationController
   # GET /announcements/1.json
   def show
     @announcement_reply = AnnouncementReply.new
-    if current_user.has_unread_first_announcement and @announcement == Announcement.first
+    if @announcement == Announcement.first
       current_user.update!(has_unread_first_announcement: false)
     end
   end
