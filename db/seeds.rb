@@ -54,7 +54,8 @@ Subcategory.all.each do |subcategory|
       is_published: true,
       is_visible: true,
       is_offering: [true, false].sample,
-      user_id: User.all.map(&:id).sample
+      user_id: User.all.map(&:id).sample,
+      last_update_bump_at: Time.now - 2.days
       )
     post.save!
     n += 1

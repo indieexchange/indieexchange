@@ -25,7 +25,7 @@
           .col-1
   - else
     .col-2.text-right
-      a href="#{user_path(message.sender)}"
+      a href="#{user_path(@message.sender)}"
         .pm-profile-picture-holder
           - if @other_user.has_cropped_profile_picture?
             = image_tag(rails_representation_url(@other_user.pp_thumb), class: "pm-profile-picture")
