@@ -369,7 +369,7 @@ body{
 
   .notification-information{
     display: inline-block;
-    margin-left: $nav-bar-icon-spacing;
+    margin-left: 25px;
 
     .user-notifications-link{
       line-height: $indie-exchange-image-height;
@@ -455,6 +455,48 @@ body{
     }
   }
 
+  .post-information{
+    display: inline-block;
+    margin-left: 25px;
+    a.user-post-link{
+      color: $brand-dark-purple;
+      &:hover{
+        color: $brand-dark-purple;
+      }
+    }
+
+    .dropdown-toggle::after{
+      display: none;
+    }
+
+    .file-powerpoint-icon{
+      color: $icon-medium-gray;
+      font-size: calc(#{$icon-medium-small-font-size} - 7px);
+      height: calc(#{$icon-medium-small-font-size} - 7px);
+      vertical-align: middle;
+
+      &:hover{
+        color: $brand-light-purple;
+        @include transition(all, 0.5s);
+      }
+    }
+
+    .dropdown-menu{
+      left: -30px !important;
+      top: 10px !important;
+      a.dropdown-item{
+        line-height: 30px;
+        display: block;
+        font-family: $roboto;
+        font-weight: 400;
+        color: $brand-dark-purple;
+        &:hover{
+          background: lighten($brand-light-purple, 20%);
+        }
+      }
+    }
+  }
+
   .search-information{
     display: inline-block;
 
@@ -470,7 +512,6 @@ body{
     }
 
     .dropdown-menu{
-      // left: -30px !important;
       top: 10px !important;
       a.dropdown-item{
         line-height: 30px;
