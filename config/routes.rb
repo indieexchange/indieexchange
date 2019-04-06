@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   get '/500', to: 'errors#internal_error'
 
   get "/please_confirm",                                      to: "static#please_confirm",          as: "please_confirm"
+  get "/privacy_policy",                                      to: "static#privacy_policy",          as: "privacy_policy"
+  get "/terms",                                               to: "static#terms",                   as: "terms"
 
   get "/users/:id/profile_picture",                           to: "users#edit_profile_picture",     as: "edit_profile_picture_user"
   patch "/users/:id/profile_picture",                         to: "users#update_profile_picture",   as: "update_profile_picture_user"

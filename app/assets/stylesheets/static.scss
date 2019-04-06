@@ -112,3 +112,60 @@
     }
   }
 }
+
+.privacy-policy, .terms-and-conditions-page{
+  margin-top: 30px;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: $roboto;
+  font-weight: 300;
+
+  h1{
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-weight: 700;
+  }
+
+  h2{
+    color: $brand-dark-purple;
+    margin-top: 50px;
+    font-weight: 700;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px;
+    font-family: $roboto;
+    letter-spacing: 0.5px;
+  }
+
+  h2:before{
+    margin-top: 15px;
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 1px;
+    bottom: -3px;
+    border-bottom: 1px solid $brand-light-purple;
+  }
+
+  h3{
+    margin-top: 35px;
+  }
+
+  h4{
+    margin-top: 25px;
+    font-size: 1.25rem;
+    color: lighten($brand-dark-purple, 5%);
+  }
+
+  ul{
+    li{
+      p:nth-child(1){
+        margin-bottom: 5px;
+      }
+
+      p:last-child{
+        margin-bottom: 30px;
+      }
+    }
+  }
+}

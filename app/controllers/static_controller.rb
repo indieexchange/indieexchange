@@ -7,4 +7,7 @@ class StaticController < ApplicationController
 
   def please_confirm
   end
+
+  def privacy_policy
+  end
 end
