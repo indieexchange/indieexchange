@@ -260,15 +260,25 @@
 .dashboard-search-row{
   padding-top: 1.5rem;
 
+  .form-group{
+    margin-bottom: 0px;
+  }
+
   .carded-content.less-padding-v{
     padding-bottom: 0px;
-    padding-top: 33px;
+    padding-top: 20px;
   }
 
   .advanced-search-holder{
     float: right;
-    .advanced-search{
-      padding: 7px 20px;
+    .custom-search{
+      padding: 7px 15px;
+      font-family: $roboto;
+      margin-right: 10px;
+    }
+
+    .browse-search{
+      padding: 7px 15px;
       font-family: $roboto;
     }
   }

@@ -99,19 +99,22 @@ class PostsController < ApplicationController
   end
 
   def search
-    category_id, subcategory_id = params[:cat_subcat_string].split("-").map(&:to_i)
-    @posts = Post.offering(!ActiveModel::Type::Boolean.new.cast(params[:seeking])).
+    category_id, subcategory_id = get_cat_subcat
+    @posts = Post.offering(Post.booleans_for_offering_vs_seeking(params[:seeking])).
                   published.
                   visible.
                   cat(category_id).
                   subcat(subcategory_id).
                   max_price(params[:maximum_price].present? ? params[:maximum_price].to_f : nil).
                   keywords(params[:keywords].present? ? params[:keywords].split(" ") : nil).
-                  order(last_update_bump_at: :desc)
+                  order(last_update_bump_at: :desc).includes(:user).includes(:subcategory)
 
-    @category = Category.find(category_id)
-    @subcategory = Subcategory.find(subcategory_id) if subcategory_id
-    @found_in = @subcategory&.title || @category.title
+    @seeking = Post.description_for_offering_vs_seeking(params[:seeking])
+    @both = (@seeking == "Offers & Seekers")
+    @max_price = params[:maximum_price].present? ? params[:maximum_price].to_f : nil
+    @keywords = params[:keywords].present? ? params[:keywords] : nil
+    @category = category_id.present? ? Category.find(category_id) : nil
+    @subcategory = subcategory_id.present? ? Subcategory.find(subcategory_id) : nil
 
     render :index
   end
@@ -223,6 +226,15 @@ class PostsController < ApplicationController
 
     def set_reply
       @reply = PostCommentReply.find(params[:reply_id])
+    end
+
+    def get_cat_subcat
+      val = params[:cat_subcat_string]
+      if val == "all" or !val.present?
+        [nil, nil]
+      elsif val.present?
+        val.split("-").map(&:to_i)
+      end
     end
 
     def hide

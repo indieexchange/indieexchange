@@ -70,7 +70,31 @@ class Post < ApplicationRecord
   end
 
   def self.seeking_options
-    [["Services offered by others", false],["People who need my services", true]]
+    [["Services offered by others", "job-offerers"],["People who need my services", "job-seekers"],["Everything", "both"]]
+  end
+
+  def self.booleans_for_offering_vs_seeking(word)
+    case word
+    when "job-offerers"
+      true
+    when "job-seekers"
+      false
+    when "both"
+      nil
+    end
+  end
+
+  def self.description_for_offering_vs_seeking(word)
+    case word
+    when "job-offerers"
+      "Offers"
+    when "job-seekers"
+      "Seekers"
+    when "both"
+      "Offers & Seekers"
+    when nil
+      "Offers & Seekers"
+    end
   end
 
   def hidden?

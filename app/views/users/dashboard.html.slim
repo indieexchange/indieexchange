@@ -21,7 +21,9 @@
         .dib.quick-search-button
           = submit_tag "Search", class: "btn btn-sm btn-primary"
       .dib.advanced-search-holder
-        = link_to "Advanced Search", posts_path, class: "btn btn-sm btn-success advanced-search"
+        = link_to "Advanced", posts_path(search_type: 'custom'), class: "btn btn-sm btn-success custom-search"
+        = link_to "Browse", posts_path(search_type: 'browse'), class: "btn btn-sm btn-success browse-search"
+
 
 
 .row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-top-row

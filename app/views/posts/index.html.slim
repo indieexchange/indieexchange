@@ -1,25 +1,29 @@
 - if params[:action] == "search"
   .row.post-index-toggle-button.no-gutters.with-sitewide-padding
     .col-12.mx-auto
-      .btn.branded-pill-button.thin#show-search-form Show Search Form
+      .dib.btn.branded-pill-button.thin#show-search-form Show Search Form
+      a.dib.btn.branded-pill-button.thin.browse-categories-button href="#{posts_path(search_type: 'browse')}" Browse Categories
 
-.row.post-index-search-row.no-gutters#search-form class="#{params[:action] == 'search' ? 'less-margin-top hidden' : ''}"
+.row.post-index-search-row.no-gutters#search-form class="#{params[:action] == 'search' ? 'less-margin-top hidden' : ''}" class="#{params[:search_type] == 'browse' ? 'hidden' : ''}"
   .col-8.mx-auto
     .card.card-brand-color.my-5
-      .card-body
+      .card-body.search-card-body
         = form_tag search_posts_path do
-          h5.card-title.text-center Search Active Posts
+          .card-title.custom-search-title Custom Search
           form.form-brand-color
             .row.search-filters-row
               .col-xl-6.col-lg-12
                 .form-label-group
                   .radio-group-label = label :seeking, "I want to see:"
                   .get-work
-                    .dib = radio_button_tag :seeking, false, ((!ActiveModel::Type::Boolean.new.cast(params[:seeking])) or params[:seeking].blank?)
-                    .radio-button-label.dib = label :seeking, "Services offered by others", value: "false"
+                    .dib = radio_button_tag :seeking, "job-offerers", params[:seeking] == "job-offerers"
+                    .radio-button-label.dib = label :seeking, "Services offered by others"
                   .do-work
-                    .dib = radio_button_tag :seeking, true, ActiveModel::Type::Boolean.new.cast(params[:seeking])
-                    .radio-button-label.dib = label :seeking, "People who need my services", value: "true"
+                    .dib = radio_button_tag :seeking, "job-seekers", params[:seeking] == "job-seekers"
+                    .radio-button-label.dib = label :seeking, "People who need my services"
+                  .do-work-get-work
+                    .dib = radio_button_tag :seeking, "both", params[:seeking] == "both"
+                    .radio-button-label.dib = label :seeking, "Everything"
               .col-xl-6.col-lg-12
                 .form-label-group
                   .dropdown-label.category-label Category:
@@ -32,18 +36,86 @@
                   label for="input-maximum-price" Max price <span id="pricing-type">(per word)</span>
               .col-xl-6.col-lg-12
                 .form-label-group
-                  = text_field_tag :keywords, params[:keywords], placeholder: "Keywords", required: false, type: "text", class: "form-control", id: "input-keywords", title: "Only posts matching all keywords will be shown", data: {toggle: "tooltip", placement: "left"}, oninvalid: "setCustomValidity('Enter words separated by a single space (no numbers, punctuation, or quotes)')", pattern: "^[[a-zA-Z]+\s]*[[a-zA-Z]]$"
+                  = text_field_tag :keywords, params[:keywords], placeholder: "Keywords", required: false, type: "text", class: "form-control", id: "input-keywords", title: "Only posts matching all keywords will be shown", data: {toggle: "tooltip", placement: "top"}, oninvalid: "setCustomValidity('Enter words separated by a single space (no numbers, punctuation, or quotes)')", pattern: "^[[a-zA-Z]+\s]*[[a-zA-Z]]$"
                   label for="input-keywords" Keywords
               .col-xl-6
               .col-xl-6.col-lg-12
-                = submit_tag "FIND POSTS", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
+                = submit_tag "SEARCH", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
 
+.row.post-browse-categories-headline-row.no-gutters#category-browser-headline class="#{params[:action] == 'search' ? 'less-margin-top hidden' : ''}" class="#{params[:search_type] == 'custom' ? 'hidden' : ''}"
+  .col-8.mx-auto
+    .browse-by-category.text-center CATEGORIES
+
+.row.post-browse-categories-row.no-gutters.justify-content-center#category-browser class="#{params[:action] == 'search' ? 'less-margin-top hidden' : ''}" class="#{params[:search_type] == 'custom' ? 'hidden' : ''}"
+  .col-10
+    .row.internal-browse-row
+      .col-4.text-center.category-card
+        a.category-link href="#{get_search_posts_path(cat_subcat_string: Category.id_for('Writing'))}"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("writing_icon.png"), class: "icon-image")
+            .category-name Writing
+            .image-underliner
+            .category-description The perfect cure for writer's block
+      .col-4.text-center.category-card
+        a.category-link href="#{get_search_posts_path(cat_subcat_string: Category.id_for('Design'))}"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("graphic_design_icon.png"), class: "icon-image")
+            .category-name Design
+            .image-underliner
+            .category-description Help to make everything look beautiful
+      .col-4.text-center.category-card
+        a.category-link href="#{get_search_posts_path(cat_subcat_string: Category.id_for('Promotional'))}"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("promotional_services_icon.png"), class: "icon-image")
+            .category-name Promotional
+            .image-underliner
+            .category-description Get the word out to your readers
+      .col-4.text-center.category-card
+        a.category-link href="#{get_search_posts_path(cat_subcat_string: Category.id_for('Editing'))}"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("editing_icon.png"), class: "icon-image")
+            .category-name Editing
+            .image-underliner
+            .category-description Fresh eyes and a second opinion
+      .col-4.text-center.category-card
+        a.category-link href="#{get_search_posts_path(cat_subcat_string: Category.id_for('Miscellaneous'))}"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("virtual_assistant_icon.png"), class: "icon-image")
+            .category-name Miscellaneous
+            .image-underliner
+            .category-description Anything that doesn't fit somewhere else
+      .col-4.text-center.category-card
+        a.category-link href="#{get_search_posts_path(cat_subcat_string: 'all')}"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("all_categories_icon.png"), class: "icon-image")
+            .category-name All Categories
+            .image-underliner
+            .category-description See everything we have all at once
 br
 - if @posts&.any?
   .row.with-sitewide-padding.no-gutters.justify-content-center.post-count-row
     .col-12
       .carded-content
-        .found-jobs-line <span class="number-found">#{@posts.count}</span> posts found in <span class="subcategory-searched">#{@found_in}</span> matching your criteria
+        - if @posts.count == 1
+          .found-jobs-line <span class="number-found">1</span> post matching your criteria
+        - else
+          .found-jobs-line <span class="number-found">#{@posts.count}</span> posts matching your criteria
+        .criteria-holder
+          - if @seeking
+            .dib.criteria-item.seeking = @seeking
+          - if @subcategory
+            .dib.criteria-item.subcategory = "#{@subcategory.category.title} - #{@subcategory.title}"
+          - elsif @category
+            .dib.criteria-item.category = "#{@category.title}"
+          - else
+            .dib.criteria-item.category All categories
+          - if @max_price
+            .dib.criteria-item.max-price = "Under $#{"%.2f" % @max_price}"
+          - else
+            .dib.criteria-item.max-price Any price
+          - if @keywords
+            .dib.criteria-item.keywords = "Keywords: \"#{@keywords}\""
+
   .row.with-sitewide-padding.no-gutters.justify-content-center.results-header-row
     .col-12
       .carded-content.less-padding-v
@@ -76,7 +148,14 @@ br
                   .result-profile-picture-holder = image_tag("anonymous_user.png", class: "result-profile-picture")
                 .result-user-name #{post.user.display_name}
               .col-6.center-v
-                .post-title = post.title
+                - if @both
+                  - if post.is_offering
+                    .dib.offering.text-center data-toggle="tooltip" data-placement="top" title="Offering service" O
+                  - else
+                    .dib.seeking.text-center data-toggle="tooltip" data-placement="top" title="Seeking service" S
+                  .di.post-title = post.title
+                - else
+                  .post-title = post.title
                 .post-description = h(post.description.truncate(128)).gsub(/\n/, '<br/>').html_safe
               .col-1.center-v
                 .price $#{"%.2f" % post.price}
@@ -103,8 +182,10 @@ javascript:
     $("#show-search-form").click(function(){
       if (showing == false) {
         $("#search-form").slideDown();
+        $(this).text("Hide Search Form")
       } else {
         $("#search-form").slideUp();
+        $(this).text("Show Search Form")
       }
       showing = !showing;
     });
@@ -123,4 +204,6 @@ javascript:
 
     // also do it on page load, in case it's edit and it's not the default wording
     updateWording();
+
+    $(".squeezer").matchHeight();
   });

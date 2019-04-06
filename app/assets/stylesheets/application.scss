@@ -41,6 +41,12 @@ body{
   font-family: $roboto-condensed;
 }
 
+.radio-button-label{
+  label{
+    cursor: pointer; // so that they are obviously clickable
+  }
+}
+
 .full-equal-height{
   height: 100%;
 }
@@ -51,6 +57,10 @@ body{
 
 .dib{
   display: inline-block;
+}
+
+.di{
+  display: inline;
 }
 
 .display-none{
@@ -299,7 +309,7 @@ body{
   font-family: $roboto;
   font-weight: 500;
   font-size: 15px;
-  color: $white;
+  color: $light-font-color;
 }
 
 .main-user-controls{
@@ -436,6 +446,32 @@ body{
 
   .search-information{
     display: inline-block;
+
+    a.user-search-link{
+      color: $brand-dark-purple;
+      &:hover{
+        color: $brand-dark-purple;
+      }
+    }
+
+    .dropdown-toggle::after{
+      display: none;
+    }
+
+    .dropdown-menu{
+      // left: -30px !important;
+      top: 10px !important;
+      a.dropdown-item{
+        line-height: 30px;
+        display: block;
+        font-family: $roboto;
+        font-weight: 400;
+        color: $brand-dark-purple;
+        &:hover{
+          background: lighten($brand-light-purple, 20%);
+        }
+      }
+    }
 
     .user-search-link{
       line-height: $indie-exchange-image-height;
@@ -645,20 +681,20 @@ body{
   background: $purple-gradient-lightening-rightward;
   padding: $account-button-internal-padding;
   border-radius: $account-button-border-radius;
-  box-shadow: 0px 8px 30px -5px $brand-light-purple;
+  box-shadow: 0px 8px 10px -5px $brand-light-purple;
   @include transition(all, 0.15s, ease-in-out);
 
   &:hover{
     text-decoration: none;
-    box-shadow: 0px 8px 30px -5px $brand-dark-purple;
     padding: $account-button-internal-padding-hover;
+    box-shadow: 0px 8px 10px -5px $brand-light-purple;
     @include transition(all, 0.15s, ease-in-out);
     color: white;
     background: $darker-purple-gradient-lightening-rightward;
   }
 
   &:focus{
-    box-shadow: 0px 8px 30px -5px $brand-light-purple;
+    box-shadow: 0px 8px 10px -5px $brand-light-purple;
   }
 }
 

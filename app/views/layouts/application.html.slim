@@ -55,8 +55,13 @@ html
               = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
           .col-9.main-user-controls.text-right
             .search-information
-              a.user-search-link href="#{posts_path}"
+              / a.user-search-link href="#{posts_path}"
+              /   = icon('fas', 'search', class: 'search-magnifying-glass', title: "Start a new search")
+              a.user-search-link.dropdown-toggle#search-dropdown-link href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 = icon('fas', 'search', class: 'search-magnifying-glass', title: "Start a new search")
+              .dropdown-menu aria-labelledby="search-dropdown-link"
+                a.dropdown-item href="#{posts_path(search_type: 'custom')}" Custom Search
+                a.dropdown-item href="#{posts_path(search_type: 'browse')}" Browse Categories
             .notification-information
               a.user-notifications-link href="#{user_notifications_path(current_user)}"
                 - if !current_user.has_unread_notifications

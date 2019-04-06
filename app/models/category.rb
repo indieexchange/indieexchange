@@ -4,12 +4,17 @@ class Category < ApplicationRecord
   def self.search_options
     options = []
     self.all.order(:id).each do |cat|
-      options << ["All #{cat.title}", "#{cat.id}"]
+      options << ["#{cat.title}", "#{cat.id}"]
       cat.subcategories.order(:id).each do |s|
-        options << ["[#{cat.title}] #{s.title}", "#{cat.id}-#{s.id}"]
+        options << ["#{cat.title} - #{s.title}", "#{cat.id}-#{s.id}"]
       end
     end
+    options << ["All Posts", "all"]
     options
+  end
+
+  def self.id_for(title)
+    find_by_title(title).id
   end
 
   def self.pricing_type_words
@@ -18,6 +23,7 @@ class Category < ApplicationRecord
       type_words[cat.id] = "booking"
       cat.subcategories.each{ |s| type_words["#{cat.id}-#{s.id}"] = s.pricing_type }
     end
+    type_words["all"] = "booking"
     json_ready_string(type_words)
   end
 

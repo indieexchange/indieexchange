@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :announcements
+
+  get "/posts/search", to: "posts#search", as: "get_search_posts"
   resources :posts do
     resources :user_post_reviews
     resources :post_attachments

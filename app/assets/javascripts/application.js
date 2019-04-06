@@ -19,4 +19,8 @@
 
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
+
+  $(".radio-button-label").click(function(){
+    $(this).parent().find("input[type='radio']").prop("checked", true);
+  })
 })

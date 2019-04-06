@@ -287,6 +287,34 @@ a.full-post-link{
     color: $brand-off-black-two;
   }
 
+  .offering{
+    color: $light-font-color;
+    font-family: $roboto;
+    font-size: 11px;
+    font-weight: 700;
+    background-color: $brand-dark-purple;
+    height: 21px;
+    width: 21px;
+    line-height: 21px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+  }
+
+  .seeking{
+    color: $light-font-color;
+    font-family: $roboto;
+    font-size: 11px;
+    font-weight: 700;
+    background-color: $brand-callout-yellow;
+    height: 21px;
+    width: 21px;
+    line-height: 21px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: text-bottom;
+  }
+
   .post-description{
     margin-top: 10px;
     font-family: $roboto;
@@ -366,6 +394,19 @@ a.full-post-link{
     margin-top: 15px;
     font-weight: 300;
   }
+  .criteria-holder{
+    margin-top: 15px;
+    .criteria-item{
+      font-family: $roboto;
+      font-size: 11px;
+      font-weight: 700;
+      color: $light-font-color;
+      background-color: $brand-dark-purple;
+      border-radius: 50px;
+      padding: 5px 11px;
+      margin-right: 5px;
+    }
+  }
   .found-jobs-line{
     font-size: 22px;
     color: $brand-off-black-two;
@@ -380,6 +421,9 @@ a.full-post-link{
 
 .post-index-toggle-button{
   margin-top: 30px;
+  .browse-categories-button{
+    margin-left: 20px;
+  }
 }
 
 .post-index-search-row.less-margin-top{
@@ -392,13 +436,90 @@ a.full-post-link{
   display: none;
 }
 
+.post-browse-categories-row{
+  .internal-browse-row{
+    .category-card{
+      margin-top: 30px;
+      .category-link{
+        &:hover{
+          text-decoration: none;
+        }
+        .squeezer{
+          width: 80%;
+          margin-left: auto;
+          margin-right: auto;
+          padding-top: 30px;
+          padding-bottom: 40px;
+          &:hover{
+            background-color: #fafdfe;
+            box-shadow: 0px 0px 6px 2px rgba(128, 128, 128, 0.25);
+          }
+          .category-description{
+            font-family: $roboto;
+            font-weight: 300;
+            color: $brand-solid-grey-text;
+            margin-top: 15px;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 14px;
+          }
+          .category-name{
+            font-family: $roboto;
+            color: $brand-off-black-two;
+            margin-top: 15px;
+          }
+          .image-underliner{
+            border-top: 1px solid $brand-dark-purple;
+            width: 20px;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .icon-image-holder{
+            .icon-image{
+              height: 125px;
+              width: 125px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.post-browse-categories-headline-row{
+  .browse-by-category{
+    font-family: $roboto;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    display: block;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-top: 20px;
+  }
+}
+
 .post-index-search-row{
+  .radio-button-label{
+    label{
+      margin-bottom: 2px;
+    }
+  }
+  .search-card-body{
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+  }
   .card-title{
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .custom-search-title{
+    font-size: 26px;
   }
 
   .card-brand-color{
-    padding: 20px 30px;
+    padding: 10px 30px;
   }
 
   .category-label{
@@ -407,7 +528,7 @@ a.full-post-link{
 
   .search-filters-row{
     [class*="col-"]{
-      margin-top: 10px;
+      margin-top: 3px;
     }
   }
 

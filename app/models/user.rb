@@ -242,7 +242,7 @@ class User < ApplicationRecord
   end
 
   def has_cropped_profile_picture?
-    profile_picture.attached? and profile_picture_d.present?
+    profile_picture_d.present? and profile_picture.attached?
   end
 
   def crop_profile_picture
