@@ -41,7 +41,7 @@ html
               .announcement-text New announcement! Check out our #{link_to "Announcements page", announcements_path} to see it
         .row.with-sitewide-padding.main-navigation-row.no-gutters
           .col-3
-            a href="/"
+            a href="#{posts_path(search_type: 'browse')}"
               = image_tag("indie_exchange.png", title: "Indie Exchange logo")
           / maybe this part can be used on the logged-out homepage or something????
           /.col-4.main-navigation-links.text-center
