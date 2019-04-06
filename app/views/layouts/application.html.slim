@@ -97,8 +97,8 @@ html
                     = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "See more menu options")
               .dropdown-menu aria-labelledby="profile-dropdown-link"
                 a.dropdown-item href="#{dashboard_user_path}" Dashboard
-                a.dropdown-item href="#{user_path(current_user)}" See My Profile
-                a.dropdown-item href="#{edit_user_path(current_user)}" Profile & Settings
+                a.dropdown-item href="#{user_path(current_user)}" View My Profile
+                a.dropdown-item href="#{edit_user_path(current_user)}" Update Profile
                 a.dropdown-item href="#{announcements_path}" Announcements
                 a.dropdown-item href="#{faq_path}" FAQs
                 a.dropdown-item href="#{rules_path}" Rules

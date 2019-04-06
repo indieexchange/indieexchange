@@ -17,7 +17,7 @@
 
       .start-membership-explanation Please note that although you can add your card now or any other time, <b>you will not be charged until #{(@user.trial_until - PADDING_FOR_PAYMENT).strftime('%B %-d, %Y')}</b>.
       .start-membership-form = form_tag add_card_stripe_webhook_index_path
-        script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY']}" data-name="Indie Exchange" data-email="#{current_user.email}" data-locale="auto" data-description="Monthly Subscription" data-image="http://indieexchange.herokuapp.com/indie_exchange_stripe.png" data-zip-code="true" data-panel-label="Add" data-label="Add Card"
+        script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY']}" data-name="Indie Exchange" data-email="#{current_user.email}" data-locale="auto" data-description="Monthly Subscription" data-image="https://www.indiepubexchange.com/indie_exchange_stripe.png" data-zip-code="true" data-panel-label="Add" data-label="Add Card"
     - else
       - if @user.stripe_card_id.present?
         .payment-method Current Payment Method
@@ -29,7 +29,7 @@
         .payment-method Current Payment Method
         .no-payment-method Please add a card to continue your membership.
         = form_tag add_card_stripe_webhook_index_path
-          script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV["INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY"]}" data-image="http://indieexchange.herokuapp.com/indie_exchange_stripe.png" data-name="Indie Exchange" data-panel-label="Add New Card" data-label="Add New Card" data-allow-remember-me=false data-locale="auto" data-email="#{@user.email}" data-amount="0"
+          script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV["INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY"]}" data-image="https://www.indiepubexchange.com/indie_exchange_stripe.png" data-name="Indie Exchange" data-panel-label="Add New Card" data-label="Add New Card" data-allow-remember-me=false data-locale="auto" data-email="#{@user.email}" data-amount="0"
       .subscription-status Membership Status
       .subscription-status-container.dib
         - if @user.stripe_card_id?

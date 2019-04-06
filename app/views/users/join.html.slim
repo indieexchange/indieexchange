@@ -15,7 +15,7 @@
   .col-3.stripe.height-match
     .pay-with-stripe.text-center Click here to pay with a credit or debit card via Stripe:
     .pay-with-stripe-form.text-center = form_tag subscribe_stripe_webhook_index_path
-      script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY']}" data-name="Indie Exchange" data-amount="1000" data-email="#{current_user.email}" data-locale="auto" data-description="Monthly Subscription" data-image="http://indieexchange.herokuapp.com/indie_exchange_stripe.png" data-zip-code="true"
+      script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="#{ENV['INDIE_EXCHANGE_STRIPE_PUBLISHABLE_KEY']}" data-name="Indie Exchange" data-amount="1000" data-email="#{current_user.email}" data-locale="auto" data-description="Monthly Subscription" data-image="https://www.indiepubexchange.com/indie_exchange_stripe.png" data-zip-code="true"
 
 br
 br
