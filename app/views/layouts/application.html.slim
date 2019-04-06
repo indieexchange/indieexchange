@@ -96,11 +96,12 @@ html
                   span.user-profile-picture
                     = image_tag("anonymous_user.png", class: "user-control-profile-picture", title: "See more menu options")
               .dropdown-menu aria-labelledby="profile-dropdown-link"
-                a.dropdown-item href="#{edit_user_path(current_user)}" Profile Settings
                 a.dropdown-item href="#{dashboard_user_path}" Dashboard
-                a.dropdown-item href="/some-path" Help, FAQ, & More
                 a.dropdown-item href="#{user_path(current_user)}" See My Profile
+                a.dropdown-item href="#{edit_user_path(current_user)}" Profile & Settings
                 a.dropdown-item href="#{announcements_path}" Announcements
+                a.dropdown-item href="#{faq_path}" FAQs
+                a.dropdown-item href="#{rules_path}" Rules
                 a.dropdown-item href="#{destroy_user_session_path}" data-method="delete" Sign Out
       - else # for signed out users
         .row.with-sitewide-padding.main-navigation-row.no-gutters
