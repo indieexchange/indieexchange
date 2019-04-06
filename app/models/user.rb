@@ -57,6 +57,12 @@ class User < ApplicationRecord
 
   before_save :check_has_unread_messages, if: :will_save_change_to_unread_message_count?
 
+  after_create :count_creation_as_activity
+
+  def count_creation_as_activity
+    update!(last_active: Time.now)
+  end
+
   def allowed_to_use_site?
     (is_verified and verified_until > Time.now) or (is_trial_period and trial_until > Time.now)
   end
