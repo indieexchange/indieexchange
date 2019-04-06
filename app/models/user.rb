@@ -80,6 +80,7 @@ class User < ApplicationRecord
   end
 
   def must_pay_next_at
+    # TODO: When trial period is all done, make this way more efficient =) and check for usages elsewhere!
     [verified_until || Time.now, trial_until || Time.now].max
   end
 

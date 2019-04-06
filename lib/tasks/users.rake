@@ -1,3 +1,5 @@
+#  TODO:  When trial period is over, make this more efficient ("must_pay_next_at" should be way easier/faster)
+
 namespace :users do
   desc "Handle membership closure for people who are done their trial / subscription"
   task handle_payments_daily: :environment do
