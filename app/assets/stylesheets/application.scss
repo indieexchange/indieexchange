@@ -55,6 +55,15 @@ body{
   color: $brand-dark-purple;
 }
 
+.white-underlined-bold-link{
+  color: $light-font-color;
+  text-decoration: underline;
+  font-weight: 700;
+  &:hover{
+    color: lighten($brand-light-purple, 15%);
+  }
+}
+
 .dib{
   display: inline-block;
 }

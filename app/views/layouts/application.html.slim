@@ -106,13 +106,13 @@ html
               = image_tag("indie_exchange.png", title: "Indie Exchange logo")
           .col-6.main-navigation-links.text-center
             span
-              = link_to "HOME", "/new-page", class: "main-navigation-link"
+              = link_to "HOME", "/", class: "main-navigation-link"
             span
-              = link_to "ANNOUNCEMENTS", "/new-page", class: "main-navigation-link"
+              = link_to "FAQ", faq_path, class: "main-navigation-link"
             span
-              = link_to "RULES", "/new-page", class: "main-navigation-link"
+              = link_to "RULES", rules_path, class: "main-navigation-link"
             span
-              = link_to "CONTACT US", "/new-page", class: "main-navigation-link"
+              = link_to "CONTACT", contact_path, class: "main-navigation-link"
           .col-3.main-navigation-buttons.text-right
             span
               = link_to "SIGN IN", new_user_session_path, class: "main-navigation-sign-in main-navigation-button"
@@ -130,11 +130,11 @@ html
           .col-3.resources-and-list.text-left
             .resources RESOURCES:
             .resource
-              = link_to "Contact Us", "/some-new-page", class: "resource-link"
+              = link_to "Contact Us", contact_path, class: "resource-link"
             .resource
-              = link_to "Privacy Policy", "/some-new-page", class: "resource-link"
+              = link_to "Privacy Policy", privacy_policy_path, class: "resource-link"
             .resource
-              = link_to "Terms and Conditions", "/some-new-page", class: "resource-link"
+              = link_to "Terms and Conditions", terms_path, class: "resource-link"
           .col-1
         .row.footer-bottom-row.justify-content-center.no-gutters
           .col-6.text-center

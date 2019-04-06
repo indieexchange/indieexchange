@@ -113,9 +113,9 @@
   }
 }
 
-.privacy-policy, .terms-and-conditions-page{
+.privacy-policy, .terms-and-conditions-page, .faq-page, .rules-page{
   margin-top: 30px;
-  width: 60%;
+  max-width: 775px;
   margin-left: auto;
   margin-right: auto;
   font-family: $roboto;
@@ -167,5 +167,16 @@
         margin-bottom: 30px;
       }
     }
+  }
+
+  .opening-sentence-of-rule{
+    color: $brand-dark-purple;
+    font-weight: 500;
+  }
+}
+
+.rules-page{
+  p{
+    margin-bottom: 30px;
   }
 }
