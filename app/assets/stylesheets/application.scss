@@ -75,6 +75,17 @@ body{
   width: 50%;
 }
 
+.dismissable-banner{
+  .dismiss-banner{
+    padding-top: 18px;
+    .clickable-dismiss{
+      cursor: pointer;
+      font-size: 20px;
+      color: $brand-off-black-two;
+    }
+  }
+}
+
 .mid-light-grey-hr{
   border-top-color: #e6e6e6;
 }

@@ -23,4 +23,8 @@ $(document).ready(function(){
   $(".radio-button-label").click(function(){
     $(this).parent().find("input[type='radio']").prop("checked", true);
   })
+
+  $(".clickable-dismiss").click(function(){
+    $(this).closest(".dismissable-banner").slideUp();
+  })
 })

@@ -16,13 +16,17 @@ html
         .col-12
           .header-top-bar
       - if notice
-        .row.with-sitewide-padding.notice-row.no-gutters
-          .col-12.text-center
+        .row.with-sitewide-padding.notice-row.no-gutters.dismissable-banner
+          .col-1
+          .col-10.text-center
             .flash-text = notice
+          .col-1.dismiss-banner.text-center = icon('far', 'times-circle', class: "clickable-dismiss", title: "Hide this notice", data: {toggle: "tooltip", placement: "left"})
       - if alert
-        .row.with-sitewide-padding.alert-row.no-gutters
-          .col-12.text-center
+        .row.with-sitewide-padding.alert-row.no-gutters.dismissable-banner
+          .col-1
+          .col-10.text-center
             .flash-text = alert
+          .col-1.dismiss-banner.text-center = icon('far', 'times-circle', class: "clickable-dismiss", title: "Hide this alert", data: {toggle: "tooltip", placement: "left"})
       - if @serious_error_occurred
         / do nothing -- don't check for user or anything in case that has to do with the error.
         / just let the error pages render without the header
