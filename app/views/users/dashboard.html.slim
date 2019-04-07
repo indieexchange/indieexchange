@@ -4,6 +4,7 @@
       .carded-content.less-padding-v
         .quick-search.dib Admin tools: &nbsp; &nbsp;
         .dib = link_to "New Announcement", new_announcement_path, class: "btn btn-sm btn-primary"
+        .dib &nbsp; | Users: #{User.count}
         br
         br
 
