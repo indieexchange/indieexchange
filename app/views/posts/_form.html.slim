@@ -22,11 +22,13 @@
     .form-group
       = f.label :news, class: "form-label less-margin"
       .form-helper.with-margin Now that your post is published, you can add any news/updates to your post here. This will be displayed above your description.
-      = f.text_area :news, rows: 10, class: "form-control"
+      .form-helper.with-margin Maximum of 4,000 characters.
+      = f.text_area :news, rows: 10, class: "form-control", maxlength: 4000
   .form-group
     = f.label :description, class: "form-label less-margin"
     .form-helper.with-margin If your description is very long, you can click and drag the lower-right corner of this text field downward to see more of your description at the same time.
-    = f.text_area :description, rows: 10, class: "form-control"
+    .form-helper.with-margin Maximum of 8,000 characters.
+    = f.text_area :description, rows: 10, class: "form-control", maxlength: 8000
   .form-group
     = f.label :price, class: "form-label less-margin"
     = f.text_field :price, class: "form-control dib hw"

@@ -8,6 +8,7 @@ class Post < ApplicationRecord
 
   validates :title,       presence: true, length: { maximum: 128 }
   validates :description, presence: true, length: { maximum: 8192 }
+  validates :news,        presence: true, length: { maximum: 4096 }
   validates :price,       presence: true, numericality: { greater_than: 0, less_than: 1_000_000 }
 
   scope :offering,  proc{ |offering_status| where(is_offering: offering_status) unless offering_status.nil? }
