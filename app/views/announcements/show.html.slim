@@ -9,13 +9,12 @@
             - else
               = image_tag("anonymous_user.png", class: "review-full-profile-picture-image", title: "Go to #{@announcement.user.display_name_untruncated}'s profile")
       .review-info-holder
+        .announcement-title = @announcement.title
         .reviewer-name
-          = @announcement.user.display_name_untruncated
-          span.review-date Posted on #{@announcement.created_at.strftime("%b %-d, %Y")}
+          .review-date Posted on #{@announcement.created_at.strftime("%b %-d, %Y")} by #{@announcement.user.display_name_untruncated}
         - if @announcement.user == current_user
           .delete.dib
             a href="#{edit_announcement_path(@announcement)}" = icon('fas', 'pencil-alt', class: 'edit-announcement')
-        .announcement-title = @announcement.title
         .full-review = @announcement.body.gsub(/\n/, '<br/>').html_safe
 .row.with-sitewide-padding.no-gutters.justify-content-end.post-comments-row.with-post.more-margin
   .col-11

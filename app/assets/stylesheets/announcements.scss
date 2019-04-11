@@ -39,7 +39,6 @@
 }
 
 .announcement-info-holder{
-  display: inline-block;
   vertical-align: top;
   text-align: left;
 
@@ -94,10 +93,7 @@
       color: #bbb;
       font-size: 12px;
       font-weight: 400;
-      border-left: 1px solid #aaa;
-      margin-left: 10px;
       padding-top: 2px;
-      padding-left: 10px;
     }
   }
 }
@@ -165,10 +161,7 @@
             color: #bbb;
             font-size: 12px;
             font-weight: 400;
-            border-left: 1px solid #aaa;
-            margin-left: 10px;
             padding-top: 2px;
-            padding-left: 10px;
           }
         }
       }
