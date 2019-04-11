@@ -16,7 +16,7 @@
           .delete.dib
             a href="#{edit_announcement_path(@announcement)}" = icon('fas', 'pencil-alt', class: 'edit-announcement')
         .announcement-title = @announcement.title
-        .full-review = h(@announcement.body).gsub(/\n/, '<br/>').html_safe
+        .full-review = @announcement.body.gsub(/\n/, '<br/>').html_safe
 .row.with-sitewide-padding.no-gutters.justify-content-end.post-comments-row.with-post.more-margin
   .col-11
     .carded-content
