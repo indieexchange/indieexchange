@@ -1,3 +1,5 @@
+/ TODO omg this file needs to do something if there are no results LOL
+
 - if params[:action] == "search"
   .row.post-index-toggle-button.no-gutters.with-sitewide-padding
     .col-12.mx-auto
@@ -169,6 +171,16 @@ br
                     .rating-count.dib = post.number_of_ratings
                   - else
                     .no-ratings &mdash;
+
+- elsif params[:search_type].blank?
+  br
+  br
+  .row.with-sitewide-padding.no-gutters.justify-content-center.post-count-row
+    .col-8
+      .carded-content
+        .found-jobs-line.text-center <span class="number-found"><b>Sorry!</b></span> We couldn't find any posts matching your criteria.
+        br
+        .found-jobs-line.text-center You can use the buttons above to search again.
 br
 br
 br
