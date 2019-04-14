@@ -95,6 +95,10 @@ class Post < ApplicationRecord
     Post.display_price_string(price)
   end
 
+  def friendly_link
+    external_website_link.starts_with?("http://", "https://") ? external_website_link : "http://#{external_website_link}"
+  end
+
   def self.description_for_offering_vs_seeking(word)
     case word
     when "job-offerers"
