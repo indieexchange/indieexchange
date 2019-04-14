@@ -160,7 +160,7 @@ br
                   .post-title = post.title
                 .post-description = h(post.description.truncate(128)).gsub(/\n/, '<br/>').html_safe
               .col-1.center-v
-                .price $#{"%.2f" % post.price}
+                .price $#{Post.display_price_string(post.price)}
                 .pricing-word per #{post.subcategory.pricing_type}
               .col-1.center-v
                 .time-ago #{time_ago_in_words(post.created_at)} ago
