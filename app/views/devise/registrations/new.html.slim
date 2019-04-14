@@ -19,11 +19,11 @@
               label for="inputPasswordConfirmation"  Confirm Password (type it again)
             hr.partial-white-hr
             .form-label-group
-              = f.text_field :first_name, placeholder: "First name", required: true, type: "text", class: "form-control", id: "inputFirstName"
-              label for="inputFirstName"  First name (required)
+              = f.text_field :first_name, placeholder: "First name (or pseudonym)", required: true, type: "text", class: "form-control", id: "inputFirstName"
+              label for="inputFirstName"  First name (or pseudonym) (required)
             .form-label-group
-              = f.text_field :last_name, placeholder: "Last name", required: true, type: "text", class: "form-control", id: "inputLastName"
-              label for="inputLastName"  Last name (required)
+              = f.text_field :last_name, placeholder: "Last name (or pseudonym)", required: true, type: "text", class: "form-control", id: "inputLastName"
+              label for="inputLastName"  Last name (or pseudonym) (required)
             .custom-control.custom-checkbox.mb-3
               = f.check_box :terms_of_service, class: "custom-control-input", id: "termsOfServiceCheckBox"
               label.custom-control-label.remember-me.errorable-text for="termsOfServiceCheckBox" I agree to the #{link_to "terms and conditions", terms_path, class: "white-underlined-bold-link", target: "_blank"}
