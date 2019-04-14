@@ -112,7 +112,7 @@ br
           - else
             .dib.criteria-item.category All categories
           - if @max_price
-            .dib.criteria-item.max-price = "Under $#{"%.2f" % @max_price}"
+            .dib.criteria-item.max-price = "Under $#{Post.display_price_string(@max_price)}"
           - else
             .dib.criteria-item.max-price Any price
           - if @keywords

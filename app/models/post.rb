@@ -85,6 +85,15 @@ class Post < ApplicationRecord
     end
   end
 
+  def self.display_price_string(price)
+    decimal_places = [price.to_f.to_s.split(".")[1].length, 2].max
+    "%.#{decimal_places}f" % price
+  end
+
+  def display_price_string
+    Post.display_price_string(price)
+  end
+
   def self.description_for_offering_vs_seeking(word)
     case word
     when "job-offerers"

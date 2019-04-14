@@ -52,7 +52,7 @@
       .title-and-price
         .post-title.dib = @post.title
         .post-price-info.dib.text-right
-          .post-price-number <span class="dollar-sign">$</span>#{"%.2f" % @post.price}
+          .post-price-number <span class="dollar-sign">$</span>#{@post.display_price_string}
           .post-price-unit per #{@subcategory.pricing_type}
       .job-information-row
         .info-type.dib Type:

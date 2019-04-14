@@ -60,7 +60,7 @@
                   .post-title = post.title
                   .post-description = h(post.description.truncate(80)).gsub(/\n/, '<br/>').html_safe
                 .col-2.center-v
-                  .price $#{"%.2f" % post.price}
+                  .price $#{post.display_price_string}
                   .pricing-word per #{post.subcategory.pricing_type}
                 .col-2.center-v
                   .rating
@@ -84,7 +84,7 @@
                     .post-title = post.title
                     .post-description = h(post.description.truncate(80)).gsub(/\n/, '<br/>').html_safe
                   .col-2.center-v
-                    .price $#{"%.2f" % post.price}
+                    .price $#{post.display_price_string}
                     .pricing-word per #{post.subcategory.pricing_type}
                   .col-2.center-v
                     .rating
