@@ -30,6 +30,10 @@
     .form-helper.with-margin Maximum of 8,000 characters.
     = f.text_area :description, rows: 10, class: "form-control", maxlength: 8000
   .form-group
+    = f.label :external_website_link, "Website Link", class: "form-label less-margin"
+    .form-helper.with-margin For example, if you'd like to link to a more extensive gallery of your work, you can include a link here.  Users will be able to click this link directly.
+    = f.text_field :external_website_link, class: "form-control", maxlength: 500
+  .form-group
     = f.label :price, class: "form-label less-margin"
     = f.text_field :price, class: "form-control dib hw"
     span#pricing-style-text USD per booking

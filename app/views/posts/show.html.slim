@@ -43,6 +43,10 @@
           .service-rating-count.dib = "(#{@post.number_of_ratings})"
         - else
           .service-rating-none No reviews yet
+      - if @post.external_website_link
+        hr.mid-light-grey-hr
+        .ratings-headline.text-center Website
+        .text-center.learn-more-button = link_to "Learn more here", "//#{@post.external_website_link}", target: "_blank", class: "btn btn-primary"
       - if @user != current_user
         hr.mid-light-grey-hr
         .interested.text-center Interested?
