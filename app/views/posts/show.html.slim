@@ -10,6 +10,9 @@
           .dib.post-breadcrumb = @offering_word
         - if current_user == @user
           .col-4.text-right
+            .view-counter.dib title="Views by other users" data-toggle="tooltip" data-placement="top"
+              = icon('far', 'eye', class: 'view-counter-eye')
+              = number_with_delimiter(@post.number_of_views)
             .edit-details.dib
               = link_to "EDIT POST", edit_post_path(@post), class: "btn btn-sm btn-warning"
 

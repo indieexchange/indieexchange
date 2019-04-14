@@ -545,6 +545,14 @@ a.full-post-link{
 .post-breadcrumb-row{
   margin-top: 30px;
 
+  .view-counter{
+    color: $mid-contrast-grey;
+    margin-right: 20px;
+    .view-counter-eye{
+      margin-right: 5px;
+    }
+  }
+
   .button-room{
     margin-top: 10px;
     margin-bottom: 10px;

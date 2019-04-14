@@ -122,6 +122,7 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    @post.update_columns(number_of_views: @post.number_of_views + 1) unless @post.user == current_user
     @subcategory = @post.subcategory
     @category = @subcategory.category
     @offering_word = @post.offering_word
