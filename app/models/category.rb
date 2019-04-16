@@ -3,9 +3,15 @@ class Category < ApplicationRecord
 
   def self.search_options
     options = []
-    self.all.order(:id).each do |cat|
+    self.where.not(title: "Miscellaneous").order(:title).each do |cat|
       options << ["#{cat.title}", "#{cat.id}"]
-      cat.subcategories.order(:id).each do |s|
+      cat.subcategories.order(:title).each do |s|
+        options << ["#{cat.title} - #{s.title}", "#{cat.id}-#{s.id}"]
+      end
+    end
+    self.where(title: "Miscellaneous").each do |cat|
+      options << ["#{cat.title}", "#{cat.id}"]
+      cat.subcategories.order(:title).each do |s|
         options << ["#{cat.title} - #{s.title}", "#{cat.id}-#{s.id}"]
       end
     end

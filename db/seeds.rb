@@ -23,11 +23,12 @@ Subcategory.create!(category: Category.find_by_title("Editing"),       title: "P
 Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Copyediting",          pricing_type: "word")
 Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Development",          pricing_type: "word")
 Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Newsletter",           pricing_type: "booking")
-Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advertising",         pricing_type: "booking")
+Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advertising",          pricing_type: "booking")
 Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advanced Reader Copy", pricing_type: "booking")
 Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Data Services",        pricing_type: "booking")
 Subcategory.create!(category: Category.find_by_title("Miscellaneous"), title: "Virtual Assistant",    pricing_type: "hour")
 Subcategory.create!(category: Category.find_by_title("Miscellaneous"), title: "Formatting",           pricing_type: "booking")
+Subcategory.create!(category: Category.find_by_title("Miscellaneous"), title: "Audiobook Narration",  pricing_type: "booking")
 Subcategory.create!(category: Category.find_by_title("Miscellaneous"), title: "Other",                pricing_type: "booking")
 
 

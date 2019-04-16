@@ -16,7 +16,12 @@ class Subcategory < ApplicationRecord
   end
 
   def self.selection_options
-    self.all.order(:id).map{ |s| ["#{s.category.title} - #{s.title}", s.id] }
+    array = self.includes(:category).all.order("categories.title").
+                 where("categories.title != 'Miscellaneous'").
+                 map{ |s| ["#{s.category.title} - #{s.title}", s.id] }
+    array += self.includes(:category).all.order("categories.title").
+                  where("categories.title = 'Miscellaneous'").
+                  map{ |s| ["#{s.category.title} - #{s.title}", s.id] }
   end
 
   def self.json_ready_string(ruby_hash)
