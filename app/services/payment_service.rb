@@ -41,7 +41,7 @@ class PaymentService
       )
 
     user.is_verified    = true
-    user.verified_until = user.must_pay_next_at + 1.month
+    user.verified_until = user.must_pay_next_at + 3.months
     user.is_lapsed      = false
     user.save!
 

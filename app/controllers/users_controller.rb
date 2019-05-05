@@ -56,9 +56,9 @@ class UsersController < ApplicationController
   def begin_trial
     if !current_user.can_add_trial?
       redirect_back(fallback_location: root_path, alert: "Sorry, your account isn't eligible for a free trial")
-    elsif params[:user][:promo_code] == "indie-exchange-45-free"
-      current_user.update!(is_trial_period: true, trial_until: Time.now + 45.days)
-      redirect_to root_path, notice: "Thanks! Your 45-day free trial has begun"
+    elsif params[:user][:promo_code] == "indie-exchange-45-free" or params[:user][:promo_code] == "indie-exchange-90-free"
+      current_user.update!(is_trial_period: true, trial_until: Time.now + 90.days)
+      redirect_to root_path, notice: "Thanks! Your 90-day free trial has begun"
     else
       redirect_back(fallback_location: root_path, alert: "Oops! That coupon code didn't work")
     end
