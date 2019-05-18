@@ -1,0 +1,10 @@
+p Hello #{@user.first_name},
+
+p You've received a new message on Indie Exchange from #{@sender.display_name_untruncated}.  You can see it simply by logging in at #{link_to "#{root_url}", root_url} and clicking on your inbox in the top-right corner of the page.
+
+p
+  | Thank you!
+  br The Indie Exchange Team
+
+p
+  i To unsubscribe from these emails, please update your notification preferences on your profile page or simply click this link: #{link_to "#{unsubscribe_all_user_url(@user, @user.unsubscribe_all_token)}", unsubscribe_all_user_url(@user, @user.unsubscribe_all_token)}

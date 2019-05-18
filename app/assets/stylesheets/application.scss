@@ -41,6 +41,13 @@ body{
   font-family: $roboto-condensed;
 }
 
+.plaintext-label{
+  color: $brand-off-black-two;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
 .radio-button-label{
   label{
     cursor: pointer; // so that they are obviously clickable

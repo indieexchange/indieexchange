@@ -57,7 +57,12 @@ class User < ApplicationRecord
 
   before_save :check_has_unread_messages, if: :will_save_change_to_unread_message_count?
 
+  before_create :set_unsubscribe_all_token
   after_create :count_creation_as_activity
+
+  def set_unsubscribe_all_token
+    self.unsubscribe_all_token = SecureRandom.base58(80)
+  end
 
   def count_creation_as_activity
     update!(last_active: Time.now)

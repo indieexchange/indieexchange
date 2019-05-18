@@ -2,6 +2,12 @@ class ApplicationMailer < ActionMailer::Base
   default from: '"Indie Exchange Support" <support@indiepubexchange.com>'
   layout 'mailer'
 
+  def notify_message_received(user, sender)
+    @user = user
+    @sender = sender
+    mail(to: @user.email, subject: "[Indie Exchange] You got a new message!")
+  end
+
   def subscription_payment_succeeded(user)
     @user = user
     mail(to: @user.email, subject: "[Indie Exchange] Your subscription payment has succeeded")

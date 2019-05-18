@@ -5,6 +5,16 @@
 @import "variables";
 @import "mixins";
 
+.notification-preference-management-cols{
+  .notification-preferences{
+    font-family: $roboto;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+}
+
 .follows-container{
   margin-top: 30px;
   font-family: $roboto;

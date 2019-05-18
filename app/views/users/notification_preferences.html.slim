@@ -2,18 +2,24 @@
   .col-2
     .profile-options
       a.profile-option-link href="#{edit_user_path(current_user)}"
-        .profile-option.basic-information.active-page Basic Information
+        .profile-option.basic-information Basic Information
       a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
         .profile-option.profile-picture Profile Picture
       a.profile-option-link href="#{notification_preferences_user_path(current_user)}"
-        .profile-option.profile-picture Notifications
+        .profile-option.profile-picture.active-page Notifications
       a.profile-option-link href="#{tfa_user_path(current_user)}"
         .profile-option.profile-picture Two-factor Auth
       a.profile-option-link href="#{payment_user_path(current_user)}"
         .profile-option.profile-picture Payment
   .col-1
-  .col-5
-    == render 'form'
+  .col-5.notification-preference-management-cols
+    .notification-preferences Notification Preferences
+    = form_for(current_user, url: update_notifications_user_path, method: :patch) do |f|
+      .form-check
+        = f.check_box :email_for_all_notifications, id: "all-notifications", class: "form-check-input"
+        label.plaintext-label.form-check-label for="all-notifications" Receive notifications when someone messages me
+      br
+      = f.submit "Update preferences", class: "btn btn-primary"
 
 br
 br

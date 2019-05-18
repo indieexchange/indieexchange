@@ -1,18 +1,19 @@
 class UsersController < ApplicationController
-  skip_before_action :ensure_membership, only: [:join, :begin_trial, :wait_for_stripe, :check_stripe, :lapsed]
+  before_action :authenticate_user!,     except: [:unsubscribe_all]
+  skip_before_action :ensure_membership, only: [:join, :begin_trial, :wait_for_stripe, :check_stripe, :lapsed, :unsubscribe_all]
   before_action :redirect_lapsed,        only: [:join, :begin_trial, :wait_for_stripe, :check_stripe         ]
   before_action :set_user, only: [ :show, :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
-                                   :resubscribe, :lapsed, :follows]
+                                   :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
-                                   :resubscribe, :lapsed, :follows]
+                                   :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications]
 
   # GET /users
   # GET /users.json
@@ -32,6 +33,20 @@ class UsersController < ApplicationController
   end
 
   def wait_for_stripe
+  end
+
+  def unsubscribe_all
+    if params[:unsubscribe_all_token] == @user.unsubscribe_all_token
+      @user.update!(email_for_all_notifications: false)
+      redirect_to root_path, notice: "You have been unsubscribed from all email notifications"
+    else
+      redirect_to root_path, alert: "The link used to unsusbscribe is invalid, please try again"
+    end
+  end
+
+  def update_notifications
+    @user.update!(user_notification_params)
+    redirect_back fallback_location: root_path, notice: "Your notification preferences have been saved"
   end
 
   def check_stripe
@@ -226,5 +241,9 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:about_me, :first_name, :last_name, :username,
         :profile_picture, :crop_x, :crop_y, :crop_w, :crop_h, :otp_attempt)
+    end
+
+    def user_notification_params
+      params.require(:user).permit(:email_for_all_notifications)
     end
 end

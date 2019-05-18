@@ -5,6 +5,8 @@
         .profile-option.basic-information Basic Information
       a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
         .profile-option.profile-picture.active-page Profile Picture
+      a.profile-option-link href="#{notification_preferences_user_path(current_user)}"
+        .profile-option.profile-picture Notifications
       a.profile-option-link href="#{tfa_user_path(current_user)}"
         .profile-option.profile-picture Two-factor Auth
       a.profile-option-link href="#{payment_user_path(current_user)}"
