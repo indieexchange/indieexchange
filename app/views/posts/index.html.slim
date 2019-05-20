@@ -162,6 +162,8 @@ br
               .col-1.center-v
                 .price $#{Post.display_price_string(post.price)}
                 .pricing-word per #{post.subcategory.pricing_type}
+                - if post.is_swap_accepted
+                  .price-swappable = icon('fas', 'exchange-alt', title: "Service swaps may be considered in lieu of payment", data: {toggle: "tooltip", placement: "bottom"})
               .col-1.center-v
                 .time-ago #{time_ago_in_words(post.created_at)} ago
               .col-2.center-v

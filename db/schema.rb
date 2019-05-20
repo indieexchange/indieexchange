@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_18_215536) do
+ActiveRecord::Schema.define(version: 2019_05_20_030946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 2019_05_18_215536) do
     t.bigint "category_id"
     t.integer "number_of_views", default: 0
     t.string "external_website_link", limit: 500
+    t.boolean "is_swap_accepted", default: false, null: false
     t.index ["category_id"], name: "index_posts_on_category_id"
     t.index ["is_published", "is_visible", "category_id", "subcategory_id", "is_offering", "price", "last_update_bump_at"], name: "new_search_index"
     t.index ["subcategory_id"], name: "index_posts_on_subcategory_id"

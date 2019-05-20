@@ -253,6 +253,10 @@ a.full-post-link{
     font-style: italic;
   }
 
+  .price-swappable{
+    color: $brand-dark-purple;
+  }
+
   .rating{
     .rating-count{
       font-family: $roboto;
@@ -965,6 +969,13 @@ a.full-post-link{
 
 .post-form-containing-row{
   padding-top: 30px;
+
+  .swap-help-info{
+    margin-left: 8px;
+    color: $brand-dark-purple;
+    font-size: 14px;
+    vertical-align: middle;
+  }
 
   .post-controls{
     margin-left: 50px;

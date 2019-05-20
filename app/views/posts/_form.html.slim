@@ -33,10 +33,14 @@
     = f.label :external_website_link, "Website Link", class: "form-label less-margin"
     .form-helper.with-margin For example, if you'd like to link to a more extensive gallery of your work, you can include a link here.  Users will be able to click this link directly.
     = f.text_field :external_website_link, class: "form-control", maxlength: 500
-  .form-group
+  .form-group.mb0
     = f.label :price, class: "form-label less-margin"
     = f.text_field :price, class: "form-control dib hw"
     span#pricing-style-text USD per booking
+  .form-check.mb1
+    = f.check_box :is_swap_accepted, id: "swap-accepted", class: "form-check-input"
+    label.plaintext-label.form-check-label for="swap-accepted" Swaps accepted in lieu of payment
+    span = icon('fas', 'question-circle', class: 'swap-help-info', title: "This will update the pricing line of your post to tell other users that you are open to exchanging services rather than payment", data: {toggle: "tooltip", placement: "right"})
   .text-center
     = f.submit "SAVE AND ADD ATTACHMENTS", name: "save_and_add_attachments", class: "btn btn-primary", style: "width: 100%"
     br

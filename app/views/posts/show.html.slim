@@ -60,7 +60,7 @@
         .post-title.dib = @post.title
         .post-price-info.dib.text-right
           .post-price-number <span class="dollar-sign">$</span>#{@post.display_price_string}
-          .post-price-unit per #{@subcategory.pricing_type}
+          .post-price-unit per #{@subcategory.pricing_type} #{@post.is_swap_accepted ? ' (or swap)' : ''}
       .job-information-row
         .info-type.dib Type:
         .info-data.dib #{@post.is_offering? ? "Offering" : "Seeking"}
