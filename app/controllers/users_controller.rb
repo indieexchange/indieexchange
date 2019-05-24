@@ -14,11 +14,23 @@ class UsersController < ApplicationController
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
                                    :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications]
+  before_action :admin_only, only: [:start_impersonating, :stop_impersonating]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def start_impersonating
+    user = User.find(params[:id])
+    impersonate_user(user)
+    redirect_to root_path
+  end
+
+  def stop_impersonating
+    stop_impersonating_user
+    redirect_to root_path
   end
 
   def follows

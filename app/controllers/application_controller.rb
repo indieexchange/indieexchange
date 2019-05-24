@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   after_action :update_last_active
 
+  impersonates :user
+
   def ensure_membership
     if signed_in? and !current_user.allowed_to_use_site?
       if current_user.is_lapsed?
@@ -36,6 +38,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def admin_only
+    unless current_user.is_admin?
+      redirect_to root_path, alert: "You don't have permission to take that action" and return
+    end
+  end
 
   def self_only
     if current_user != @user
