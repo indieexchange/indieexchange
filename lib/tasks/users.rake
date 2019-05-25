@@ -22,7 +22,7 @@ namespace :users do
       elsif now > (time - 4.days) and now < (time - 3.days)
         ApplicationMailer.charge_upcoming(user, 4).deliver_now
       elsif now > (time - 2.days) and now < time
-        if user.stripe_card_id.blank?
+        if user.stripe_card_id.blank? and (user.is_trial_period? or user.is_verified?)
           ApplicationMailer.please_add_card(user).deliver_now
         end
       end
