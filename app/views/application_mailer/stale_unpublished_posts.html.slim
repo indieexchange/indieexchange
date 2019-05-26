@@ -1,0 +1,16 @@
+p Hello #{@user.first_name},
+
+p Our system has detected that you have #{pluralize(@posts.count, "unpublished post")} in your Indie Exchange account.  <b>Other users are not able to see unpublished posts!</b>
+
+p If you would like to publish your #{@posts.count > 1 ? "posts" : "post"}, please visit the #{@posts.count > 1 ? "links" : "link"} below and click "Publish post" when you're done reviewing:
+
+ul
+  - @posts.each do |post|
+   li = link_to "#{preview_post_url(post)}", preview_post_url(post)
+
+p
+  | Thank you!
+  br The Indie Exchange Team
+
+p
+  i To unsubscribe from these emails, please update your notification preferences on your profile page or simply click this link: #{link_to "#{unsubscribe_all_user_url(@user, @user.unsubscribe_all_token)}", unsubscribe_all_user_url(@user, @user.unsubscribe_all_token)}

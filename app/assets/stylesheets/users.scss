@@ -536,6 +536,12 @@
     }
     .dashboard-posts-row{
       margin-bottom: 30px;
+
+      .unpublished-posts{
+        margin-left: 10px;
+        font-family: $roboto;
+        font-weight: 400;
+      }
     }
     .dashboard-post-title{
       font-family: $roboto;

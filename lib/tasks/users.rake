@@ -1,6 +1,21 @@
 #  TODO:  When trial period is over, make this more efficient ("must_pay_next_at" should be way easier/faster)
 
 namespace :users do
+  desc "Notify users when they have unpublished posts which are at least a day old"
+  task notify_unpublished_posts: :environment do
+    if Time.now.wday == 1 or Rails.env.development? # this task is *called* every day, but we only want to run it on Mondays [wday == 1]
+      User.all.find_each do |user|
+        posts = user.stale_unpublished_posts
+        puts "Got some posts"
+        if posts.any? and user.email_for_all_notifications?
+          puts "Emailing!"
+          ApplicationMailer.stale_unpublished_posts(user, posts).deliver_now
+        end
+      end
+    end
+  end
+
+
   desc "Handle membership closure for people who are done their trial / subscription"
   task handle_payments_daily: :environment do
     now = Time.now

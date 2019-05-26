@@ -169,6 +169,7 @@ class UsersController < ApplicationController
     @private_messages = @user.last_n_private_messages(3)
     @post_reviews = @user.last_n_post_reviews(3)
     @user_reviews = @user.last_n_user_reviews(3)
+    @has_unpublished_posts = @user.posts.where(is_published: false).any?
   end
 
   # POST /users

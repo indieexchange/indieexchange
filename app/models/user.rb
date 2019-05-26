@@ -72,6 +72,10 @@ class User < ApplicationRecord
     (is_verified and verified_until > Time.now) or (is_trial_period and trial_until > Time.now)
   end
 
+  def stale_unpublished_posts
+    posts.where(is_published: false).where("created_at < ?", Time.now - 48.hours)
+  end
+
   def stripe_customer
     Stripe::Customer.retrieve(stripe_customer_id) if stripe_customer_id.present?
   end

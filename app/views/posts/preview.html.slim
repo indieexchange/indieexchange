@@ -11,6 +11,12 @@
           .publish-post.dib
             = link_to "PUBLISH POST", publish_post_path(@post), class: "btn btn-vs btn-success", data: {method: :patch}
 
+.row.with-sitewide-padding.no-gutters.post-preview-unpublished-row
+  .col-12
+    .carded-content.less-padding-v
+      .row
+        .col-12.is-unpublished This post is not yet published.  Other users will not be able to see this until you have clicked the green "Publish post" button in the top-right of this page.
+
 .row.with-sitewide-padding.no-gutters.post-display-row.post-show-page
   .col-3
     .carded-content.less-padding-v.full-equal-height

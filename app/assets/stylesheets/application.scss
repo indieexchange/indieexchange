@@ -70,6 +70,14 @@ body{
   color: $brand-dark-purple;
 }
 
+.brand-warning-color{
+  color: $brand-warning-color;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
 .white-underlined-bold-link{
   color: $light-font-color;
   text-decoration: underline;

@@ -2,6 +2,17 @@ class ApplicationMailer < ActionMailer::Base
   default from: '"Indie Exchange Support" <support@indiepubexchange.com>'
   layout 'mailer'
 
+  def stale_unpublished_posts(user, posts)
+    @user = user
+    @posts = posts
+    if posts.length == 1
+      subject = "You have an unpublished post"
+    else
+      subject = "You have some unpublished posts"
+    end
+    mail(to: @user.email, subject: "[Indie Exchange] #{subject}")
+  end
+
   def notify_message_received(user, sender)
     @user = user
     @sender = sender

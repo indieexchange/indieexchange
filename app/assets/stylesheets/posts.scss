@@ -319,6 +319,11 @@ a.full-post-link{
     vertical-align: text-bottom;
   }
 
+  .post-not-published{
+    margin-right: 7px;
+    font-size: 20px;
+  }
+
   .post-description{
     margin-top: 10px;
     font-family: $roboto;
@@ -575,6 +580,20 @@ a.full-post-link{
     font-family: $roboto;
     vertical-align: text-bottom;
     color: $brand-light-purple;
+  }
+}
+
+.post-preview-unpublished-row{
+  margin-top: 30px;
+
+  .carded-content{
+    background-color: lighten($brand-warning-color, 17%);
+
+    .is-unpublished{
+      font-family: $roboto;
+      font-weight: 400;
+      font-size: 15px;
+    }
   }
 }
 

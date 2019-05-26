@@ -57,7 +57,9 @@
             .carded-content.less-padding-v
               .row
                 .center-v class="#{is_self ? 'col-5' : 'col-6'}"
-                  .post-title = post.title
+                  - if !post.is_published
+                    span.post-not-published title="This post is unpublished and can not be seen by other users. Click 'Edit' to review and publish" data-toggle="tooltip" data-placement="right" = icon('fas', 'exclamation-circle', class: "brand-warning-color")
+                  span.post-title = post.title
                   .post-description = h(post.description.truncate(80)).gsub(/\n/, '<br/>').html_safe
                 .col-2.center-v
                   .price $#{post.display_price_string}
