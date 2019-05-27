@@ -14,7 +14,7 @@ class UsersController < ApplicationController
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
                                    :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications]
-  before_action :admin_only, only: [:start_impersonating, :stop_impersonating]
+  before_action :admin_only, only: [:start_impersonating]
 
   # GET /users
   # GET /users.json
