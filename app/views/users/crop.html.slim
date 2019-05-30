@@ -12,7 +12,7 @@ script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.m
   .row.justify-content-center.with-sitewide-padding.no-gutters
     .col-12
       .text-center
-        #loading-spinner = image_tag(asset_path("ajax-loader"))
+        #loading-spinner = image_tag(asset_path("ajax-loader.gif"))
   .row.justify-content-center.with-sitewide-padding.no-gutters#post-loading.hidden
     .col-5
       = image_tag @user.profile_picture.variant(resize: User.profile_picture_maximum_size), id: "cropbox"
