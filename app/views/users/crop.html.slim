@@ -1,5 +1,6 @@
 link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" rel="stylesheet"
 script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"
+
 = form_for(@user) do |f|
   .row.justify-content-center.with-sitewide-padding.no-gutters
     .col-7
@@ -9,6 +10,10 @@ script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.m
         br
         | <b>Make sure to click the <span class="force-brand-dark-purple">"Save Photo"</span> button when done!</b>
   .row.justify-content-center.with-sitewide-padding.no-gutters
+    .col-12
+      .text-center
+        #loading-spinner = image_tag(asset_path("ajax-loader"))
+  .row.justify-content-center.with-sitewide-padding.no-gutters#post-loading.hidden
     .col-5
       = image_tag @user.profile_picture.variant(resize: User.profile_picture_maximum_size), id: "cropbox"
       br/
@@ -28,53 +33,56 @@ br
 
 javascript:
   $(document).ready(function(){
-
-    ProfilePictureCrop = (function() {
-      ProfilePictureCrop.prototype.update = function(coords) {
-        $('#user_crop_x').val(coords.x);
-        $('#user_crop_y').val(coords.y);
-        $('#user_crop_w').val(coords.w);
-        $('#user_crop_h').val(coords.h);
-        return this.updatePreview(coords);
-      };
-
-      ProfilePictureCrop.prototype.updatePreview = function(coords) {
-        var rx, ry;
-        rx = 100 / coords.w;
-        ry = 100 / coords.h;
-        return $('#preview').css({
-          width: Math.round(rx * $('#cropbox').width()) + 'px',
-          height: Math.round(ry * $('#cropbox').height()) + 'px',
-          marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-          marginTop: '-' + Math.round(ry * coords.y) + 'px'
-        });
-      };
-
-      function ProfilePictureCrop() {
-        this.updatePreview = bind(this.updatePreview, this);
-        this.update = bind(this.update, this);
-        var height, width;
-        width = parseInt($('#cropbox').width());
-        height = parseInt($('#cropbox').height());
-        d = Math.min(width, height)
-        $('#cropbox').Jcrop({
-          aspectRatio: 1,
-          setSelect: [d * 0.25, d * 0.25, d/2, d/2],
-          onSelect: this.update,
-          onChange: this.update
-        });
-      }
-
-      return ProfilePictureCrop;
-
-    })();
-
-    var ProfilePictureCrop,
-      bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
     setTimeout(function(){
+      ProfilePictureCrop = (function() {
+        ProfilePictureCrop.prototype.update = function(coords) {
+          $('#user_crop_x').val(coords.x);
+          $('#user_crop_y').val(coords.y);
+          $('#user_crop_w').val(coords.w);
+          $('#user_crop_h').val(coords.h);
+          return this.updatePreview(coords);
+        };
+
+        ProfilePictureCrop.prototype.updatePreview = function(coords) {
+          var rx, ry;
+          rx = 100 / coords.w;
+          ry = 100 / coords.h;
+          return $('#preview').css({
+            width: Math.round(rx * $('#cropbox').width()) + 'px',
+            height: Math.round(ry * $('#cropbox').height()) + 'px',
+            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+            marginTop: '-' + Math.round(ry * coords.y) + 'px'
+          });
+        };
+
+        function ProfilePictureCrop() {
+          this.updatePreview = bind(this.updatePreview, this);
+          this.update = bind(this.update, this);
+          var height, width;
+          width = parseInt($('#cropbox').width());
+          height = parseInt($('#cropbox').height());
+          d = Math.min(width, height)
+          $('#cropbox').Jcrop({
+            aspectRatio: 1,
+            setSelect: [d * 0.25, d * 0.25, d/2, d/2],
+            onSelect: this.update,
+            onChange: this.update
+          });
+        }
+
+        return ProfilePictureCrop;
+
+      })();
+
+      var ProfilePictureCrop,
+        bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
       $(function() {
         return new ProfilePictureCrop();
       });
-    }, 500)
+
+      $("#loading-spinner").hide()
+      $("#post-loading").removeClass('hidden')
+      $("#post-loading").addClass('display-flex')
+    }, 1500)
   });
