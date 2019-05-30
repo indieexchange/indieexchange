@@ -28,29 +28,8 @@ br
 
 javascript:
   $(document).ready(function(){
-    var ProfilePictureCrop,
-      bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-    $(function() {
-      return new ProfilePictureCrop();
-    });
 
     ProfilePictureCrop = (function() {
-      function ProfilePictureCrop() {
-        this.updatePreview = bind(this.updatePreview, this);
-        this.update = bind(this.update, this);
-        var height, width;
-        width = parseInt($('#cropbox').width());
-        height = parseInt($('#cropbox').height());
-        d = Math.min(width, height)
-        $('#cropbox').Jcrop({
-          aspectRatio: 1,
-          setSelect: [d * 0.25, d * 0.25, d/2, d/2],
-          onSelect: this.update,
-          onChange: this.update
-        });
-      }
-
       ProfilePictureCrop.prototype.update = function(coords) {
         $('#user_crop_x').val(coords.x);
         $('#user_crop_y').val(coords.y);
@@ -71,7 +50,31 @@ javascript:
         });
       };
 
+      function ProfilePictureCrop() {
+        this.updatePreview = bind(this.updatePreview, this);
+        this.update = bind(this.update, this);
+        var height, width;
+        width = parseInt($('#cropbox').width());
+        height = parseInt($('#cropbox').height());
+        d = Math.min(width, height)
+        $('#cropbox').Jcrop({
+          aspectRatio: 1,
+          setSelect: [d * 0.25, d * 0.25, d/2, d/2],
+          onSelect: this.update,
+          onChange: this.update
+        });
+      }
+
       return ProfilePictureCrop;
 
     })();
+
+    var ProfilePictureCrop,
+      bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+    setTimeout(function(){
+      $(function() {
+        return new ProfilePictureCrop();
+      });
+    }, 500)
   });
