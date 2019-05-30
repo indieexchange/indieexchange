@@ -22,6 +22,7 @@ Subcategory.create!(category: Category.find_by_title("Editing"),       title: "B
 Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Proofreading",         pricing_type: "word")
 Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Copyediting",          pricing_type: "word")
 Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Development",          pricing_type: "word")
+Subcategory.create!(category: Category.find_by_title("Editing"),       title: "Line editing",         pricing_type: "word")
 Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Newsletter",           pricing_type: "booking")
 Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advertising",          pricing_type: "booking")
 Subcategory.create!(category: Category.find_by_title("Promotional"),   title: "Advanced Reader Copy", pricing_type: "booking")
