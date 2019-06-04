@@ -651,6 +651,7 @@ a.full-post-link{
         font-family: $roboto;
         padding-top: 7px;
         font-size: 13px;
+        overflow-wrap: break-word;
       }
 
       .reviewed-at{
