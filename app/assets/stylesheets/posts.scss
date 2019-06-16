@@ -528,7 +528,7 @@ a.full-post-link{
     border-radius: 0.25rem;
   }
 
-  .category-label{
+  .category-label, .sort-label{
     margin-bottom: 10px;
   }
 
@@ -569,6 +569,17 @@ a.full-post-link{
     font-size: 16px;
     color: $brand-dark-purple;
     margin-right: 10px;
+
+    a{
+      font-family: $roboto;
+      font-weight: 500;
+      font-size: 16px;
+      color: $brand-dark-purple;
+      &:hover{
+        text-decoration: none;
+        color: $brand-light-purple;
+      }
+    }
   }
   .right-arrow{
     margin-right: 10px;

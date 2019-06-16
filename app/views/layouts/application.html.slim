@@ -64,6 +64,7 @@ html
               .dropdown-menu aria-labelledby="search-dropdown-link"
                 a.dropdown-item href="#{posts_path(search_type: 'custom')}" Custom Search
                 a.dropdown-item href="#{posts_path(search_type: 'browse')}" Browse Categories
+                a.dropdown-item href="#{browse_user_path(current_user)}" Browse Users
             .post-information
               a.user-post-link.dropdown-toggle#post-dropdown-link href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 = icon('fas', 'file-powerpoint', class: 'file-powerpoint-icon', title: "Manage Posts")

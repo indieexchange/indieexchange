@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::UrlHelper
+  serialize :ip_address_array, Array
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -19,6 +20,7 @@ class User < ApplicationRecord
   validate :username_not_unset
   validate :profile_picture_file_size_acceptable, if: :validate_profile_picture_change
   validate :profile_picture_file_type_acceptable, if: :validate_profile_picture_change
+  validate :profile_picture_dimensions_acceptable, if: :validate_profile_picture_change
   validate :username_unique, if: :will_save_change_to_username?
 
   has_one_attached :profile_picture
@@ -202,6 +204,20 @@ class User < ApplicationRecord
     end
   end
 
+  def dimensions_too_small(profile_picture)
+    md = ActiveStorage::Analyzer::ImageAnalyzer.new(profile_picture.blob).metadata
+    return true if (md[:height] < 256 or md[:width] < 256)
+  end
+
+  def profile_picture_dimensions_acceptable
+    if profile_picture.attached?
+      if dimensions_too_small(profile_picture)
+        profile_picture.purge
+        errors.add(:profile_picture, "is too small (must be at least 256 pixels in each dimension).")
+      end
+    end
+  end
+
   def profile_picture_file_type_acceptable
     if profile_picture.attached? and !profile_picture.content_type.in?(["image/x-png", "image/png", "image/jpeg", "image/bmp"])
       profile_picture.purge
@@ -227,15 +243,15 @@ class User < ApplicationRecord
   end
 
   def last_n_private_messages(n)
-    private_messages.hydrated.order(last_message_time: :desc).last(n)
+    private_messages.hydrated.order(last_message_time: :desc).first(n)
   end
 
   def last_n_post_reviews(n)
-    post_reviews_written.order(id: :desc).last(n)
+    post_reviews_written.order(id: :desc).first(n)
   end
 
   def last_n_user_reviews(n)
-    user_reviews_written.order(id: :desc).last(n)
+    user_reviews_written.order(id: :desc).first(n)
   end
 
   def complete_profile_call_to_action

@@ -40,7 +40,11 @@
                 .form-label-group
                   = text_field_tag :keywords, params[:keywords], placeholder: "Keywords", required: false, type: "text", class: "form-control", id: "input-keywords", title: "Only posts matching all keywords will be shown", data: {toggle: "tooltip", placement: "top"}, oninvalid: "setCustomValidity('Enter words separated by a single space (no numbers, punctuation, or quotes)')", pattern: "^[[a-zA-Z]+\s]*[[a-zA-Z]]$"
                   label for="input-keywords" Keywords
-              .col-xl-6
+              .col-xl-6.col-lg-12
+                .form-label-group
+                  .styled-select
+                    .select-hider
+                    = select_tag :sort_order, options_for_select(Post.sort_order_options, params[:sort_order]), class: "sort-order-selector"
               .col-xl-6.col-lg-12
                 = submit_tag "SEARCH", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
 

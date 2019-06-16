@@ -1,16 +1,7 @@
 .row.with-sitewide-padding.no-gutters.justify-content-center.edit-user-row
   .col-2
-    .profile-options
-      a.profile-option-link href="#{edit_user_path(current_user)}"
-        .profile-option.basic-information Basic Information
-      a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
-        .profile-option.profile-picture Profile Picture
-      a.profile-option-link href="#{notification_preferences_user_path(current_user)}"
-        .profile-option.profile-picture Notifications
-      a.profile-option-link href="#{tfa_user_path(current_user)}"
-        .profile-option.profile-picture. Two-factor Auth
-      a.profile-option-link href="#{payment_user_path(current_user)}"
-        .profile-option.profile-picture.active-page Payment
+        == render partial: "profile_options", locals: {active_page: "Payment"}
+
   .col-1
   .col-5.payment-management-cols
     - if @user.is_trial_period and @user.trial_until and @user.trial_until > Time.now and !@user.stripe_card_id

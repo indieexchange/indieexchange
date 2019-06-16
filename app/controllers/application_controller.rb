@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :ensure_membership, unless: :devise_controller?
 
   after_action :update_last_active
+  after_action :update_ip_address_hash
 
   impersonates :user
 
@@ -17,6 +18,26 @@ class ApplicationController < ActionController::Base
       else
         redirect_to join_user_path(current_user), notice: "Please choose an option for joining Indie Exchange before continuing" and return
       end
+    end
+  end
+
+  def update_ip_address_hash
+    if signed_in?
+      # IP Addresses are stored as strings, most recent at [0], least recent at [19].
+      # And we're storing *unique* IP addresses, not the last 20 used with duplicates.
+      ip_addresses = current_user.ip_address_array
+      current_ip = request.ip
+
+      return if current_user.ip_address_array[0] == current_ip
+
+      if ip_addresses.include?(current_ip)
+        ip_addresses.delete(current_ip)
+      end
+
+      ip_addresses.unshift(current_ip)
+
+      current_user.ip_address_array = ip_addresses[0..19]
+      current_user.save!
     end
   end
 

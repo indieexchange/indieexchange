@@ -48,6 +48,7 @@ class PostsController < ApplicationController
     @subcategory = @post.subcategory
     @category = @subcategory.category
     @offering_word = @post.offering_word
+    @offering_param = @post.offering_param
     @replies = @comment.post_comment_replies
   end
 
@@ -100,6 +101,7 @@ class PostsController < ApplicationController
 
   def search
     category_id, subcategory_id = get_cat_subcat
+    sort_hash = get_sort_hash
     @posts = Post.offering(Post.booleans_for_offering_vs_seeking(params[:seeking])).
                   published.
                   visible.
@@ -107,7 +109,7 @@ class PostsController < ApplicationController
                   subcat(subcategory_id).
                   max_price(params[:maximum_price].present? ? params[:maximum_price].to_f : nil).
                   keywords(params[:keywords].present? ? params[:keywords].split(" ") : nil).
-                  order(last_update_bump_at: :desc).includes(:user).includes(:subcategory)
+                  order(sort_hash).includes(:user).includes(:subcategory)
 
     @seeking = Post.description_for_offering_vs_seeking(params[:seeking])
     @both = (@seeking == "Offers & Seekers")
@@ -126,6 +128,7 @@ class PostsController < ApplicationController
     @subcategory = @post.subcategory
     @category = @subcategory.category
     @offering_word = @post.offering_word
+    @offering_param = @post.offering_param
     @updated_recently = @post.last_update_bump_at > (Time.now - 24.hours)
     @reviews = @post.user_post_reviews.order(id: :desc)
     user_review_count = @user.user_reviews_received.count
@@ -138,6 +141,7 @@ class PostsController < ApplicationController
     @subcategory = @post.subcategory
     @category = @subcategory.category
     @offering_word = @post.offering_word
+    @offering_param = @post.offering_param
     @updated_recently = @post.last_update_bump_at > (Time.now - 24.hours)
     @reviews = @post.user_post_reviews.order(id: :desc)
     user_review_count = @user.user_reviews_received.count
@@ -239,6 +243,20 @@ class PostsController < ApplicationController
         [nil, nil]
       elsif val.present?
         val.split("-").map(&:to_i)
+      end
+    end
+
+    def get_sort_hash
+      if params[:sort_order] == "newest_to_oldest"
+        { last_update_bump_at: :desc }
+      elsif params[:sort_order] == "best_reviewed"
+        { rating: :desc }
+      elsif params[:sort_order] == "price_high_to_low"
+        { price: :desc }
+      elsif params[:sort_order] == "price_low_to_high"
+        { price: :asc }
+      else
+        { last_update_bump_at: :desc }
       end
     end
 

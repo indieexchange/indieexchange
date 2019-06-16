@@ -3,11 +3,13 @@
     .carded-content.less-padding-v
       .row
         .col-8.button-room
-          .dib.post-breadcrumb = @category.title
-          .dib.right-arrow >
-          .dib.post-breadcrumb = @subcategory.title
-          .dib.right-arrow >
-          .dib.post-breadcrumb = @offering_word
+          .dib.post-breadcrumb = link_to @category.title, get_search_posts_path(cat_subcat_string: @category.id)
+          .dib.right-arrow
+            | /
+          .dib.post-breadcrumb = link_to @subcategory.title, get_search_posts_path(cat_subcat_string: "#{@category.id}-#{@subcategory.id}")
+          .dib.right-arrow
+            | /
+          .dib.post-breadcrumb = link_to @offering_word, get_search_posts_path(cat_subcat_string: "#{@category.id}-#{@subcategory.id}", seeking: @offering_param)
         - if current_user == @user
           .col-4.text-right
             .view-counter.dib title="Views by other users" data-toggle="tooltip" data-placement="top"

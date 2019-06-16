@@ -75,6 +75,15 @@ class Post < ApplicationRecord
     [["Services offered by others", "job-offerers"],["People who need my services", "job-seekers"],["Everything", "both"]]
   end
 
+  def self.sort_order_options
+    [
+      ["Recent (new to old)", "newest_to_oldest"],
+      ["Reviews (best to worst)", "best_reviewed"],
+      ["Price (high to low)", "price_high_to_low"],
+      ["Price (low to high)", "price_low_to_high"]
+    ]
+  end
+
   def self.booleans_for_offering_vs_seeking(word)
     case word
     when "job-offerers"
@@ -118,6 +127,10 @@ class Post < ApplicationRecord
 
   def offering_word
     is_offering ? "Offering" : "Seeking"
+  end
+
+  def offering_param
+    is_offering ? "job-offerers" : "job-seekers"
   end
 
   def bump

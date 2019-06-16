@@ -90,7 +90,8 @@
           .no-messages You have no messages at this time.  When you message other users, you will see your most recent messages appear here.
       hr.dashboard-hr
       .with-button.text-center
-        .dashboard-bottom-button = link_to "View Your Messages", user_private_messages_path(current_user), class: "branded-pill-button thin"
+        .dashboard-bottom-button.dib = link_to "View All", user_private_messages_path(current_user), class: "branded-pill-button thin button-pair"
+        .dashboard-bottom-button.dib = link_to "New Message", browse_user_path(current_user, for_new_message: true), class: "branded-pill-button thin button-pair"
 
 .row.with-sitewide-padding.no-gutters.justify-content-center.dashboard-second-row
   .col-4.written-post-review-cols

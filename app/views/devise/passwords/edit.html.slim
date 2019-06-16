@@ -1,0 +1,24 @@
+.row.new-password-row.with-sitewide-padding.no-gutters
+  .col-sm-9.col-md-7.col-lg-4.mx-auto
+    .card.card-brand-color.my-5
+      .card-body
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
+
+          h5.card-title.text-center
+            | RESET PASSWORD
+            .devise-subtext Please choose a new password and enter it in both fields below.  It must be at least 12 characters long.
+
+          = f.hidden_field :reset_password_token
+
+          = render "devise/shared/error_messages", resource: resource
+          
+          form.form-brand-color
+            .form-label-group
+              = f.password_field :password, autofocus: true, class: "form-control", id: "password", placedholder: "Password"
+              label for="password" Password
+            .form-label-group
+              = f.password_field :password_confirmation, class: "form-control", id: "password-confirmation", placeholder: "Confirm password"
+              label for="password-confirmation" Confirm password
+            = f.submit "Reset password", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
+
+    = render "devise/shared/links"

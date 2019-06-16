@@ -1,0 +1,13 @@
+.profile-options
+  a.profile-option-link href="#{edit_user_path(current_user)}"
+    .profile-option.basic-information class="#{active_page == 'Basic Information' ? 'active-page' : ''}" Basic information
+  a.profile-option-link href="#{edit_profile_picture_user_path(current_user)}"
+    .profile-option.profile-picture class="#{active_page == 'Profile Picture' ? 'active-page' : ''}" Profile picture
+  a.profile-option-link href="#{notification_preferences_user_path(current_user)}"
+    .profile-option.notifications class="#{active_page == 'Notifications' ? 'active-page' : ''}" Notifications
+  a.profile-option-link href="#{tfa_user_path(current_user)}"
+    .profile-option.two-factor-authentication class="#{active_page == 'Two-factor Auth' ? 'active-page' : ''}" Two-factor auth
+  a.profile-option-link href="#{edit_password_user_path(current_user)}"
+    .profile-option.password class="#{active_page == 'Password' ? 'active-page' : ''}" Change password
+  a.profile-option-link href="#{payment_user_path(current_user)}"
+    .profile-option.payment class="#{active_page == 'Payment' ? 'active-page' : ''}" Payment

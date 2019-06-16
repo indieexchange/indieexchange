@@ -1,0 +1,73 @@
+.row.with-sitewide-padding.no-gutters.justify-content-center.user-browse-top-row
+  .col-8
+    - if params[:for_new_message]
+      .headline Who do you want to message?
+    - else
+      .headline Browse Users
+
+.row.with-sitewide-padding.no-gutters.justify-content-center
+  .col-8
+    form
+      .form-label-group
+        = text_field_tag :search_string, nil, autofocus: true, placeholder: "Type here to filter based on display name", required: false, type: "text", class: "form-control", id: "search-string-input"
+        - if params[:for_new_message]
+          label for="search-string-input" Display name of message recipient
+        - else
+          label for="search-string-input" Filter users to names containing...
+
+- if params[:for_new_message]
+  .row.with-sitewide-padding.no-gutters.justify-content-center
+    .col-8
+      .row
+        - @users.each do |user|
+          .col-6.user-browse-container-row.hidden
+            .carded-content.less-padding-v
+              .row
+                .col-8.display-name-container title="Visit their profile" data-placement="left" data-toggle="tooltip" = link_to user.display_name_untruncated, user_path(user)
+                .col-4.user-browse-icon
+                  // the padding helps the tooltip appear less "crowded"
+                  a href="#{start_private_message_path(user, current_user)}" = icon('fas', 'comments', style: "padding-right: 5px", title: "Send a message", data: { toggle: "tooltip", placement: "right" })
+- else
+  - @users.each do |user|
+    .row.with-sitewide-padding.no-gutters.justify-content-center.user-browse-container-row
+      .col-8
+        .carded-content.less-padding-v
+          .row
+            .col-6.display-name-container #{user.display_name_untruncated}
+            .col-2.user-browse-icon
+              a href="#{user_path(user)}" = icon('fas', 'user', title: "Visit their profile", data: { toggle: "tooltip", placement: "top" })
+            .col-2.user-browse-icon
+              a href="#{user_posts_path(user)}" = icon('fas', 'file-powerpoint', title: "View their posts", data: { toggle: "tooltip", placement: "top" })
+            .col-2.user-browse-icon
+              a href="#{start_private_message_path(user, current_user)}" = icon('fas', 'envelope', title: "Send a message", data: { toggle: "tooltip", placement: "top" })
+
+br
+br
+br
+br
+
+
+javascript:
+  $(document).ready(function(){
+    var debounceTimeout;
+    $("#search-string-input").on("input", function() {
+      clearTimeout(debounceTimeout)
+
+      debounceTimeout = setTimeout(function(){
+        string = $("#search-string-input").val().toLowerCase()
+        $(".display-name-container").each(function(index) {
+          if( !($(this).text().toLowerCase().indexOf(string) >= 0) ){
+            $(this).parents(".user-browse-container-row").hide()
+          } else {
+            $(this).parents(".user-browse-container-row").show()
+          }
+        })
+      }, 333)
+
+    })
+  })
+
+
+
+
+

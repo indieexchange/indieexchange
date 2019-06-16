@@ -7,19 +7,25 @@ class UsersController < ApplicationController
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
-                                   :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications]
+                                   :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications,
+                                   :browse, :edit_password, :update_password]
   before_action :self_only, only: [      :edit, :update, :destroy, :dashboard,
                                    :edit_profile_picture, :update_profile_picture, :delete_profile_picture,
                                    :crop_profile_picture, :post_reviews, :user_reviews, :clear_notifications,
                                    :tfa, :activate_tfa, :deactivate_tfa, :follow, :unfollow, :payment, :join,
                                    :wait_for_stripe, :check_stripe, :delete_card, :cancel_subscription,
-                                   :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications]
+                                   :resubscribe, :lapsed, :follows, :unsubscribe_all, :update_notifications,
+                                   :browse, :edit_password, :update_password]
   before_action :admin_only, only: [:start_impersonating]
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  def browse
+    @users = User.where(is_trial_period: true).or(User.where(is_verified: true)).where.not(id: current_user.id).order(:id)
   end
 
   def start_impersonating
@@ -83,7 +89,7 @@ class UsersController < ApplicationController
   def begin_trial
     if !current_user.can_add_trial?
       redirect_back(fallback_location: root_path, alert: "Sorry, your account isn't eligible for a free trial")
-    elsif params[:user][:promo_code] == "indie-exchange-45-free" or params[:user][:promo_code] == "indie-exchange-90-free"
+    elsif params[:user][:promo_code].downcase == "indie-exchange-45-free" or params[:user][:promo_code].downcase == "indie-exchange-90-free"
       current_user.update!(is_trial_period: true, trial_until: Time.now + 90.days)
       redirect_to root_path, notice: "Thanks! Your 90-day free trial has begun"
     else
@@ -203,6 +209,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit_password
+  end
+
+  def update_password
+    if @user.update_with_password(
+        password: params[:password],
+        password_confirmation: params[:password_confirmation],
+        current_password: params[:current_password])
+      sign_in(@user, bypass: true)
+      redirect_to edit_user_path, notice: "Your password has been changed"
+    else
+      render :edit_password
+    end
+  end
+
   def edit_profile_picture
   end
 
@@ -211,7 +232,7 @@ class UsersController < ApplicationController
   end
 
   def update_profile_picture
-    @user.validate_profile_picture_change = true
+    @user.validate_profile_picture_change = true # forces us to run certain validation callbacks in user.rb
     if @user.update(user_params)
       render :crop
     else

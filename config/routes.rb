@@ -40,6 +40,9 @@ Rails.application.routes.draw do
 
   get "/start_impersonating/:id",                             to: "users#start_impersonating",      as: "start_impersonating_user"
   get "/stop_impersonating",                                  to: "users#stop_impersonating",       as: "stop_impersonating_user"
+  get "/users/:id/browse",                                    to: "users#browse",                   as: "browse_user"
+  get "/users/:id/password",                                  to: "users#edit_password",            as: "edit_password_user"
+  patch "/users/:id/password",                                to: "users#update_password",          as: "update_password_user"
   get "/users/:id/profile_picture",                           to: "users#edit_profile_picture",     as: "edit_profile_picture_user"
   patch "/users/:id/profile_picture",                         to: "users#update_profile_picture",   as: "update_profile_picture_user"
   patch "/users/:id/delete_profile_picture",                  to: "users#delete_profile_picture",   as: "delete_profile_picture_user"

@@ -4,6 +4,46 @@
 
 @import "variables";
 @import "mixins";
+@import "brand_forms";
+
+.user-browse-top-row{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  .headline{
+    font-family: $roboto;
+    font-weight: 700;
+    font-size: 30px;
+    @include gradient-text(0deg, $brand-dark-purple, $brand-light-purple);
+  }
+}
+
+.user-browse-container-row{
+  margin-bottom: 10px;
+
+  .display-name-container{
+    font-family: $roboto;
+    font-size: 20px;
+    font-weight: 300;
+    color: $brand-dark-purple;
+    a{
+      font-family: $roboto;
+      font-size: 20px;
+      font-weight: 300;
+      color: $brand-dark-purple;
+      text-decoration: none;
+    }
+  }
+
+  .user-browse-icon{
+    a{
+      color: $brand-dark-purple;
+      font-size: 20px;
+      &:hover{
+        color: $brand-light-purple;
+      }
+    }
+  }
+}
 
 .notification-preference-management-cols{
   .notification-preferences{
