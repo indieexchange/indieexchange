@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   validates :description,            presence: true, length: { maximum: 8192 }
   validates :news,                                   length: { maximum: 4096 }
   validates :external_website_link,                  length: { maximum: 500 }
-  validates :price,                  presence: true, numericality: { greater_than: 0, less_than: 1_000_000 }
+  validates :price,                  presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 1_000_000 }
 
   scope :offering,  proc{ |offering_status| where(is_offering: offering_status) unless offering_status.nil? }
   scope :cat,       proc{ |category_id|     where(category_id: category_id) unless category_id.nil? }
