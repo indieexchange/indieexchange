@@ -27,4 +27,5 @@ $(document).ready(function(){
   $(".clickable-dismiss").click(function(){
     $(this).closest(".dismissable-banner").slideUp();
   })
+
 })
