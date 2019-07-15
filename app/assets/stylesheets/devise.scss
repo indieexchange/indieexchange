@@ -7,6 +7,33 @@
 
 .new-registration-row, .new-password-row{
   margin-bottom: 100px;
+
+  .plea-card{
+    margin-top: 80px;
+  }
+
+  .every-service{
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 37px;
+  }
+
+  .join-now{
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .every-service, .join-now{
+    color: $brand-dark-purple;
+    font-family: $roboto;
+  }
+
+  .service-description, .sign-up-today{
+    font-family: $roboto;
+    font-weight: 300;
+    margin-top: 20px;
+  }
 }
 
 .shared-link{

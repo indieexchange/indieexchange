@@ -1,5 +1,16 @@
 .row.new-registration-row.no-gutters
-  .col-sm-9.col-md-7.col-lg-4.mx-auto
+  - if params[:from] == "facebook"
+    .col-1
+    .col-4.mx-auto
+      .carded-content.plea-card
+        .every-service Every service you need to publish your book, all in one place!
+
+        .service-description On Indie Exchange, you can browse cover designers, editors, book promotional services and more! Plus, you can read reviews, follow your favorite providers, and send messages with our easy-to-use interface.
+
+        .sign-up-today For a limited time, you can use the promo code <b>indie-exchange-90-free</b> to start your 90-day risk-free trial, no credit card required.
+
+        .join-now Join Indie Exchange to jumpstart your self-publishing career today!
+  div class="#{params[:from] == 'facebook' ? 'col-4 mx-auto' : 'col-sm-9 col-md-7 col-lg-4 mx-auto'}"
     .card.card-brand-color.my-5
       .card-body
         = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
@@ -31,5 +42,5 @@
               = f.check_box :age, class: "custom-control-input", id: "ageCheckBox"
               label.custom-control-label.remember-me.errorable-text for="ageCheckBox" I am at least 18 years old
             = f.submit "Register", class: "btn btn-lg btn-primary btn-block text-uppercase brand-font-colored-button"
-
-    = render "devise/shared/links"
+  - if params[:from] == 'facebook'
+    .col-1
