@@ -37,6 +37,7 @@ gem 'awesome_print'
 gem 'stripe'
 gem 'colorize'
 gem 'pretender'
+gem 'faker'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

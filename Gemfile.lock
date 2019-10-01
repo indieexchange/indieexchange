@@ -127,6 +127,8 @@ GEM
     erubi (1.8.0)
     eventmachine (1.2.7)
     execjs (2.7.0)
+    faker (2.2.1)
+      i18n (>= 0.8)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
@@ -343,6 +345,7 @@ DEPENDENCIES
   colorize
   devise
   devise-two-factor
+  faker
   font-awesome-sass (~> 5.3)
   guard
   guard-livereload
