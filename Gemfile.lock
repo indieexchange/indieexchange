@@ -334,6 +334,7 @@ DEPENDENCIES
   betterlorem
   bootsnap (>= 1.1.0)
   bootstrap
+  bundler (= 2.0.1)
   byebug
   capybara (>= 2.15)
   carrierwave
