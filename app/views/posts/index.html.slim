@@ -55,6 +55,27 @@
 .row.post-browse-categories-row.no-gutters.justify-content-center#category-browser class="#{params[:action] == 'search' ? 'less-margin-top hidden' : ''}" class="#{params[:search_type] == 'custom' ? 'hidden' : ''}"
   .col-10
     .row.internal-browse-row
+      .col-4.text-center.category-card data-toggle="popover" title="Remember VH1?" data-content="This makes me think of 'Pop-up Video', basically, is the reason I'm asking" data-placement="top"
+        a.category-link href="#"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("all_categories_icon.png"), class: "icon-image")
+            .category-name Popver!
+            .image-underliner
+            .category-description Click here to get a popover
+      .col-4.text-center.category-card
+        a.category-link href="#" data-toggle="modal" data-target="#slide-modal"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("all_categories_icon.png"), class: "icon-image")
+            .category-name Slide-in right!
+            .image-underliner
+            .category-description Click here to get a slide-in from the right
+      .col-4.text-center.category-card
+        a.category-link href="#" data-toggle="modal" data-target="#cover-modal"
+          .squeezer
+            .icon-image-holder = image_tag(asset_path("all_categories_icon.png"), class: "icon-image")
+            .category-name Modal!
+            .image-underliner
+            .category-description Click here to get a modal
       .col-4.text-center.category-card
         a.category-link href="#{get_search_posts_path(cat_subcat_string: Category.id_for('Writing'))}"
           .squeezer
@@ -194,8 +215,57 @@ br
 br
 br
 
+#slide-modal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="slide-modal-label" aria-hidden="true"]
+  .modal-dialog.modal-dialog-slideout[role="document"]
+    .modal-content
+      .modal-header
+        h5#slide-modal-label.modal-title
+          | A smooth transition
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span[aria-hidden="true"]
+            | ×
+      .modal-body
+        | Praesentium porro magni est nobis mollitia neque dicta veniam excepturi. Qui aspernatur eveniet ipsam voluptatum expedita quia similique.
+        br
+        br
+        | Est unde rem velit fugiat voluptates nihil et natus ipsam. Molestiae consequuntur architecto est distinctio ut molestias autem.
+        br
+        br
+        | Deleniti et voluptas iste quo tenetur harum vero non pariatur. Animi quidem deleniti dolorem neque est dolor debitis.
+      .modal-footer
+        button.btn.btn-danger[type="button" data-dismiss="modal"]
+          | Reject
+        button.btn.btn-primary[type="button" data-dismiss="modal"]
+          | Accept
+
+#cover-modal.modal.fade[tabindex="-1" role="dialog" aria-labelledby="cover-modal-label" aria-hidden="true"]
+  .modal-dialog[role="document"]
+    .modal-content
+      .modal-header
+        h5#cover-modal-label.modal-title
+          | Cover up the page
+        button.close[type="button" data-dismiss="modal" aria-label="Close"]
+          span[aria-hidden="true"]
+            | ×
+      .modal-body
+        | Praesentium porro magni est nobis mollitia neque dicta veniam excepturi. Qui aspernatur eveniet ipsam voluptatum expedita quia similique.
+        br
+        br
+        | Est unde rem velit fugiat voluptates nihil et natus ipsam. Molestiae consequuntur architecto est distinctio ut molestias autem.
+        br
+        br
+        | Deleniti et voluptas iste quo tenetur harum vero non pariatur. Animi quidem deleniti dolorem neque est dolor debitis.
+      .modal-footer
+        button.btn.btn-danger[type="button" data-dismiss="modal"]
+          | Reject
+        button.btn.btn-primary[type="button" data-dismiss="modal"]
+          | Accept
+
 javascript:
   $(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+      trigger: 'focus'
+    })
     var showing = false;
     $("#show-search-form").click(function(){
       if (showing == false) {
