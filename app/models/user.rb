@@ -35,14 +35,14 @@ class User < ApplicationRecord
   has_many :user_reviews_written, class_name: "UserUserReview", foreign_key: "reviewing_user_id", dependent: :destroy
   has_many :user_reviews_received, class_name: "UserUserReview", foreign_key: "target_user_id", dependent: :destroy
 
-  has_many :post_comments_written, class_name: "PostComment", foreign_key: "author_id"
-  has_many :post_comments_received, class_name: "PostComment", foreign_key: "target_id"
+  has_many :post_comments_written, class_name: "PostComment", foreign_key: "author_id", dependent: :destroy
+  has_many :post_comments_received, class_name: "PostComment", foreign_key: "target_id", dependent: :destroy
 
-  has_many :post_comment_replies_written, class_name: "PostCommentReply", foreign_key: "author_id"
-  has_many :post_comment_replies_received, class_name: "PostCommentReply", foreign_key: "target_id"
+  has_many :post_comment_replies_written, class_name: "PostCommentReply", foreign_key: "author_id", dependent: :destroy
+  has_many :post_comment_replies_received, class_name: "PostCommentReply", foreign_key: "target_id", dependent: :destroy
 
-  has_many :following_others, class_name: "UserUserFollow", foreign_key: "follower_id"
-  has_many :followed_by_others, class_name: "UserUserFollow", foreign_key: "target_id"
+  has_many :following_others, class_name: "UserUserFollow", foreign_key: "follower_id", dependent: :destroy
+  has_many :followed_by_others, class_name: "UserUserFollow", foreign_key: "target_id", dependent: :destroy
 
   has_many :followers, through: :followed_by_others, source: :follower
   has_many :followeds, through: :following_others, source: :target
