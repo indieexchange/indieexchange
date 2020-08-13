@@ -212,7 +212,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (3.12.6)
     rack (2.0.6)
     rack-livereload (0.3.17)
       rack
@@ -357,7 +357,7 @@ DEPENDENCIES
   newrelic_rpm
   pg (>= 0.18, < 2.0)
   pretender
-  puma (~> 3.11)
+  puma (~> 3.12)
   rack-livereload
   rails (~> 5.2.1)
   rails-assets-jcrop!
