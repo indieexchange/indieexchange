@@ -1,4 +1,5 @@
 class StripeWebhookController < ApplicationController
+  before_action :send_back_in_staging
   before_action :authenticate_user!,             only: [:subscribe, :add_card]
   before_action :set_customer,                   only: [:subscribe, :add_card]
   skip_before_action :verify_authenticity_token, only: [:stripe]
@@ -40,6 +41,10 @@ class StripeWebhookController < ApplicationController
   end
 
   private
+
+    def send_back_in_staging
+      redirect_back(fallback_location: root_path, alert: "Sorry! This feature is disabled here.")
+    end
 
     def set_customer
       if current_user.stripe_customer_id.blank?
