@@ -2,14 +2,19 @@
   .col-12
     .carded-content.less-padding-v
       .row
-        .col-4.is-preview This is a preview of your post
+        .col-4.is-preview
+          - if @post.is_published?
+            | Here's what your live post looks like now:
+          - else
+            | Here's a preview of your unpublished post:
         .col-8.text-right
           .edit-details.dib
             = link_to "EDIT DETAILS", edit_post_path(@post), class: "btn btn-vs btn-primary"
           .edit-attachments.dib
             = link_to "MANAGE ATTACHMENTS", attachments_post_path(@post), class: "btn btn-vs btn-primary"
-          .publish-post.dib
-            = link_to "PUBLISH POST", publish_post_path(@post), class: "btn btn-vs btn-success", data: {method: :patch}
+          - if !@post.is_published?
+            .publish-post.dib
+              = link_to "PUBLISH POST", publish_post_path(@post), class: "btn btn-vs btn-success", data: {method: :patch}
 
 - if !@post.is_published?
   .row.with-sitewide-padding.no-gutters.post-preview-unpublished-row
