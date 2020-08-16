@@ -15,7 +15,7 @@ class AnnouncementsController < ApplicationController
   def show
     @announcement_reply = AnnouncementReply.new
     if @announcement == Announcement.first
-      current_user.update!(has_unread_first_announcement: false)
+      current_user.update!(has_unread_first_announcement: false, has_unread_announcement: false)
     end
   end
 

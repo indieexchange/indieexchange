@@ -1,6 +1,18 @@
 #  TODO:  When trial period is over, make this more efficient ("must_pay_next_at" should be way easier/faster)
 
 namespace :users do
+  desc "Clear 2FA stuff every 30 minutes"
+  task clear_2fa: :environment do
+    User.all.each do |user|
+      user.encrypted_otp_secret = nil
+      user.encrypted_otp_secret_salt = nil
+      user.encrypted_otp_secret_iv = nil
+      user.consumed_timestep = nil
+      user.otp_required_for_login = false
+    end
+  end
+
+
   desc "Notify users when they have unpublished posts which are at least a day old"
   task notify_unpublished_posts: :environment do
     if Time.now.wday == 1 or Rails.env.development? # this task is *called* every day, but we only want to run it on Mondays [wday == 1]

@@ -1,5 +1,21 @@
 .row.new-registration-row.no-gutters
   .col-sm-9.col-md-7.col-lg-4.mx-auto
+    .alert.alert-info
+      .text-center
+        b README FOR INDIE EXCHANGE STAGING
+        br
+        br
+      p Thanks for checking out my project here!
+      p This is a full-featured marketplace solo project that I built for the self-publishing community.  Users can post job offers or seek clients, review posts and users, send messages, receive notifications, comment on posts and announcements, upload preview images, follow users, and more.  Please feel free to check out all of these features here, which I've provided lots of placeholder data to make as easy as possible.
+
+      p While most features work as they do in production, please note these few important changes:
+      ul
+        li Emails will not be sent, including for notifications and new account confirmations.
+        li You can log in with <b>testuser1@example.com</b> through <b>testuser20@example.com</b>.  You can always use the password "password."
+        li Payments and subscriptions have been fully disabled.
+        li 2FA can be configured, but is reset every :00 and :30 in order to allow later users to log in
+
+
     .card.card-brand-color.my-5
       .card-body
         = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

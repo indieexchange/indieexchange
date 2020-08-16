@@ -51,12 +51,12 @@
               .col-9
                 .dashboard-post-title title="#{post.title}" = post.title.truncate(50)
                 .dashboard-post-description = post.description.truncate(100)
-        - if @has_unpublished_posts
-          .row.dashboard-posts-row
-            .col-12
-              .text-center title="Click 'View Your Posts' below to find which posts you need to publish" data-toggle="tooltip" data-placement="top"
-                span = icon('fas', 'exclamation-circle', class: "brand-warning-color")
-                span.brand-warning-color.unpublished-posts You have unpublished posts!
+          - if @has_unpublished_posts
+            .row.dashboard-posts-row
+              .col-12
+                .text-center title="Click 'View Your Posts' below to find which posts you need to publish" data-toggle="tooltip" data-placement="top"
+                  span = icon('fas', 'exclamation-circle', class: "brand-warning-color")
+                  span.brand-warning-color.unpublished-posts You have unpublished posts!
         - else
           .no-posts You have no posts at this time. You can manage and create posts using the buttons below.
       hr.dashboard-hr
